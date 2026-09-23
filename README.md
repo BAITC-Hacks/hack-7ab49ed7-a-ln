@@ -41,6 +41,10 @@ uv run moneygraph            # полный пересчёт: data/*.parquet →
 
 ## Схема решения
 
+Слайд: [`docs/solution_diagram.svg`](docs/solution_diagram.svg).
+
+![Схема решения](docs/solution_diagram.svg)
+
 ```mermaid
 flowchart LR
     A["data/*.parquet<br/>2 248 узлов · 3 119 рёбер · 4 840 переводов"] --> B["Проверки<br/>edges = transactions,<br/>19 узлов без рёбер"]
