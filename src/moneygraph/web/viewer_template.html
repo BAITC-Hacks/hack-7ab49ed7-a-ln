@@ -127,7 +127,9 @@ h1, h2, h3, p { margin: 0; }
 .filters output { min-width: 64px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); }
 .filters .vis { margin-left: auto; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .linkbtn { border: 0; background: none; padding: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; font-size: 12px; }
-.focusbar { left: 14px; top: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 7px 8px 7px 12px; max-width: calc(100% - 28px); }
+.focusbar { left: 14px; top: 64px; display: flex; align-items: flex-start; gap: 14px; padding: 7px 8px 7px 12px; max-width: calc(100% - 28px); }
+.focusbar .fmain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-width: 0; flex: 1 1 auto; padding-top: 3px; }
+.focusbar .fctrl { display: flex; align-items: center; gap: 8px; flex: none; }
 .fkeys { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink-2); }
 .fkeys span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .fkeys i { width: 16px; height: 3px; border-radius: 2px; background: var(--c); }
@@ -181,6 +183,9 @@ h1, h2, h3, p { margin: 0; }
 .c-typo { margin-top: 6px; font-size: 12px; color: var(--ink-2); }
 .evidence { margin-top: 14px; padding: 10px 12px 10px 14px; border-left: 3px solid var(--c); background: var(--hover); border-radius: 0 6px 6px 0; line-height: 1.55; }
 .rule { margin-top: 6px; font-size: 12px; color: var(--muted); }
+.scale { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.45; }
+.lvl { font-weight: 600; color: var(--ink); }
+.conf-word { font-size: 12px; color: var(--ink-2); }
 .sec { margin-top: 20px; }
 .sec > h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .sec > h3 .muted { font-weight: 400; font-size: 12px; }
@@ -318,12 +323,16 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
       <span class="vis" id="visCount"></span>
     </div>
     <div class="panel focusbar" id="focusbar" hidden>
-      <span class="ftitle" id="focusTitle"></span>
-      <span class="fkeys" id="focusKeys"></span>
-      <span class="fhidden" id="focusHidden" hidden></span>
-      <button class="linkbtn" id="showAll" hidden>Показать всех</button>
-      <div class="seg" id="hopSeg" role="group" aria-label="Глубина окрестности"><button data-hops="1" aria-pressed="true">1 шаг</button><button data-hops="2" aria-pressed="false">2 шага</button></div>
-      <button class="xbtn" id="clearFocus" aria-label="Снять выделение" title="Снять выделение (Esc)">×</button>
+      <div class="fmain">
+        <span class="ftitle" id="focusTitle"></span>
+        <span class="fkeys" id="focusKeys"></span>
+        <span class="fhidden" id="focusHidden" hidden></span>
+        <button class="linkbtn" id="showAll" hidden>Показать всех</button>
+      </div>
+      <div class="fctrl">
+        <div class="seg" id="hopSeg" role="group" aria-label="Глубина окрестности"><button data-hops="1" aria-pressed="true">1 шаг</button><button data-hops="2" aria-pressed="false">2 шага</button></div>
+        <button class="xbtn" id="clearFocus" aria-label="Снять выделение" title="Снять выделение (Esc)">×</button>
+      </div>
     </div>
     <div class="panel legend" id="legend"></div>
     <div class="panel zoom"><button id="zIn" aria-label="Приблизить">+</button><button id="zOut" aria-label="Отдалить">−</button><button id="zFit" aria-label="Показать всю сеть" title="Вся сеть">⤢</button></div>
@@ -385,6 +394,17 @@ function fmtKzt(x) {
 const plural = (n, a, b, c) => { n = Math.abs(n) % 100; const d = n % 10; return (n > 10 && n < 20) ? c : d === 1 ? a : (d >= 2 && d <= 4) ? b : c; };
 const cnt = (n, a, b, c) => fmtInt(n) + " " + plural(n, a, b, c);
 const pct = x => Math.round((x || 0) * 100) + "%";
+// ---------- шкалы оценок (из пайплайна, meta.scales): уверенность — словами, приоритет — местом и уровнем
+const SCALES = META.scales || {
+  confidence: [{ min: 0.8, label: "сильно" }, { min: 0.6, label: "умеренно" }, { min: 0, label: "слабо" }],
+  priority: [{ max_rank: 50, label: "высокий" }, { max_rank: 200, label: "средний" }, { max_rank: null, label: "низкий" }],
+};
+const confLevel = s => (SCALES.confidence.find(l => (s || 0) >= l.min) || SCALES.confidence[SCALES.confidence.length - 1]).label;
+const prioLevel = rank => (SCALES.priority.find(l => l.max_rank == null || rank <= l.max_rank)).label;
+const CONF_SCALE_TXT = (() => { const c = SCALES.confidence; return c[0].label + " — от " + fmtDec(c[0].min, 1) + ", " + c[1].label + " — от " + fmtDec(c[1].min, 1) + " до " + fmtDec(c[0].min, 1) + ", " + c[2].label + " — ниже " + fmtDec(c[1].min, 1); })();
+const CONF_SCALE_SHORT = (() => { const c = SCALES.confidence; return c[0].label + " ≥ " + fmtDec(c[0].min, 1) + ", " + c[1].label + " " + fmtDec(c[1].min, 1) + "–" + fmtDec(c[0].min, 1) + ", " + c[2].label + " < " + fmtDec(c[1].min, 1); })();
+const PRIO_SCALE_SHORT = (() => { const p = SCALES.priority; return p[0].label + " №1–" + p[0].max_rank + ", " + p[1].label + " №" + (p[0].max_rank + 1) + "–" + p[1].max_rank + ", " + p[2].label + " дальше"; })();
+const PRIO_SCALE_TXT = (() => { const p = SCALES.priority; return p[0].label + " — №1–" + p[0].max_rank + " (очередь проверки), " + p[1].label + " — №" + (p[0].max_rank + 1) + "–" + p[1].max_rank + ", " + p[2].label + " — остальные"; })();
 const MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 const fmtDate = s => { if (!s) return ""; const [, m, d] = s.split("-").map(Number); return d + " " + MONTHS[m - 1]; };
 const short = id => "…" + id.slice(-10);
@@ -658,7 +678,8 @@ function showTip(id) {
   const p = renderer.graphToViewport(d);
   tip.innerHTML = gidHTML(id) +
     '<div class="t-row" style="margin-top:5px">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
-    '<div class="t-row"><span>Приоритет</span><b>' + fmtDec(n.priority) + ", №" + n.rank + "</b></div>" +
+    '<div class="t-row"><span>Приоритет</span><b>' + prioLevel(n.rank) + ", №" + n.rank + "</b></div>" +
+    '<div class="t-row"><span>Роль выражена</span><b>' + confLevel(n.role_score) + " (" + pct(n.role_score) + ")</b></div>" +
     '<div class="t-row"><span>Получил</span><b>' + fmtKzt(n.in_kzt) + "</b></div>" +
     '<div class="t-row"><span>Отправил</span><b>' + fmtKzt(n.out_kzt) + "</b></div>";
   tip.hidden = false;
@@ -722,7 +743,7 @@ function renderQueue() {
       '<span class="q-rank">' + t.rank + "</span>" +
       '<div class="q-main">' + gidHTML(t.gid) + '<div class="q-sub">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
       (n.typology ? '<div class="typo">' + esc(n.typology) + "</div>" : "") + "</div>" +
-      '<div class="q-score"><b>' + fmtDec(n.priority) + '</b><div class="meter" aria-hidden="true"><i style="width:' + Math.round(100 * n.priority) + '%"></i></div></div></div>';
+      '<div class="q-score" title="Балл приоритета ' + fmtDec(n.priority) + '"><div class="meter" aria-hidden="true"><i style="width:' + Math.round(100 * n.priority) + '%"></i></div></div></div>';
   }).join("");
 }
 const clusterMaxPriority = c => (clusterNodes.get(c.id) || []).reduce((m, n) => Math.max(m, n.priority || 0), 0);
@@ -762,7 +783,9 @@ function renderLegend() {
     '<div class="k"><span class="line" style="--c:' + IN_COLOR + '"></span>деньги входят в выделенное</div>' +
     '<div class="k"><span class="line" style="--c:' + OUT_COLOR + '"></span>деньги выходят из выделенного</div>' +
     '<div class="k"><span class="line" style="--c:' + PATH_COLOR + '"></span>внутри кластера, найденный путь</div>' +
-    '<div class="k hint">Размер точки — приоритет, толщина связи — сумма</div></div></div>';
+    '<div class="k hint">Размер точки — приоритет, толщина связи — сумма</div>' +
+    '<div class="k hint">Приоритет: ' + PRIO_SCALE_SHORT + "</div>" +
+    '<div class="k hint">Роль выражена: ' + CONF_SCALE_SHORT + "</div></div></div>";
 }
 
 // ---------- справа: карточка
@@ -816,8 +839,9 @@ function renderCard(id) {
   const sink = SINK_TEXT[n.sink_status] || "";
   $("card").innerHTML = '<div class="card">' + back +
     '<div class="c-id">' + gidHTML(id) + '<button class="copy" data-copy="' + esc(id) + '">Скопировать</button></div>' +
-    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf">уверенность <span class="meter"><i style="width:' + Math.round(100 * (n.role_score || 0)) + '%"></i></span>' + fmtDec(n.role_score) + "</span>" +
+    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word" title="Уверенность в роли: ' + CONF_SCALE_TXT + '">роль выражена <span class="lvl">' + confLevel(n.role_score) + "</span> (" + pct(n.role_score) + (n.truncated ? ", оценка по похожим клиентам" : "") + ")</span>" +
     (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
+    '<p class="scale">Уверенность в роли: ' + CONF_SCALE_TXT + ".</p>" +
     (n.typology ? '<div class="c-typo">Типология: ' + esc(n.typology) + "</div>" : "") +
     (n.alt_role ? '<div class="c-typo">Есть и признаки роли «' + esc(roleRu(n.alt_role)) + "»</div>" : "") +
     '<div class="evidence" style="--c:' + roleColor(n.role) + '">' + linkify(n.evidence) + "</div>" +
@@ -829,8 +853,9 @@ function renderCard(id) {
     "</div>" +
     '<div class="actions"><button class="btn" data-trace="up">Откуда пришли деньги</button><button class="btn" data-trace="down">Куда ушли деньги</button></div>' +
     (sink ? '<p class="muted" style="font-size:12px;margin-top:8px">' + esc(sink) + "</p>" : "") + truncNote + "</div>" +
-    '<div class="sec"><h3>Приоритет проверки <span class="muted">№' + n.rank + " из " + fmtInt(META.n_nodes) + "</span></h3>" +
-    '<div class="prio-head"><b>' + fmtDec(n.priority) + '</b><span class="muted" style="font-size:12px">сумма пяти слагаемых' + (n.is_seed ? ", ×0,9 для известного seed" : "") + "</span></div>" +
+    '<div class="sec"><h3>Приоритет проверки: ' + prioLevel(n.rank) + ' <span class="muted">№' + n.rank + " из " + fmtInt(META.n_nodes) + "</span></h3>" +
+    '<p class="scale" style="margin:-4px 0 10px">Уровни: ' + PRIO_SCALE_TXT + ".</p>" +
+    '<p class="scale" style="margin:0 0 8px">Почему такое место: балл ' + fmtDec(n.priority) + " — сумма пяти слагаемых" + (n.is_seed ? ", ×0,9 для известного seed" : "") + ".</p>" +
     '<div class="prio">' + parts + "</div></div>" +
     (flags ? '<div class="sec"><h3>Сигналы</h3><div class="chips">' + flags + "</div></div>" : "") +
     (c ? '<div class="sec"><h3>Кластер ' + c.id + ' <span class="muted">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + '</span></h3><p style="font-size:12px;line-height:1.5;color:var(--ink-2)">' + linkify(c.hypothesis) + '</p><button class="linkbtn" style="margin-top:6px" data-cluster="' + c.id + '">Показать кластер на схеме</button></div>' : "") +
@@ -841,7 +866,7 @@ function renderCard(id) {
 function renderClusterCard(cid) {
   const c = clusterById.get(cid), members = (clusterNodes.get(cid) || []).slice().sort((a, b) => a.rank - b.rank);
   const fl = clusterFocus(cid).flows;
-  const rows = members.slice(0, 15).map(n => "<tr><td>" + gidLink(n.id) + "<small>" + esc(roleRu(n.role)) + (n.is_seed ? ", seed" : "") + "</small></td><td>" + fmtDec(n.priority) + "<small>№" + n.rank + "</small></td></tr>").join("");
+  const rows = members.slice(0, 15).map(n => "<tr><td>" + gidLink(n.id) + "<small>" + esc(roleRu(n.role)) + (n.is_seed ? ", seed" : "") + "</small></td><td>№" + n.rank + "<small>" + prioLevel(n.rank) + "</small></td></tr>").join("");
   $("card").innerHTML = '<div class="card"><h2 style="font-size:20px;font-weight:700">Кластер ' + cid + "</h2>" +
     '<p class="c-typo">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + ", оборот внутри — " + fmtKzt(c.sum_internal) + ", устойчивость " + fmtDec(c.stability) + "</p>" +
     '<div class="evidence" style="--c:#19293a">' + linkify(c.hypothesis) + "</div>" +
@@ -963,6 +988,7 @@ function renderMethod() {
     "<p>Каждому клиенту присваивается роль по формальным правилам с порогами. Правила проверяются сверху вниз, срабатывает первое; в карточке видно, какое правило сработало и с какими числами. Роли — гипотезы для проверки, а не вывод о виновности.</p>" +
     "<h3>Роли</h3>" + roles +
     "<h3>Приоритет проверки</h3><p>Сумма пяти слагаемых: роль и уверенность в ней (до 0,35), оборот (до 0,25), центральность в сети (до 0,20), связь с исходными клиентами (до 0,10), подозрительные сигналы (до 0,10). У исходных клиентов приоритет умножается на 0,9: они уже известны.</p>" +
+    "<h3>Как читать оценки</h3><p>У клиента две разные оценки. <b>Уверенность в роли</b> — насколько ярко выражены признаки роли; на экране она словами: " + CONF_SCALE_TXT + ". <b>Приоритет проверки</b> — насколько срочно смотреть клиента; на экране это место в очереди и уровень: " + PRIO_SCALE_TXT + ". Клиент может быть уверенно определён в роли и при этом иметь низкий приоритет — например, получатель одного небольшого перевода.</p>" +
     "<h3>Сигналы</h3><ul>" + flags + "</ul>" +
     "<h3>Как читать схему</h3><ul><li>Стрелка идёт от плательщика к получателю.</li><li>Размер точки — приоритет, толщина связи — сумма переводов.</li><li>Тёмное кольцо — исходный клиент (seed). Бледная точка — 4-е колено: исходящие не выгружались.</li><li>У выбранного клиента входящие связи синие, исходящие оранжевые. Остальная сеть остаётся на схеме приглушённой.</li></ul>" +
     "<h3>Границы данных</h3><ul><li>Только внутрибанковские переводы от 5 000 ₸ за июль 2026.</li><li>Обход — 4 колена по исходящим от 81 исходного клиента. У 4-го колена исходящих в данных нет.</li><li>Входящие видны только от участников выгрузки, поэтому «отдал больше, чем получил» — не аномалия.</li><li>Наличные, другие банки, суммы ниже порога и август не видны.</li></ul>";
@@ -1005,7 +1031,7 @@ function renderSuggest() {
   const v = $("q").value;
   if (!v.replace(/\D/g, "")) { closeSuggest(); return; }
   sugg = search(v); sIdx = sugg.length ? 0 : -1;
-  $("suggest").innerHTML = sugg.length ? sugg.map((n, i) => '<button role="option" data-gid="' + n.id + '" aria-selected="' + (i === sIdx) + '">' + gidHTML(n.id) + '<span class="s-score">' + fmtDec(n.priority) + '</span><span class="s-meta">' + roleHTML(n.role) + (n.is_seed ? ' <span class="tag seed">seed</span>' : "") + "</span></button>").join("") : '<div class="empty">Нет клиентов с такими цифрами в номере.</div>';
+  $("suggest").innerHTML = sugg.length ? sugg.map((n, i) => '<button role="option" data-gid="' + n.id + '" aria-selected="' + (i === sIdx) + '">' + gidHTML(n.id) + '<span class="s-score">№' + n.rank + '</span><span class="s-meta">' + roleHTML(n.role) + (n.is_seed ? ' <span class="tag seed">seed</span>' : "") + "</span></button>").join("") : '<div class="empty">Нет клиентов с такими цифрами в номере.</div>';
   $("suggest").hidden = false; $("q").setAttribute("aria-expanded", "true");
 }
 $("q").addEventListener("input", renderSuggest);

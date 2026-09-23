@@ -10,7 +10,7 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 
-from moneygraph.config import FLAG_RU, ROLE_META, ROLES
+from moneygraph.config import CONFIDENCE_LEVELS, FLAG_RU, PRIORITY_LEVELS, ROLE_META, ROLES
 
 REQUIRED_NODE_COLS = ["gid", "role", "role_score", "cluster_id", "priority_score", "evidence"]
 EXTRA_NODE_COLS = [
@@ -88,6 +88,8 @@ def graph_json(G: nx.DiGraph, df: pd.DataFrame, clusters: pd.DataFrame, top: pd.
         "roles": {r: ROLE_META[r] for r in ROLES},
         "role_counts": {r: int((df.role == r).sum()) for r in ROLES},
         "flags": FLAG_RU,
+        "scales": {"confidence": [{"min": lo, "label": lab} for lo, lab in CONFIDENCE_LEVELS],
+                   "priority": [{"max_rank": hi, "label": lab} for hi, lab in PRIORITY_LEVELS]},
         **meta_extra,
     }
     return {"meta": meta, "nodes": nodes, "edges": edges, "clusters": cl, "top": tp}

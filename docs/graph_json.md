@@ -20,7 +20,11 @@
       "peripheral":   {"ru": "Периферия",     "color": "#a0a9b1", "description": "..."}
     },
     "role_counts": {"coordinator": 12, "...": 0},
-    "flags": {"fast_transit": "rapid movement of funds: ушло дальше за ≤2 дн", "...": "..."}   // код флага → подпись
+    "flags": {"fast_transit": "rapid movement of funds: ушло дальше за ≤2 дн", "...": "..."},  // код флага → подпись
+    "scales": {                      // как показывать оценки на экране
+      "confidence": [{"min": 0.8, "label": "сильно"}, {"min": 0.6, "label": "умеренно"}, {"min": 0.0, "label": "слабо"}],
+      "priority": [{"max_rank": 50, "label": "высокий"}, {"max_rank": 200, "label": "средний"}, {"max_rank": null, "label": "низкий"}]
+    }
   },
   "nodes": [{
     "id": "100000003684369100",

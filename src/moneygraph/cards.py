@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from moneygraph.config import confidence_level, priority_level
+
 _CACHE: dict[str, tuple[float, dict]] = {}
 
 
@@ -111,7 +113,8 @@ def node_card(gid: str, graph: dict, max_counterparties: int = 5) -> str:
         tags.insert(0, "seed")
     lines.append(f"gid {gid}  [{', '.join(tags)}]")
 
-    role_line = f"Роль: {role_ru(graph, n['role'])} (уверенность {n.get('role_score', 0):.2f})"
+    role_line = (f"Роль: {role_ru(graph, n['role'])} — роль выражена {confidence_level(n.get('role_score', 0))} "
+                 f"({round(100 * (n.get('role_score') or 0))}%)")
     if n.get("alt_role"):
         role_line += f" · также признаки: {role_ru(graph, n['alt_role'])}"
     lines.append(role_line)
@@ -126,8 +129,9 @@ def node_card(gid: str, graph: dict, max_counterparties: int = 5) -> str:
     part_names = {"role": "роль", "flow": "оборот", "centrality": "центральность", "seed": "связь с seed",
                   "flags": "флаги"}
     parts_s = " + ".join(f"{part_names.get(k, k)} {v:.2f}" for k, v in parts.items())
-    lines.append(f"Приоритет: {n.get('priority', 0):.2f} (место {n.get('rank', '?')} из {total})"
-                 + (f" = {parts_s}" if parts_s else ""))
+    rank = n.get("rank") or 0
+    lines.append(f"Приоритет проверки: {priority_level(rank)}, №{rank} из {total} "
+                 f"(балл {n.get('priority', 0):.2f}" + (f" = {parts_s})" if parts_s else ")"))
 
     c = idx["clusters"].get(n.get("cluster"))
     if c is not None:
@@ -173,8 +177,9 @@ def node_card(gid: str, graph: dict, max_counterparties: int = 5) -> str:
 def match_line(gid: str, graph: dict) -> str:
     n = index(graph)["by_id"][gid]
     seed = ", seed" if n.get("is_seed") else ""
-    return (f"  {gid}  {role_ru(graph, n['role'])}{seed}, приоритет {n.get('priority', 0):.2f} "
-            f"(место {n.get('rank', '?')}), кластер {n.get('cluster')}")
+    rank = n.get("rank") or 0
+    return (f"  {gid}  {role_ru(graph, n['role'])}{seed}, приоритет {priority_level(rank)} "
+            f"(№{rank}), кластер {n.get('cluster')}")
 
 
 def explain_text(query: str, out_dir: Path) -> str:

@@ -34,6 +34,20 @@ ROLE_META = {
                    "rule": "Всё остальное: разовый мелкий перевод, смешанный профиль, клиенты без переводов."},
 }
 
+# Как показывать оценки на экране (в CSV остаются числа 0–1).
+# Уверенность в роли — словами; приоритет — местом в очереди и уровнем.
+CONFIDENCE_LEVELS = [(0.8, "сильно"), (0.6, "умеренно"), (0.0, "слабо")]
+PRIORITY_LEVELS = [(50, "высокий"), (200, "средний"), (None, "низкий")]  # по месту в очереди (rank)
+
+
+def confidence_level(score: float) -> str:
+    return next(label for lo, label in CONFIDENCE_LEVELS if (score or 0) >= lo)
+
+
+def priority_level(rank: int) -> str:
+    return next(label for hi, label in PRIORITY_LEVELS if hi is None or rank <= hi)
+
+
 # Типология AML для флага быстрого транзита (добавляется к типологии роли)
 RAPID_MOVEMENT = "rapid movement of funds"
 
