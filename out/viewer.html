@@ -85,6 +85,20 @@ h1, h2, h3, p { margin: 0; }
 .tabs button { border: 0; background: none; padding: 14px 0 12px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
 .tabs .count { color: var(--faint); font-weight: 400; margin-left: 5px; }
+.tabs button.ai { position: relative; display: inline-flex; align-items: center; gap: 7px; }
+.ai-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; line-height: 16px; color: #fff; background: var(--ink); border-radius: 999px; padding: 0 7px 0 6px; }
+.tabs button.ai.glow::before { content: ""; position: absolute; left: -10px; right: -10px; top: 7px; bottom: 5px; border-radius: 9px; pointer-events: none; animation: aiGlow 4.5s ease-in-out infinite; }
+.tabs button.ai.glow .ai-badge { animation: aiBadge 4.5s ease-in-out infinite; }
+@keyframes aiGlow {
+  0%, 55%, 100% { box-shadow: 0 0 0 0 rgba(25, 41, 58, 0); background: rgba(25, 41, 58, 0); }
+  18% { box-shadow: 0 0 0 3px rgba(25, 41, 58, .16), 0 0 18px 6px rgba(42, 120, 214, .28); background: rgba(42, 120, 214, .07); }
+  32% { box-shadow: 0 0 0 7px rgba(25, 41, 58, 0), 0 0 22px 8px rgba(42, 120, 214, 0); background: rgba(42, 120, 214, .02); }
+}
+@keyframes aiBadge { 0%, 55%, 100% { transform: scale(1); } 18% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) {
+  .tabs button.ai.glow::before { animation: none; box-shadow: 0 0 0 2px rgba(42, 120, 214, .35); }
+  .tabs button.ai.glow .ai-badge { animation: none; }
+}
 .scroll { overflow: auto; flex: 1; min-height: 0; }
 .intro { padding: 12px 18px; color: var(--muted); font-size: 12px; border-bottom: 1px solid var(--rule); }
 
@@ -404,7 +418,8 @@ a.btn.primary { color: #fff; }
   <aside class="side right" aria-label="Карточка клиента и ассистент">
     <div class="tabs" role="tablist">
       <button role="tab" id="tabCard" aria-selected="true" data-rtab="card">Карточка клиента</button>
-      <button role="tab" id="tabAsk" aria-selected="false" data-rtab="ask">Ассистент</button>
+      <button role="tab" id="tabAsk" aria-selected="false" data-rtab="ask" class="ai glow" title="Спросите ИИ о любом клиенте, пути денег или кластере">
+        <span class="ai-badge" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z" fill="currentColor"/></svg>ИИ</span>AI-ассистент</button>
     </div>
     <section id="pCard" class="scroll" role="tabpanel" aria-labelledby="tabCard"><div id="card"></div></section>
     <section id="pAsk" class="scroll" role="tabpanel" aria-labelledby="tabAsk" hidden>
@@ -2219,6 +2234,7 @@ function renderLegend() {
 
 // ---------- справа: карточка
 function switchRight(tab) {
+  if (tab === "ask") $("tabAsk").classList.remove("glow"); // нашли ассистента — больше не мигаем
   $("tabCard").setAttribute("aria-selected", String(tab === "card"));
   $("tabAsk").setAttribute("aria-selected", String(tab === "ask"));
   $("pCard").hidden = tab !== "card"; $("pAsk").hidden = tab !== "ask";
