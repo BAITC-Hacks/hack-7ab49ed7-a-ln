@@ -143,7 +143,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
               f"{fmt_kzt(r.avg_out)})")
         ev += f"; получил {fmt_kzt(r.in_kzt)} от {_payers(r.in_deg)}" if r.in_deg else "; входящие вне выборки"
         if r.burst_out >= cfg.burst_out_recipients:
-            ev += f"; {int(r.burst_out)} получателей за один день ({r.burst_out_date})"
+            ev += f"; {int(r.burst_out)} {_plural(r.burst_out, 'получатель', 'получателя', 'получателей')} за один день ({r.burst_out_date})"
         return ("distributor", s, f"R2: out_deg={r.out_deg}≥{cfg.distr_min_out} и ≥{cfg.distr_fan_ratio:g}×in_deg",
                 "consolidator" if c_fire else "-", _clip(ev), "not_sink")
     if c_fire:
@@ -164,7 +164,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
             ev += "; дальше не отправлял"
             sink = "truncated_time" if late else "confirmed_sink"
         if r.burst_in >= cfg.burst_in_payers:
-            ev += f"; {int(r.burst_in)} плательщиков за один день ({r.burst_in_date})"
+            ev += f"; {int(r.burst_in)} {_plural(r.burst_in, 'плательщик', 'плательщика', 'плательщиков')} за один день ({r.burst_in_date})"
         alt = "distributor" if fan_out_only else ("terminal" if sink == "confirmed_sink" else "-")
         return "consolidator", s, rule, alt, _clip(ev), sink
 

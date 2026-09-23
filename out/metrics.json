@@ -1,5 +1,5 @@
 {
-  "runtime_sec": 4.7,
+  "runtime_sec": 4.3,
   "role_counts": {
     "coordinator": 17,
     "consolidator": 85,
