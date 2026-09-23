@@ -192,7 +192,13 @@ h1, h2, h3, p { margin: 0; }
 .rule { margin-top: 6px; font-size: 12px; color: var(--muted); }
 .scale { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.45; }
 .lvl { font-weight: 600; color: var(--ink); }
-.conf-word { font-size: 12px; color: var(--ink-2); }
+.conf-word { font-size: 12px; color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.strength { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--ink); background: var(--hover); border: 1px solid var(--rule); border-radius: 999px; padding: 1px 9px 1px 7px; white-space: nowrap; }
+.strength .sd { display: inline-flex; gap: 2px; }
+.strength .sd i { width: 5px; height: 5px; border-radius: 50%; background: var(--rule-2); }
+.strength .sd i.on { background: var(--ink); }
+.q-typo { grid-column: 2 / -1; margin-top: -2px; }
+.q-cap { font-size: 11px; color: var(--muted); margin-bottom: 3px; white-space: nowrap; }
 .sec { margin-top: 20px; }
 .sec > h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .sec > h3 .muted { font-weight: 400; font-size: 12px; }
@@ -308,7 +314,7 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
       <button role="tab" id="tabClusters" aria-selected="false" data-ltab="clusters">Кластеры<span class="count" id="cCount"></span></button>
     </div>
     <section id="pQueue" class="scroll" role="tabpanel" aria-labelledby="tabQueue">
-      <p class="intro">Сверху — клиенты, у которых больше всего оснований для проверки: роль, оборот, связи с известными участниками.</p>
+      <p class="intro">Номер слева — место в очереди: сверху те, у кого больше всего оснований для проверки. Справа — насколько ярко выражена роль.</p>
       <div id="queue"></div>
     </section>
     <section id="pClusters" class="scroll" role="tabpanel" aria-labelledby="tabClusters" hidden>
@@ -1794,6 +1800,12 @@ function mix(hex, t) { // смешивание с белым: t — доля б�
 }
 const GID_RE = /\b1\d{17}\b/g;
 
+const strengthHTML = sc => {
+  const lvl = confLevel(sc), idx = SCALES.confidence.findIndex(l => l.label === lvl), on = SCALES.confidence.length - idx;
+  return '<span class="strength" title="Роль выражена ' + lvl + " (" + pct(sc) + "). Шкала: " + CONF_SCALE_TXT + '"><span class="sd" aria-hidden="true">' +
+    [1, 2, 3].map(i => "<i" + (i <= on ? ' class="on"' : "") + "></i>").join("") + "</span>" + lvl + "</span>";
+};
+
 // ---------- index
 const byId = new Map(G.nodes.map(n => [n.id, n]));
 const linkify = s => esc(s).replace(GID_RE, m => byId.has(m) ? gidLink(m) : m);
@@ -2116,9 +2128,9 @@ function renderQueue() {
     const n = byId.get(t.gid);
     return '<div class="q-row" role="button" tabindex="0" data-gid="' + esc(t.gid) + '" aria-current="false">' +
       '<span class="q-rank">' + t.rank + "</span>" +
-      '<div class="q-main">' + gidHTML(t.gid) + '<div class="q-sub">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
-      (n.typology ? '<div class="typo">' + esc(n.typology) + "</div>" : "") + "</div>" +
-      '<div class="q-score" title="Балл приоритета ' + fmtDec(n.priority) + '"><div class="meter" aria-hidden="true"><i style="width:' + Math.round(100 * n.priority) + '%"></i></div></div></div>';
+      '<div class="q-main">' + gidHTML(t.gid) + '<div class="q-sub">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div></div>" +
+      '<div class="q-score"><div class="q-cap">роль выражена</div>' + strengthHTML(n.role_score) + "</div>" +
+      (n.typology ? '<div class="typo q-typo">' + esc(n.typology) + "</div>" : "") + "</div>";
   }).join("");
 }
 const clusterMaxPriority = c => (clusterNodes.get(c.id) || []).reduce((m, n) => Math.max(m, n.priority || 0), 0);
@@ -2214,7 +2226,7 @@ function renderCard(id) {
   const sink = SINK_TEXT[n.sink_status] || "";
   $("card").innerHTML = '<div class="card">' + back +
     '<div class="c-id">' + gidHTML(id) + '<button class="copy" data-copy="' + esc(id) + '">Скопировать</button></div>' +
-    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word" title="Уверенность в роли: ' + CONF_SCALE_TXT + '">роль выражена <span class="lvl">' + confLevel(n.role_score) + "</span> (" + pct(n.role_score) + (n.truncated ? ", оценка по похожим клиентам" : "") + ")</span>" +
+    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word">роль выражена ' + strengthHTML(n.role_score) + '<span class="muted">' + pct(n.role_score) + (n.truncated ? ", оценка по похожим клиентам" : "") + "</span></span>" +
     (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
     '<p class="scale">Уверенность в роли: ' + CONF_SCALE_TXT + ".</p>" +
     (n.typology ? '<div class="c-typo">Типология: ' + esc(n.typology) + "</div>" : "") +
