@@ -1,0 +1,38 @@
+{
+  "center": null,
+  "nodes": [
+    {
+      "id": "100000003115284100",
+      "x": -55.034,
+      "y": -20.265,
+      "role": "consolidator",
+      "cluster_id": 12,
+      "priority_score": 0.694,
+      "priority_rank": 1,
+      "top_rank": 1,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 2160500.0,
+      "out_kzt": 517000.0
+    },
+    {
+      "id": "100000008603629100",
+      "x": -3.433,
+      "y": -34.631,
+      "role": "coordinator",
+      "cluster_id": 4,
+      "priority_score": 0.6934,
+      "priority_rank": 2,
+      "top_rank": 2,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1817300.0,
+      "out_kzt": 4986156.0
+    }
+  ],
+  "edges": [],
+  "total_nodes": 2,
+  "total_edges": 0,
+  "truncated": false,
+  "truncation_reason": null
+}

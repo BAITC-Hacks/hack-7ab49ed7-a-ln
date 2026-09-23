@@ -1,0 +1,147 @@
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 20px;
+  color: var(--muted);
+  text-align: center;
+  min-height: 100px;
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.error {
+  background: var(--danger-bg);
+  border: 1px solid #efbcb6;
+  color: #8f2923;
+  border-radius: 8px;
+  padding: 14px;
+  display: grid;
+  gap: 9px;
+  overflow-wrap: anywhere;
+}
+.error small {
+  display: block;
+}
+.error button {
+  justify-self: start;
+}
+.warnings {
+  background: #fff8e7;
+  border-left: 3px solid #c99222;
+  padding: 8px 12px;
+  border-radius: 3px;
+  color: #735b27;
+  font-size: 13px;
+}
+.warnings p {
+  margin: 4px 0;
+}
+.role {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.role i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.runStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.runStatus progress {
+  width: 90px;
+}
+.status {
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #edf0f3;
+  color: #526271;
+}
+.succeeded {
+  color: #116747;
+  background: #e5f5ed;
+}
+.running {
+  background: #e6f2fa;
+  color: #17668d;
+}
+.failed {
+  background: #fcebea;
+  color: #aa322c;
+}
+.cancelled {
+  color: #73656b;
+}
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.pager span {
+  margin-right: auto;
+}
+.gid {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  border: 0;
+  background: transparent;
+  padding: 3px 0;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.gid:hover {
+  text-decoration: underline;
+  background: transparent;
+}
+.dialog {
+  max-width: 450px;
+  width: calc(100% - 40px);
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 25px 100px #00192340;
+  color: var(--text);
+  background: var(--surface);
+}
+.dialog::backdrop {
+  background: #102b3770;
+  backdrop-filter: blur(3px);
+}
+.dialog h2 {
+  margin-top: 0;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+}

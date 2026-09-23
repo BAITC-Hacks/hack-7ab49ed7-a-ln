@@ -1,0 +1,11 @@
+{
+  "version": "1.4.0",
+  "auth_required": false,
+  "llm_enabled": false,
+  "limits": {
+    "max_upload_mb": 200,
+    "max_zip_members": 20,
+    "max_nodes": 500000,
+    "max_transactions": 5000000
+  }
+}

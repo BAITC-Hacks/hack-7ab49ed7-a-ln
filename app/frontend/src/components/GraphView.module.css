@@ -1,0 +1,94 @@
+.frame {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+  min-width: 0;
+}
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.toolbar > div {
+  margin-right: auto;
+}
+.toolbar strong {
+  display: block;
+  font-size: 14px;
+}
+.toolbar small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.toolbar label {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 12px;
+}
+.toolbar select {
+  padding: 6px;
+}
+.toolbar button {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+.canvasArea {
+  position: relative;
+  background: radial-gradient(#dce7ed 0.7px, transparent 0.7px);
+  background-size: 18px 18px;
+}
+.canvas {
+  height: clamp(420px, 58vh, 760px);
+  min-height: 420px;
+  position: relative;
+  width: 100%;
+}
+.canvas canvas {
+  outline: none;
+}
+.zoom {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: grid;
+  gap: 5px;
+}
+.zoom button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 20px;
+  box-shadow: 0 2px 5px #102b3710;
+}
+.hint {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  pointer-events: none;
+  background: #ffffffbf;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+}
+.fallback {
+  max-height: 650px;
+  overflow: auto;
+  padding: 0 12px;
+}

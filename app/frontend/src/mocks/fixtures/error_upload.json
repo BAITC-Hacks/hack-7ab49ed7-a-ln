@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Файл не является корректным zip-архивом",
+    "request_id": "req-fixture",
+    "details": null,
+    "retryable": false
+  }
+}

@@ -1,0 +1,33 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+# Organizer materials (task PDF, data and starter archives) stay local; data/ and starter/ hold the extracted copies.
+*.zip
+*.pdf
+# Root-level artifacts of the hackathon pipeline; the leading slash keeps app/backend/src/moneygraph and app/docs.
+/claude/
+/codex/
+/compare/
+/data/
+/out/
+/starter/
+/docs/
+/moneygraph/
+/viewer/
+/run.py
+/pyproject.toml
+/uv.lock
+/.python-version
+AGENTS.md
+/results/

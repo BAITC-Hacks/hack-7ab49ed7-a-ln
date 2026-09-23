@@ -1,0 +1,252 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.back {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.header h1 {
+  font-size: 25px;
+  margin: 10px 0;
+}
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--muted);
+}
+.summary > span {
+  border-right: 1px solid var(--border);
+  padding-right: 14px;
+}
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  margin: 18px 0;
+}
+.navRow nav {
+  display: flex;
+  gap: 5px;
+}
+.navRow button {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+.navRow button[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+.navRow > span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.workspace {
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr) 365px;
+  gap: 16px;
+  align-items: start;
+}
+.left,
+.right {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  min-width: 0;
+  overflow: hidden;
+}
+.sideScroll {
+  max-height: calc(100vh - 305px);
+  min-height: 400px;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+.search {
+  padding: 14px 12px;
+}
+.left {
+  overflow: visible;
+}
+.left .sideScroll {
+  border-radius: 0 0 9px 9px;
+}
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.tabs button {
+  flex: 1;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 14px 5px;
+  font-size: 12px;
+  background: transparent;
+}
+.tabs button[aria-pressed='true'] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  font-weight: 700;
+}
+.center {
+  min-width: 0;
+}
+.filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 14px;
+  font-size: 11px;
+}
+.filters > label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.filters select,
+.filters input[type='number'] {
+  font-size: 11px;
+  padding: 6px 5px;
+  width: 65px;
+}
+.filters button {
+  font-size: 11px;
+  padding: 6px 8px;
+  margin-left: auto;
+}
+.filters details {
+  position: relative;
+  min-width: 70px;
+}
+.roleFilters {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: 0;
+  z-index: 22;
+  display: grid;
+  gap: 10px;
+  width: 220px;
+  padding: 15px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  box-shadow: 0 10px 25px #102b3720;
+}
+.roleFilters label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+.check {
+  white-space: nowrap;
+}
+.focus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e0f2ef;
+  color: #156d65;
+  padding: 9px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.focus button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+}
+.graphNote {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.pending {
+  max-width: 750px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 30px;
+  margin: 40px auto;
+}
+.pending > div {
+  margin: 20px 0;
+}
+@media (min-width: 1600px) {
+  .workspace {
+    grid-template-columns: 280px minmax(0, 1fr) 410px;
+    gap: 20px;
+  }
+}
+@media (max-width: 1350px) {
+  .workspace {
+    grid-template-columns: 215px minmax(0, 1fr) 330px;
+    gap: 12px;
+  }
+  .sideScroll {
+    max-height: 850px;
+  }
+  .header h1 {
+    font-size: 23px;
+  }
+}
+@media (max-width: 1100px) {
+  .workspace {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .right {
+    grid-column: 1/-1;
+  }
+  .right .sideScroll {
+    max-height: 600px;
+    min-height: 200px;
+  }
+  .navRow > span {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .left .sideScroll {
+    max-height: 260px;
+    min-height: 0;
+  }
+  .navRow nav {
+    flex-wrap: wrap;
+  }
+  .navRow button {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .header {
+    align-items: flex-start;
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

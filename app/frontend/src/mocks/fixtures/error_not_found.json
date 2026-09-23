@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "not_found",
+    "message": "Узел не найден в этом прогоне",
+    "request_id": "req-fixture",
+    "details": null,
+    "retryable": false
+  }
+}

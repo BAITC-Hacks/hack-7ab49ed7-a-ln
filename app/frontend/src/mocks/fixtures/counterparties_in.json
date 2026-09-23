@@ -1,0 +1,69 @@
+{
+  "items": [
+    {
+      "id": "100000000343175100",
+      "role": "coordinator",
+      "sum_kzt": 622000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000000331309100",
+      "role": "coordinator",
+      "sum_kzt": 600000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000000437046100",
+      "role": "coordinator",
+      "sum_kzt": 300000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000003684369100",
+      "role": "coordinator",
+      "sum_kzt": 193000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000008730846100",
+      "role": "peripheral",
+      "sum_kzt": 185000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000008165763100",
+      "role": "coordinator",
+      "sum_kzt": 130000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000001857829100",
+      "role": "coordinator",
+      "sum_kzt": 100000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "id": "100000003360542100",
+      "role": "terminal",
+      "sum_kzt": 30500.0,
+      "n_tx": 3,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-07"
+    }
+  ],
+  "total": 8
+}

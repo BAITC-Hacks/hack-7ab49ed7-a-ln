@@ -1,0 +1,46 @@
+[project]
+name = "moneygraph-backend"
+version = "1.0.0"
+description = "MoneyGraph API: роли, кластеры и приоритеты узлов транзакционной сети для AML-аналитика"
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    # движок анализа — версии закреплены (детерминизм Louvain, побайтная воспроизводимость)
+    "pandas==2.3.3",
+    "pyarrow==25.0.1",
+    "networkx==3.4.2",
+    "numpy==2.2.6",
+    "scikit-learn==1.7.2",
+    # API
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.30,<1",
+    "pydantic>=2.8,<3",
+    "pydantic-settings>=2.4,<3",
+    "python-multipart>=0.0.9",
+    "anthropic>=1.8,<2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "httpx>=0.27", "ruff>=0.8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/moneygraph", "src/mg_api"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests", "tools"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.File", "fastapi.Form",
+                          "moneygraph.pipeline.CollectionOverrides", "moneygraph.pipeline.InputLimits"]

@@ -1,0 +1,8 @@
+.venv
+var
+tests
+tools
+.pytest_cache
+.ruff_cache
+**/__pycache__
+.env*

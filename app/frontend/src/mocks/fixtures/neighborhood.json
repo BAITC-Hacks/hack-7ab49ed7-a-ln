@@ -1,0 +1,239 @@
+{
+  "center": "100000003115284100",
+  "nodes": [
+    {
+      "id": "100000003115284100",
+      "x": -55.034,
+      "y": -20.265,
+      "role": "consolidator",
+      "cluster_id": 12,
+      "priority_score": 0.694,
+      "priority_rank": 1,
+      "top_rank": 1,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 2160500.0,
+      "out_kzt": 517000.0
+    },
+    {
+      "id": "100000003684369100",
+      "x": -38.274,
+      "y": -0.905,
+      "role": "coordinator",
+      "cluster_id": 3,
+      "priority_score": 0.6814,
+      "priority_rank": 3,
+      "top_rank": 3,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 3848436.0,
+      "out_kzt": 8588655.0
+    },
+    {
+      "id": "100000000331309100",
+      "x": 18.226,
+      "y": 33.996,
+      "role": "coordinator",
+      "cluster_id": 6,
+      "priority_score": 0.644,
+      "priority_rank": 6,
+      "top_rank": 6,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 984635.0,
+      "out_kzt": 23001375.0
+    },
+    {
+      "id": "100000008165763100",
+      "x": -34.613,
+      "y": 4.357,
+      "role": "coordinator",
+      "cluster_id": 3,
+      "priority_score": 0.6133,
+      "priority_rank": 9,
+      "top_rank": 9,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1165815.0,
+      "out_kzt": 1267858.0
+    },
+    {
+      "id": "100000000437046100",
+      "x": -5.944,
+      "y": 5.522,
+      "role": "coordinator",
+      "cluster_id": 1,
+      "priority_score": 0.5919,
+      "priority_rank": 11,
+      "top_rank": 11,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1107200.0,
+      "out_kzt": 7606224.0
+    },
+    {
+      "id": "100000001857829100",
+      "x": -2.075,
+      "y": -43.419,
+      "role": "coordinator",
+      "cluster_id": 4,
+      "priority_score": 0.5128,
+      "priority_rank": 26,
+      "top_rank": 26,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 888535.0,
+      "out_kzt": 2390993.0
+    },
+    {
+      "id": "100000000343175100",
+      "x": -58.486,
+      "y": -16.39,
+      "role": "coordinator",
+      "cluster_id": 12,
+      "priority_score": 0.4945,
+      "priority_rank": 35,
+      "top_rank": 35,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 178712.0,
+      "out_kzt": 4000039.0
+    },
+    {
+      "id": "100000003360542100",
+      "x": -52.698,
+      "y": -21.092,
+      "role": "terminal",
+      "cluster_id": 12,
+      "priority_score": 0.3385,
+      "priority_rank": 123,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 317000.0,
+      "out_kzt": 51800.0
+    },
+    {
+      "id": "100000003390036100",
+      "x": -52.05,
+      "y": -21.773,
+      "role": "peripheral",
+      "cluster_id": 12,
+      "priority_score": 0.2951,
+      "priority_rank": 185,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 231300.0,
+      "out_kzt": 62000.0
+    },
+    {
+      "id": "100000008730846100",
+      "x": -54.99,
+      "y": -23.721,
+      "role": "peripheral",
+      "cluster_id": 12,
+      "priority_score": 0.2762,
+      "priority_rank": 215,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 155042.0,
+      "out_kzt": 363370.0
+    }
+  ],
+  "edges": [
+    {
+      "source": "100000000343175100",
+      "target": "100000003115284100",
+      "sum_kzt": 622000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000003115284100",
+      "sum_kzt": 600000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003115284100",
+      "target": "100000003360542100",
+      "sum_kzt": 307000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000003115284100",
+      "sum_kzt": 300000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003115284100",
+      "target": "100000003390036100",
+      "sum_kzt": 210000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003684369100",
+      "target": "100000003115284100",
+      "sum_kzt": 193000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008730846100",
+      "target": "100000003115284100",
+      "sum_kzt": 185000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008165763100",
+      "target": "100000003115284100",
+      "sum_kzt": 130000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000001857829100",
+      "target": "100000003115284100",
+      "sum_kzt": 100000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003360542100",
+      "target": "100000003115284100",
+      "sum_kzt": 30500.0,
+      "n_tx": 3,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000003360542100",
+      "target": "100000003390036100",
+      "sum_kzt": 21300.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-12"
+    }
+  ],
+  "total_nodes": 10,
+  "total_edges": 11,
+  "truncated": false,
+  "truncation_reason": null
+}

@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "n_nodes": 2248,
+    "n_edges": 3119,
+    "n_tx": 4840,
+    "n_seeds": 81,
+    "total_kzt": 365890012.01,
+    "period": [
+      "2026-07-01",
+      "2026-07-31"
+    ],
+    "n_clusters": 70,
+    "roles": {
+      "coordinator": 16,
+      "consolidator": 38,
+      "distributor": 49,
+      "transit": 26,
+      "terminal": 893,
+      "peripheral": 1226
+    },
+    "flags": {
+      "truncated": 444,
+      "cycle": 309,
+      "short_followup": 292,
+      "external_funds": 275,
+      "hop_anomaly": 239,
+      "dated_return": 217,
+      "bridge": 209,
+      "structuring": 91,
+      "seed": 81,
+      "return_to_seed": 52,
+      "sync_inflow": 38,
+      "likely_continues": 35,
+      "repeated_route": 32,
+      "small_amounts": 31,
+      "bottleneck": 31,
+      "fast_transit": 28,
+      "isolated": 19,
+      "burst": 17,
+      "collector": 4
+    }
+  },
+  "model": {
+    "status": "ok",
+    "auc_cv": 0.752,
+    "auc_transfer": 0.66,
+    "base_rate": 0.316,
+    "n_train": 1723
+  },
+  "resilience": {
+    "base": {
+      "reach": 2167.0,
+      "flow": 351040845.0,
+      "lcc": 1877.0,
+      "components": 35.0
+    },
+    "rows": [
+      {
+        "removed_top_n": 5,
+        "reach_top": 0.9197,
+        "flow_top": 0.8667,
+        "reach_random": 0.9951,
+        "flow_random": 0.9948,
+        "components_top": 129,
+        "components_random": 38.6
+      },
+      {
+        "removed_top_n": 10,
+        "reach_top": 0.8717,
+        "flow_top": 0.8076,
+        "reach_random": 0.992,
+        "flow_random": 0.9903,
+        "components_top": 192,
+        "components_random": 39.5
+      },
+      {
+        "removed_top_n": 20,
+        "reach_top": 0.7079,
+        "flow_top": 0.6774,
+        "reach_random": 0.9772,
+        "flow_random": 0.9787,
+        "components_top": 317,
+        "components_random": 50.6
+      },
+      {
+        "removed_top_n": 50,
+        "reach_top": 0.5865,
+        "flow_top": 0.5368,
+        "reach_random": 0.9586,
+        "flow_random": 0.9513,
+        "components_top": 545,
+        "components_random": 59.7
+      }
+    ]
+  },
+  "data_requests": {
+    "операции за август": 292,
+    "исходящие переводы (5-е колено)": 72,
+    "входящие из других банков/наличные": 70,
+    "входящие seed из-за пределов выгрузки": 50,
+    "операции в других банках / наличные": 19
+  },
+  "warnings": [],
+  "params": {
+    "observation_start": "2026-07-01",
+    "observation_end": "2026-07-31",
+    "max_depth": 4,
+    "min_transfer_kzt": 5000.0,
+    "collection_direction": "outgoing"
+  }
+}

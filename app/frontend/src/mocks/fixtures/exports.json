@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "name": "nodes_roles",
+      "filename": "nodes_roles.csv",
+      "content_type": "text/csv",
+      "size_bytes": 688805,
+      "description": "Роль, скоры, кластер и обоснование каждого узла"
+    },
+    {
+      "name": "clusters",
+      "filename": "clusters.csv",
+      "content_type": "text/csv",
+      "size_bytes": 25865,
+      "description": "Кластеры с гипотезами назначения"
+    },
+    {
+      "name": "top_nodes",
+      "filename": "top_nodes.csv",
+      "content_type": "text/csv",
+      "size_bytes": 77054,
+      "description": "Топ-лист приоритетов с обоснованием"
+    },
+    {
+      "name": "features",
+      "filename": "features.csv",
+      "content_type": "text/csv",
+      "size_bytes": 927930,
+      "description": "Все признаки узлов, правила и компоненты приоритета"
+    },
+    {
+      "name": "resilience",
+      "filename": "resilience.csv",
+      "content_type": "text/csv",
+      "size_bytes": 308,
+      "description": "Устойчивость сети при блокировке топ-N узлов"
+    },
+    {
+      "name": "data_requests",
+      "filename": "data_requests.csv",
+      "content_type": "text/csv",
+      "size_bytes": 94693,
+      "description": "Какие данные запросить следующими"
+    },
+    {
+      "name": "run_report",
+      "filename": "run_report.md",
+      "content_type": "text/markdown",
+      "size_bytes": 5944,
+      "description": "Отчёт прогона"
+    },
+    {
+      "name": "bundle",
+      "filename": "moneygraph-results.zip",
+      "content_type": "application/zip",
+      "size_bytes": null,
+      "description": "Все выгрузки одним архивом"
+    }
+  ]
+}

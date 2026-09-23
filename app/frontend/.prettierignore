@@ -1,0 +1,13 @@
+node_modules
+dist
+.npm-cache
+.browsers
+playwright-report
+test-results
+public/mockServiceWorker.js
+src/api/generated.d.ts
+src/api/openapi.json
+src/mocks/fixtures
+package-lock.json
+
+.docker

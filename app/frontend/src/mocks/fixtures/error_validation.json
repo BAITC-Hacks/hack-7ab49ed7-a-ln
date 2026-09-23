@@ -1,0 +1,14 @@
+{
+  "error": {
+    "code": "validation_error",
+    "message": "Некорректные параметры запроса",
+    "request_id": "req-fixture",
+    "details": [
+      {
+        "field": "query.q",
+        "message": "не короче 3 символов"
+      }
+    ],
+    "retryable": false
+  }
+}

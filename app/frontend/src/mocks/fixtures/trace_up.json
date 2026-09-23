@@ -1,0 +1,4199 @@
+{
+  "center": "100000003115284100",
+  "nodes": [
+    {
+      "id": "100000003115284100",
+      "x": -55.034,
+      "y": -20.265,
+      "role": "consolidator",
+      "cluster_id": 12,
+      "priority_score": 0.694,
+      "priority_rank": 1,
+      "top_rank": 1,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 2160500.0,
+      "out_kzt": 517000.0
+    },
+    {
+      "id": "100000003684369100",
+      "x": -38.274,
+      "y": -0.905,
+      "role": "coordinator",
+      "cluster_id": 3,
+      "priority_score": 0.6814,
+      "priority_rank": 3,
+      "top_rank": 3,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 3848436.0,
+      "out_kzt": 8588655.0
+    },
+    {
+      "id": "100000000331309100",
+      "x": 18.226,
+      "y": 33.996,
+      "role": "coordinator",
+      "cluster_id": 6,
+      "priority_score": 0.644,
+      "priority_rank": 6,
+      "top_rank": 6,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 984635.0,
+      "out_kzt": 23001375.0
+    },
+    {
+      "id": "100000008165763100",
+      "x": -34.613,
+      "y": 4.357,
+      "role": "coordinator",
+      "cluster_id": 3,
+      "priority_score": 0.6133,
+      "priority_rank": 9,
+      "top_rank": 9,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1165815.0,
+      "out_kzt": 1267858.0
+    },
+    {
+      "id": "100000000437046100",
+      "x": -5.944,
+      "y": 5.522,
+      "role": "coordinator",
+      "cluster_id": 1,
+      "priority_score": 0.5919,
+      "priority_rank": 11,
+      "top_rank": 11,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1107200.0,
+      "out_kzt": 7606224.0
+    },
+    {
+      "id": "100000001857829100",
+      "x": -2.075,
+      "y": -43.419,
+      "role": "coordinator",
+      "cluster_id": 4,
+      "priority_score": 0.5128,
+      "priority_rank": 26,
+      "top_rank": 26,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 888535.0,
+      "out_kzt": 2390993.0
+    },
+    {
+      "id": "100000000343175100",
+      "x": -58.486,
+      "y": -16.39,
+      "role": "coordinator",
+      "cluster_id": 12,
+      "priority_score": 0.4945,
+      "priority_rank": 35,
+      "top_rank": 35,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 178712.0,
+      "out_kzt": 4000039.0
+    },
+    {
+      "id": "100000003360542100",
+      "x": -52.698,
+      "y": -21.092,
+      "role": "terminal",
+      "cluster_id": 12,
+      "priority_score": 0.3385,
+      "priority_rank": 123,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 317000.0,
+      "out_kzt": 51800.0
+    },
+    {
+      "id": "100000008730846100",
+      "x": -54.99,
+      "y": -23.721,
+      "role": "peripheral",
+      "cluster_id": 12,
+      "priority_score": 0.2762,
+      "priority_rank": 215,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 155042.0,
+      "out_kzt": 363370.0
+    },
+    {
+      "id": "100000008603629100",
+      "x": -3.433,
+      "y": -34.631,
+      "role": "coordinator",
+      "cluster_id": 4,
+      "priority_score": 0.6934,
+      "priority_rank": 2,
+      "top_rank": 2,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1817300.0,
+      "out_kzt": 4986156.0
+    },
+    {
+      "id": "100000008346837100",
+      "x": 7.837,
+      "y": -62.257,
+      "role": "coordinator",
+      "cluster_id": 13,
+      "priority_score": 0.6373,
+      "priority_rank": 7,
+      "top_rank": 7,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 254359.0,
+      "out_kzt": 1258643.0
+    },
+    {
+      "id": "100000008686313100",
+      "x": 0.31,
+      "y": 1.598,
+      "role": "consolidator",
+      "cluster_id": 1,
+      "priority_score": 0.5684,
+      "priority_rank": 14,
+      "top_rank": 14,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1912716.0,
+      "out_kzt": 333800.0
+    },
+    {
+      "id": "100000008748914100",
+      "x": -31.934,
+      "y": 3.216,
+      "role": "distributor",
+      "cluster_id": 3,
+      "priority_score": 0.5207,
+      "priority_rank": 23,
+      "top_rank": 23,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 180000.0,
+      "out_kzt": 4471847.0
+    },
+    {
+      "id": "100000004351795100",
+      "x": 0.481,
+      "y": 4.709,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.5126,
+      "priority_rank": 27,
+      "top_rank": 27,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 118333.0,
+      "out_kzt": 1715161.0
+    },
+    {
+      "id": "100000004070318100",
+      "x": -2.502,
+      "y": -1.184,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.4959,
+      "priority_rank": 34,
+      "top_rank": 34,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 207246.55,
+      "out_kzt": 551860.0
+    },
+    {
+      "id": "100000008304139100",
+      "x": -44.965,
+      "y": -5.08,
+      "role": "distributor",
+      "cluster_id": 3,
+      "priority_score": 0.4829,
+      "priority_rank": 39,
+      "top_rank": 39,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 189329.75,
+      "out_kzt": 1692997.0
+    },
+    {
+      "id": "100000005287097100",
+      "x": -18.044,
+      "y": 30.106,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.4322,
+      "priority_rank": 57,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 127173.0,
+      "out_kzt": 697300.0
+    },
+    {
+      "id": "100000005910114100",
+      "x": -4.134,
+      "y": -2.97,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.4138,
+      "priority_rank": 65,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 326144.0,
+      "out_kzt": 1469993.0
+    },
+    {
+      "id": "100000004847758100",
+      "x": -40.295,
+      "y": 5.054,
+      "role": "distributor",
+      "cluster_id": 3,
+      "priority_score": 0.4002,
+      "priority_rank": 75,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 115171.0,
+      "out_kzt": 488800.0
+    },
+    {
+      "id": "100000004403675100",
+      "x": 68.749,
+      "y": 15.058,
+      "role": "peripheral",
+      "cluster_id": 20,
+      "priority_score": 0.3903,
+      "priority_rank": 80,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 182980.0,
+      "out_kzt": 264699.0
+    },
+    {
+      "id": "100000007639767100",
+      "x": 0.723,
+      "y": 2.315,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.3842,
+      "priority_rank": 83,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 90913.0,
+      "out_kzt": 822244.0
+    },
+    {
+      "id": "100000003880331100",
+      "x": -5.631,
+      "y": -41.589,
+      "role": "distributor",
+      "cluster_id": 4,
+      "priority_score": 0.3567,
+      "priority_rank": 102,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 100000.0,
+      "out_kzt": 3904908.0
+    },
+    {
+      "id": "100000008418835100",
+      "x": -13.177,
+      "y": -79.126,
+      "role": "peripheral",
+      "cluster_id": 60,
+      "priority_score": 0.3486,
+      "priority_rank": 110,
+      "top_rank": null,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 1372000.0,
+      "out_kzt": 186179.0
+    },
+    {
+      "id": "100000000089154100",
+      "x": -8.02,
+      "y": -0.256,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.3474,
+      "priority_rank": 114,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 10000.0,
+      "out_kzt": 425500.0
+    },
+    {
+      "id": "100000000667713100",
+      "x": -23.758,
+      "y": 33.588,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.3294,
+      "priority_rank": 134,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 119495.0,
+      "out_kzt": 79236.0
+    },
+    {
+      "id": "100000003796063100",
+      "x": 12.977,
+      "y": 33.293,
+      "role": "distributor",
+      "cluster_id": 6,
+      "priority_score": 0.3275,
+      "priority_rank": 138,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 35000.0,
+      "out_kzt": 959150.0
+    },
+    {
+      "id": "100000005339662100",
+      "x": 32.795,
+      "y": 58.044,
+      "role": "peripheral",
+      "cluster_id": 16,
+      "priority_score": 0.3143,
+      "priority_rank": 152,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 202939.0,
+      "out_kzt": 295160.0
+    },
+    {
+      "id": "100000008169544100",
+      "x": -21.727,
+      "y": 26.564,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.3132,
+      "priority_rank": 154,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 137104.0,
+      "out_kzt": 42800.0
+    },
+    {
+      "id": "100000004679953100",
+      "x": -5.247,
+      "y": -33.912,
+      "role": "terminal",
+      "cluster_id": 4,
+      "priority_score": 0.3118,
+      "priority_rank": 158,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 343538.0,
+      "out_kzt": 34100.0
+    },
+    {
+      "id": "100000002306369100",
+      "x": -32.058,
+      "y": 7.514,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.3114,
+      "priority_rank": 160,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 73166.0,
+      "out_kzt": 260900.0
+    },
+    {
+      "id": "100000007593823100",
+      "x": -2.309,
+      "y": 0.416,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.3109,
+      "priority_rank": 161,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 25000.0,
+      "out_kzt": 162900.0
+    },
+    {
+      "id": "100000002723538100",
+      "x": 1.238,
+      "y": -36.224,
+      "role": "distributor",
+      "cluster_id": 4,
+      "priority_score": 0.309,
+      "priority_rank": 166,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 105647.0,
+      "out_kzt": 560499.0
+    },
+    {
+      "id": "100000003213473100",
+      "x": -5.53,
+      "y": -5.669,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.2905,
+      "priority_rank": 190,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 57500.0,
+      "out_kzt": 240000.0
+    },
+    {
+      "id": "100000004358004100",
+      "x": -38.624,
+      "y": 5.849,
+      "role": "distributor",
+      "cluster_id": 3,
+      "priority_score": 0.276,
+      "priority_rank": 216,
+      "top_rank": null,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 0.0,
+      "out_kzt": 980850.0
+    },
+    {
+      "id": "100000004390333100",
+      "x": -1.016,
+      "y": 1.163,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.2495,
+      "priority_rank": 269,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 64558.0,
+      "out_kzt": 506500.0
+    },
+    {
+      "id": "100000004140487100",
+      "x": -38.678,
+      "y": 4.014,
+      "role": "distributor",
+      "cluster_id": 3,
+      "priority_score": 0.2428,
+      "priority_rank": 291,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 24510.0,
+      "out_kzt": 262600.0
+    },
+    {
+      "id": "100000001279272100",
+      "x": -12.188,
+      "y": 8.151,
+      "role": "transit",
+      "cluster_id": 1,
+      "priority_score": 0.2198,
+      "priority_rank": 354,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 250000.0,
+      "out_kzt": 136758.0
+    },
+    {
+      "id": "100000005048668100",
+      "x": -7.308,
+      "y": -32.582,
+      "role": "peripheral",
+      "cluster_id": 4,
+      "priority_score": 0.215,
+      "priority_rank": 370,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 16668.0,
+      "out_kzt": 159400.0
+    },
+    {
+      "id": "100000003299365100",
+      "x": -41.082,
+      "y": -1.573,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.2143,
+      "priority_rank": 377,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 200000.0,
+      "out_kzt": 200000.0
+    },
+    {
+      "id": "100000008636603100",
+      "x": -22.635,
+      "y": 32.238,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.2007,
+      "priority_rank": 425,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 35460.0,
+      "out_kzt": 159375.0
+    },
+    {
+      "id": "100000003528285100",
+      "x": -43.889,
+      "y": -0.98,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.1878,
+      "priority_rank": 489,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 118870.0,
+      "out_kzt": 548000.0
+    },
+    {
+      "id": "100000008086440100",
+      "x": -4.35,
+      "y": 8.786,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1704,
+      "priority_rank": 594,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 199733.0,
+      "out_kzt": 161300.0
+    },
+    {
+      "id": "100000008293431100",
+      "x": -11.774,
+      "y": 2.896,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1691,
+      "priority_rank": 597,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 15000.0,
+      "out_kzt": 297000.0
+    },
+    {
+      "id": "100000007511163100",
+      "x": -21.585,
+      "y": 31.036,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.154,
+      "priority_rank": 690,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 63666.0,
+      "out_kzt": 82052.0
+    },
+    {
+      "id": "100000004077081100",
+      "x": -34.751,
+      "y": 1.043,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.1509,
+      "priority_rank": 713,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 140000.0,
+      "out_kzt": 615000.0
+    },
+    {
+      "id": "100000007864477100",
+      "x": -4.928,
+      "y": 2.694,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1441,
+      "priority_rank": 770,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 76000.0,
+      "out_kzt": 203500.0
+    },
+    {
+      "id": "100000008632060100",
+      "x": -2.024,
+      "y": -1.484,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1184,
+      "priority_rank": 954,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 6000.0,
+      "out_kzt": 339200.0
+    },
+    {
+      "id": "100000003178549100",
+      "x": -64.64,
+      "y": 17.157,
+      "role": "peripheral",
+      "cluster_id": 17,
+      "priority_score": 0.1135,
+      "priority_rank": 989,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 250000.0,
+      "out_kzt": 89080.0
+    },
+    {
+      "id": "100000004450649100",
+      "x": 18.766,
+      "y": 30.424,
+      "role": "peripheral",
+      "cluster_id": 6,
+      "priority_score": 0.1106,
+      "priority_rank": 1017,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 192528.0,
+      "out_kzt": 46527.0
+    },
+    {
+      "id": "100000003968044100",
+      "x": -5.628,
+      "y": -31.936,
+      "role": "peripheral",
+      "cluster_id": 4,
+      "priority_score": 0.104,
+      "priority_rank": 1080,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 40000.0,
+      "out_kzt": 311000.0
+    },
+    {
+      "id": "100000008223661100",
+      "x": 45.1,
+      "y": 28.894,
+      "role": "peripheral",
+      "cluster_id": 10,
+      "priority_score": 0.0987,
+      "priority_rank": 1146,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 202000.0,
+      "out_kzt": 262580.0
+    },
+    {
+      "id": "100000003582677100",
+      "x": -36.01,
+      "y": 1.762,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.0782,
+      "priority_rank": 1476,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 29756.99,
+      "out_kzt": 56000.0
+    },
+    {
+      "id": "100000001102676100",
+      "x": -40.187,
+      "y": 4.19,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.0687,
+      "priority_rank": 1649,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 50000.0,
+      "out_kzt": 50000.0
+    },
+    {
+      "id": "100000005873152100",
+      "x": -51.018,
+      "y": -21.612,
+      "role": "peripheral",
+      "cluster_id": 12,
+      "priority_score": 0.0451,
+      "priority_rank": 1926,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 10000.0,
+      "out_kzt": 10000.0
+    },
+    {
+      "id": "100000003016635100",
+      "x": -24.089,
+      "y": 29.463,
+      "role": "coordinator",
+      "cluster_id": 5,
+      "priority_score": 0.6574,
+      "priority_rank": 5,
+      "top_rank": 5,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 586981.0,
+      "out_kzt": 9414081.0
+    },
+    {
+      "id": "100000006866783100",
+      "x": -0.333,
+      "y": -4.701,
+      "role": "coordinator",
+      "cluster_id": 1,
+      "priority_score": 0.627,
+      "priority_rank": 8,
+      "top_rank": 8,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 838812.0,
+      "out_kzt": 3948037.0
+    },
+    {
+      "id": "100000004156082100",
+      "x": 29.142,
+      "y": 57.387,
+      "role": "coordinator",
+      "cluster_id": 16,
+      "priority_score": 0.5858,
+      "priority_rank": 12,
+      "top_rank": 12,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 377366.11,
+      "out_kzt": 2319556.0
+    },
+    {
+      "id": "100000008477350100",
+      "x": -0.686,
+      "y": 4.343,
+      "role": "coordinator",
+      "cluster_id": 1,
+      "priority_score": 0.58,
+      "priority_rank": 13,
+      "top_rank": 13,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 610100.0,
+      "out_kzt": 3374866.0
+    },
+    {
+      "id": "100000005933757100",
+      "x": -40.331,
+      "y": 47.967,
+      "role": "distributor",
+      "cluster_id": 15,
+      "priority_score": 0.5472,
+      "priority_rank": 16,
+      "top_rank": 16,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 1246000.0,
+      "out_kzt": 3002628.0
+    },
+    {
+      "id": "100000004400305100",
+      "x": 4.928,
+      "y": -1.8,
+      "role": "coordinator",
+      "cluster_id": 1,
+      "priority_score": 0.526,
+      "priority_rank": 21,
+      "top_rank": 21,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 222800.0,
+      "out_kzt": 5830181.0
+    },
+    {
+      "id": "100000002957787100",
+      "x": -4.393,
+      "y": -8.768,
+      "role": "distributor",
+      "cluster_id": 1,
+      "priority_score": 0.4597,
+      "priority_rank": 46,
+      "top_rank": 46,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 84956.0,
+      "out_kzt": 1276153.96
+    },
+    {
+      "id": "100000008111003100",
+      "x": -6.068,
+      "y": -0.47,
+      "role": "consolidator",
+      "cluster_id": 1,
+      "priority_score": 0.4205,
+      "priority_rank": 61,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 222716.0,
+      "out_kzt": 35000.0
+    },
+    {
+      "id": "100000005782781100",
+      "x": -36.114,
+      "y": -38.801,
+      "role": "coordinator",
+      "cluster_id": 7,
+      "priority_score": 0.4064,
+      "priority_rank": 71,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 171888.0,
+      "out_kzt": 1263597.0
+    },
+    {
+      "id": "100000003854444100",
+      "x": 47.459,
+      "y": 48.38,
+      "role": "distributor",
+      "cluster_id": 19,
+      "priority_score": 0.3989,
+      "priority_rank": 76,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 210000.0,
+      "out_kzt": 2322909.0
+    },
+    {
+      "id": "100000003242289100",
+      "x": -60.059,
+      "y": 14.31,
+      "role": "distributor",
+      "cluster_id": 17,
+      "priority_score": 0.3787,
+      "priority_rank": 87,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 550791.0,
+      "out_kzt": 2377741.0
+    },
+    {
+      "id": "100000004820260100",
+      "x": 35.36,
+      "y": 58.42,
+      "role": "transit",
+      "cluster_id": 16,
+      "priority_score": 0.3656,
+      "priority_rank": 97,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 234200.0,
+      "out_kzt": 215350.0
+    },
+    {
+      "id": "100000008466579100",
+      "x": 45.59,
+      "y": 27.181,
+      "role": "distributor",
+      "cluster_id": 10,
+      "priority_score": 0.3617,
+      "priority_rank": 100,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 36952.0,
+      "out_kzt": 1933000.0
+    },
+    {
+      "id": "100000008413748100",
+      "x": -68.247,
+      "y": 8.903,
+      "role": "distributor",
+      "cluster_id": 17,
+      "priority_score": 0.3477,
+      "priority_rank": 112,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 26480.0,
+      "out_kzt": 1377320.22
+    },
+    {
+      "id": "100000005498992100",
+      "x": -9.812,
+      "y": 63.716,
+      "role": "distributor",
+      "cluster_id": 9,
+      "priority_score": 0.3312,
+      "priority_rank": 132,
+      "top_rank": null,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 0.0,
+      "out_kzt": 2262868.0
+    },
+    {
+      "id": "100000008465789100",
+      "x": 47.934,
+      "y": 26.305,
+      "role": "distributor",
+      "cluster_id": 10,
+      "priority_score": 0.3165,
+      "priority_rank": 150,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 30099.0,
+      "out_kzt": 1858100.0
+    },
+    {
+      "id": "100000008137435100",
+      "x": -44.895,
+      "y": -47.206,
+      "role": "peripheral",
+      "cluster_id": 22,
+      "priority_score": 0.3133,
+      "priority_rank": 153,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 93906.0,
+      "out_kzt": 1419700.0
+    },
+    {
+      "id": "100000005612411100",
+      "x": -41.489,
+      "y": 9.183,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.3087,
+      "priority_rank": 167,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 115500.0,
+      "out_kzt": 506997.0
+    },
+    {
+      "id": "100000004188160100",
+      "x": -29.417,
+      "y": 27.292,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.299,
+      "priority_rank": 180,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 87862.0,
+      "out_kzt": 133846.0
+    },
+    {
+      "id": "100000003390036100",
+      "x": -52.05,
+      "y": -21.773,
+      "role": "peripheral",
+      "cluster_id": 12,
+      "priority_score": 0.2951,
+      "priority_rank": 185,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 231300.0,
+      "out_kzt": 62000.0
+    },
+    {
+      "id": "100000008512552100",
+      "x": -62.416,
+      "y": 16.909,
+      "role": "peripheral",
+      "cluster_id": 17,
+      "priority_score": 0.2875,
+      "priority_rank": 195,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 394360.0,
+      "out_kzt": 1302275.0
+    },
+    {
+      "id": "100000008003034100",
+      "x": 4.644,
+      "y": -63.319,
+      "role": "peripheral",
+      "cluster_id": 13,
+      "priority_score": 0.2789,
+      "priority_rank": 212,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 12201.0,
+      "out_kzt": 135000.0
+    },
+    {
+      "id": "100000008389800100",
+      "x": -21.047,
+      "y": 31.374,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.238,
+      "priority_rank": 307,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 189000.0,
+      "out_kzt": 401620.0
+    },
+    {
+      "id": "100000005175148100",
+      "x": 34.574,
+      "y": 58.48,
+      "role": "terminal",
+      "cluster_id": 16,
+      "priority_score": 0.2065,
+      "priority_rank": 407,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 79000.0,
+      "out_kzt": 15000.0
+    },
+    {
+      "id": "100000008731444100",
+      "x": 8.254,
+      "y": 9.181,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1961,
+      "priority_rank": 448,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 439000.0,
+      "out_kzt": 879767.8
+    },
+    {
+      "id": "100000004269433100",
+      "x": -12.438,
+      "y": -82.528,
+      "role": "peripheral",
+      "cluster_id": 60,
+      "priority_score": 0.1682,
+      "priority_rank": 606,
+      "top_rank": null,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 0.0,
+      "out_kzt": 1372000.0
+    },
+    {
+      "id": "100000003988112100",
+      "x": 69.316,
+      "y": 13.162,
+      "role": "peripheral",
+      "cluster_id": 20,
+      "priority_score": 0.1658,
+      "priority_rank": 620,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 92000.0,
+      "out_kzt": 64000.0
+    },
+    {
+      "id": "100000008121806100",
+      "x": -0.872,
+      "y": -47.147,
+      "role": "peripheral",
+      "cluster_id": 4,
+      "priority_score": 0.1647,
+      "priority_rank": 626,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 67000.0,
+      "out_kzt": 248509.0
+    },
+    {
+      "id": "100000004569484100",
+      "x": 29.195,
+      "y": -42.527,
+      "role": "peripheral",
+      "cluster_id": 8,
+      "priority_score": 0.1637,
+      "priority_rank": 635,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 98312.0,
+      "out_kzt": 156000.0
+    },
+    {
+      "id": "100000004723755100",
+      "x": -29.296,
+      "y": 4.655,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.1505,
+      "priority_rank": 715,
+      "top_rank": null,
+      "is_seed": true,
+      "truncated": false,
+      "in_kzt": 0.0,
+      "out_kzt": 95000.0
+    },
+    {
+      "id": "100000001138283100",
+      "x": -2.393,
+      "y": -31.084,
+      "role": "peripheral",
+      "cluster_id": 4,
+      "priority_score": 0.1475,
+      "priority_rank": 742,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 81805.0,
+      "out_kzt": 50000.0
+    },
+    {
+      "id": "100000008762832100",
+      "x": -29.192,
+      "y": 3.945,
+      "role": "peripheral",
+      "cluster_id": 3,
+      "priority_score": 0.1454,
+      "priority_rank": 762,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 150000.0,
+      "out_kzt": 85000.0
+    },
+    {
+      "id": "100000008379273100",
+      "x": 28.154,
+      "y": -43.411,
+      "role": "peripheral",
+      "cluster_id": 8,
+      "priority_score": 0.0909,
+      "priority_rank": 1244,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 36000.0,
+      "out_kzt": 38000.0
+    },
+    {
+      "id": "100000005834479100",
+      "x": -9.487,
+      "y": -30.122,
+      "role": "peripheral",
+      "cluster_id": 4,
+      "priority_score": 0.047,
+      "priority_rank": 1902,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 7500.0,
+      "out_kzt": 14470.0
+    },
+    {
+      "id": "100000005704413100",
+      "x": 27.836,
+      "y": -40.806,
+      "role": "distributor",
+      "cluster_id": 8,
+      "priority_score": 0.4132,
+      "priority_rank": 67,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 97834.67,
+      "out_kzt": 1363593.0
+    },
+    {
+      "id": "100000008547844100",
+      "x": 51.182,
+      "y": 26.298,
+      "role": "distributor",
+      "cluster_id": 10,
+      "priority_score": 0.3888,
+      "priority_rank": 82,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 177600.0,
+      "out_kzt": 2042199.0
+    },
+    {
+      "id": "100000004330371100",
+      "x": -25.899,
+      "y": 32.97,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.3339,
+      "priority_rank": 128,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 264171.0,
+      "out_kzt": 90681.0
+    },
+    {
+      "id": "100000005578559100",
+      "x": 29.526,
+      "y": -44.174,
+      "role": "distributor",
+      "cluster_id": 8,
+      "priority_score": 0.3229,
+      "priority_rank": 146,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 131000.0,
+      "out_kzt": 893163.67
+    },
+    {
+      "id": "100000006579678100",
+      "x": -19.507,
+      "y": 28.794,
+      "role": "peripheral",
+      "cluster_id": 5,
+      "priority_score": 0.3104,
+      "priority_rank": 164,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 192930.0,
+      "out_kzt": 1668800.0
+    },
+    {
+      "id": "100000002781227100",
+      "x": 67.434,
+      "y": -38.616,
+      "role": "peripheral",
+      "cluster_id": 62,
+      "priority_score": 0.3085,
+      "priority_rank": 168,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 191167.62,
+      "out_kzt": 212420.0
+    },
+    {
+      "id": "100000001609499100",
+      "x": 0.821,
+      "y": -2.693,
+      "role": "terminal",
+      "cluster_id": 1,
+      "priority_score": 0.2831,
+      "priority_rank": 202,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 263113.0,
+      "out_kzt": 21000.0
+    },
+    {
+      "id": "100000003873332100",
+      "x": 45.776,
+      "y": 45.783,
+      "role": "peripheral",
+      "cluster_id": 19,
+      "priority_score": 0.2828,
+      "priority_rank": 204,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 23468.0,
+      "out_kzt": 286000.0
+    },
+    {
+      "id": "100000002963189100",
+      "x": -39.144,
+      "y": 52.488,
+      "role": "peripheral",
+      "cluster_id": 15,
+      "priority_score": 0.2657,
+      "priority_rank": 235,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 490000.0,
+      "out_kzt": 5219000.0
+    },
+    {
+      "id": "100000008443341100",
+      "x": -47.664,
+      "y": 19.341,
+      "role": "peripheral",
+      "cluster_id": 11,
+      "priority_score": 0.2068,
+      "priority_rank": 406,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 34500.0,
+      "out_kzt": 50000.0
+    },
+    {
+      "id": "100000005268319100",
+      "x": -7.695,
+      "y": -16.069,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1983,
+      "priority_rank": 436,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 19712.8,
+      "out_kzt": 91000.0
+    },
+    {
+      "id": "100000001660397100",
+      "x": -0.555,
+      "y": -0.336,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1868,
+      "priority_rank": 495,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 48600.0,
+      "out_kzt": 49000.0
+    },
+    {
+      "id": "100000001049200100",
+      "x": 47.415,
+      "y": 49.543,
+      "role": "peripheral",
+      "cluster_id": 19,
+      "priority_score": 0.1826,
+      "priority_rank": 522,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 76624.0,
+      "out_kzt": 36000.0
+    },
+    {
+      "id": "100000002645993100",
+      "x": -1.202,
+      "y": -5.116,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.182,
+      "priority_rank": 525,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 49650.0,
+      "out_kzt": 86980.0
+    },
+    {
+      "id": "100000008430691100",
+      "x": -26.947,
+      "y": -79.197,
+      "role": "peripheral",
+      "cluster_id": 51,
+      "priority_score": 0.1458,
+      "priority_rank": 759,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 20000.0,
+      "out_kzt": 604900.0
+    },
+    {
+      "id": "100000005222360100",
+      "x": -40.929,
+      "y": 46.84,
+      "role": "peripheral",
+      "cluster_id": 15,
+      "priority_score": 0.1353,
+      "priority_rank": 827,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 5000.0,
+      "out_kzt": 27000.0
+    },
+    {
+      "id": "100000008587459100",
+      "x": 1.204,
+      "y": -1.916,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.1086,
+      "priority_rank": 1031,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 181507.0,
+      "out_kzt": 686500.0
+    },
+    {
+      "id": "100000008417359100",
+      "x": -60.867,
+      "y": 16.392,
+      "role": "peripheral",
+      "cluster_id": 17,
+      "priority_score": 0.1065,
+      "priority_rank": 1054,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 40810.0,
+      "out_kzt": 110760.0
+    },
+    {
+      "id": "100000008595687100",
+      "x": -21.26,
+      "y": 32.79,
+      "role": "terminal",
+      "cluster_id": 5,
+      "priority_score": 0.0956,
+      "priority_rank": 1182,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 64395.0,
+      "out_kzt": 10400.0
+    },
+    {
+      "id": "100000004527381100",
+      "x": 26.509,
+      "y": 54.671,
+      "role": "peripheral",
+      "cluster_id": 16,
+      "priority_score": 0.0889,
+      "priority_rank": 1288,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 119333.17,
+      "out_kzt": 273866.11
+    },
+    {
+      "id": "100000004746397100",
+      "x": 17.599,
+      "y": 34.911,
+      "role": "peripheral",
+      "cluster_id": 6,
+      "priority_score": 0.0782,
+      "priority_rank": 1478,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 219520.0,
+      "out_kzt": 7500.0
+    },
+    {
+      "id": "100000005052998100",
+      "x": 2.868,
+      "y": 1.815,
+      "role": "peripheral",
+      "cluster_id": 1,
+      "priority_score": 0.0539,
+      "priority_rank": 1819,
+      "top_rank": null,
+      "is_seed": false,
+      "truncated": false,
+      "in_kzt": 9500.0,
+      "out_kzt": 28400.0
+    }
+  ],
+  "edges": [
+    {
+      "source": "100000008748914100",
+      "target": "100000003684369100",
+      "sum_kzt": 1582700.0,
+      "n_tx": 9,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000004269433100",
+      "target": "100000008418835100",
+      "sum_kzt": 1372000.0,
+      "n_tx": 67,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000002963189100",
+      "target": "100000005933757100",
+      "sum_kzt": 1150000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000008686313100",
+      "sum_kzt": 1104983.0,
+      "n_tx": 6,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000000343175100",
+      "target": "100000003115284100",
+      "sum_kzt": 622000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000003115284100",
+      "sum_kzt": 600000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000008603629100",
+      "sum_kzt": 598000.0,
+      "n_tx": 6,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000000437046100",
+      "sum_kzt": 542000.0,
+      "n_tx": 9,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000005933757100",
+      "target": "100000002963189100",
+      "sum_kzt": 490000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000008512552100",
+      "target": "100000003242289100",
+      "sum_kzt": 468791.0,
+      "n_tx": 6,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000003684369100",
+      "sum_kzt": 454000.0,
+      "n_tx": 10,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000001857829100",
+      "sum_kzt": 408000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000003684369100",
+      "sum_kzt": 402000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000005287097100",
+      "target": "100000003016635100",
+      "sum_kzt": 392500.0,
+      "n_tx": 25,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000008686313100",
+      "sum_kzt": 373042.0,
+      "n_tx": 2,
+      "first_date": "2026-07-27",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000000331309100",
+      "sum_kzt": 320000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000003115284100",
+      "target": "100000003360542100",
+      "sum_kzt": 307000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000003115284100",
+      "sum_kzt": 300000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000001857829100",
+      "sum_kzt": 300000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000008731444100",
+      "sum_kzt": 295000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000004527381100",
+      "target": "100000004156082100",
+      "sum_kzt": 273866.11,
+      "n_tx": 1,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000001279272100",
+      "sum_kzt": 250000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004077081100",
+      "target": "100000008165763100",
+      "sum_kzt": 250000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000008512552100",
+      "sum_kzt": 246100.0,
+      "n_tx": 4,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008748914100",
+      "target": "100000000331309100",
+      "sum_kzt": 242000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000006866783100",
+      "sum_kzt": 241712.0,
+      "n_tx": 8,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000005339662100",
+      "target": "100000004820260100",
+      "sum_kzt": 234200.0,
+      "n_tx": 12,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000000331309100",
+      "sum_kzt": 233200.0,
+      "n_tx": 2,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000004358004100",
+      "target": "100000003684369100",
+      "sum_kzt": 233000.0,
+      "n_tx": 5,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000008603629100",
+      "sum_kzt": 232624.0,
+      "n_tx": 8,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000008686313100",
+      "sum_kzt": 225181.0,
+      "n_tx": 4,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000008748914100",
+      "target": "100000008477350100",
+      "sum_kzt": 222000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000004746397100",
+      "sum_kzt": 219520.0,
+      "n_tx": 1,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000008293431100",
+      "target": "100000000437046100",
+      "sum_kzt": 215000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000003115284100",
+      "target": "100000003390036100",
+      "sum_kzt": 210000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003873332100",
+      "target": "100000003854444100",
+      "sum_kzt": 210000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000008512552100",
+      "target": "100000003178549100",
+      "sum_kzt": 210000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000003528285100",
+      "target": "100000003684369100",
+      "sum_kzt": 203000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000003299365100",
+      "target": "100000003684369100",
+      "sum_kzt": 200000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000003684369100",
+      "target": "100000003299365100",
+      "sum_kzt": 200000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000008165763100",
+      "sum_kzt": 200000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000008086440100",
+      "sum_kzt": 199733.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000003684369100",
+      "target": "100000003115284100",
+      "sum_kzt": 193000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008730846100",
+      "target": "100000003115284100",
+      "sum_kzt": 185000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000004679953100",
+      "sum_kzt": 163767.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000008603629100",
+      "sum_kzt": 159000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000008748914100",
+      "target": "100000008762832100",
+      "sum_kzt": 150000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-31",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000004358004100",
+      "target": "100000008165763100",
+      "sum_kzt": 148000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000006866783100",
+      "sum_kzt": 144000.0,
+      "n_tx": 6,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000008748914100",
+      "target": "100000008165763100",
+      "sum_kzt": 141000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000004450649100",
+      "sum_kzt": 140970.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000005910114100",
+      "sum_kzt": 140967.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000000331309100",
+      "target": "100000004077081100",
+      "sum_kzt": 140000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000004679953100",
+      "sum_kzt": 139768.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000008169544100",
+      "sum_kzt": 137104.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000004820260100",
+      "target": "100000005339662100",
+      "sum_kzt": 135850.0,
+      "n_tx": 6,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000008587459100",
+      "sum_kzt": 132507.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000001279272100",
+      "target": "100000000331309100",
+      "sum_kzt": 130000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000008165763100",
+      "target": "100000003115284100",
+      "sum_kzt": 130000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000008477350100",
+      "sum_kzt": 126000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000006579678100",
+      "target": "100000008389800100",
+      "sum_kzt": 120000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-09"
+    },
+    {
+      "source": "100000002306369100",
+      "target": "100000008165763100",
+      "sum_kzt": 114000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000001609499100",
+      "sum_kzt": 113520.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000008346837100",
+      "sum_kzt": 112000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000005287097100",
+      "sum_kzt": 110723.0,
+      "n_tx": 4,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000004077081100",
+      "target": "100000003684369100",
+      "sum_kzt": 110000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000000667713100",
+      "sum_kzt": 106745.0,
+      "n_tx": 9,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000008748914100",
+      "target": "100000004400305100",
+      "sum_kzt": 105000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000008465789100",
+      "target": "100000008223661100",
+      "sum_kzt": 102000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000001857829100",
+      "target": "100000003115284100",
+      "sum_kzt": 100000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000001857829100",
+      "target": "100000003880331100",
+      "sum_kzt": 100000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000000437046100",
+      "sum_kzt": 100000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000003684369100",
+      "sum_kzt": 100000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000008466579100",
+      "target": "100000008223661100",
+      "sum_kzt": 100000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000008603629100",
+      "sum_kzt": 98250.0,
+      "n_tx": 4,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000004330371100",
+      "sum_kzt": 96671.0,
+      "n_tx": 4,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000003968044100",
+      "target": "100000008603629100",
+      "sum_kzt": 96000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008587459100",
+      "target": "100000006866783100",
+      "sum_kzt": 95500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000004723755100",
+      "target": "100000008748914100",
+      "sum_kzt": 95000.0,
+      "n_tx": 5,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000003880331100",
+      "target": "100000008731444100",
+      "sum_kzt": 94000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000001609499100",
+      "sum_kzt": 93937.0,
+      "n_tx": 1,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-08"
+    },
+    {
+      "source": "100000003242289100",
+      "target": "100000008304139100",
+      "sum_kzt": 93570.0,
+      "n_tx": 1,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000005910114100",
+      "sum_kzt": 93168.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008346837100",
+      "target": "100000005910114100",
+      "sum_kzt": 92009.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000004403675100",
+      "target": "100000003988112100",
+      "sum_kzt": 92000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000004070318100",
+      "sum_kzt": 90000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000002723538100",
+      "target": "100000008603629100",
+      "sum_kzt": 85000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000006866783100",
+      "sum_kzt": 85000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-11"
+    },
+    {
+      "source": "100000008762832100",
+      "target": "100000008748914100",
+      "sum_kzt": 85000.0,
+      "n_tx": 4,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000008686313100",
+      "sum_kzt": 82417.0,
+      "n_tx": 2,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000001138283100",
+      "sum_kzt": 81805.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000006579678100",
+      "target": "100000003016635100",
+      "sum_kzt": 81600.0,
+      "n_tx": 1,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-09"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000004188160100",
+      "sum_kzt": 79262.0,
+      "n_tx": 4,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000008512552100",
+      "sum_kzt": 78500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000008603629100",
+      "sum_kzt": 77000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000003684369100",
+      "sum_kzt": 76677.0,
+      "n_tx": 3,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000008686313100",
+      "sum_kzt": 75693.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000004820260100",
+      "target": "100000005175148100",
+      "sum_kzt": 74000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000002306369100",
+      "sum_kzt": 73166.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000002723538100",
+      "sum_kzt": 70647.0,
+      "n_tx": 1,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000003854444100",
+      "target": "100000001049200100",
+      "sum_kzt": 70610.0,
+      "n_tx": 1,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000007864477100",
+      "sum_kzt": 70000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000006866783100",
+      "sum_kzt": 67500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000000437046100",
+      "sum_kzt": 67500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000001857829100",
+      "target": "100000008121806100",
+      "sum_kzt": 67000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004351795100",
+      "sum_kzt": 66404.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000005704413100",
+      "target": "100000004569484100",
+      "sum_kzt": 65705.0,
+      "n_tx": 2,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000004358004100",
+      "target": "100000005612411100",
+      "sum_kzt": 65000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000005048668100",
+      "target": "100000008603629100",
+      "sum_kzt": 65000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004070318100",
+      "sum_kzt": 64725.0,
+      "n_tx": 2,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-09"
+    },
+    {
+      "source": "100000003988112100",
+      "target": "100000004403675100",
+      "sum_kzt": 64000.0,
+      "n_tx": 5,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000008086440100",
+      "target": "100000008603629100",
+      "sum_kzt": 63900.0,
+      "n_tx": 2,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000008730846100",
+      "sum_kzt": 60600.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000008346837100",
+      "sum_kzt": 60059.0,
+      "n_tx": 4,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000006866783100",
+      "sum_kzt": 60000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000008603629100",
+      "sum_kzt": 60000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000008477350100",
+      "sum_kzt": 60000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000008731444100",
+      "target": "100000003528285100",
+      "sum_kzt": 60000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000004403675100",
+      "target": "100000000331309100",
+      "sum_kzt": 59435.0,
+      "n_tx": 1,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-09"
+    },
+    {
+      "source": "100000003178549100",
+      "target": "100000001857829100",
+      "sum_kzt": 59000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000005287097100",
+      "target": "100000000343175100",
+      "sum_kzt": 58800.0,
+      "n_tx": 6,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000003213473100",
+      "sum_kzt": 57500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000008111003100",
+      "sum_kzt": 56016.0,
+      "n_tx": 2,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000004847758100",
+      "target": "100000003684369100",
+      "sum_kzt": 56000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000001609499100",
+      "sum_kzt": 55656.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000008686313100",
+      "target": "100000008603629100",
+      "sum_kzt": 55500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000008111003100",
+      "sum_kzt": 53700.0,
+      "n_tx": 3,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000001857829100",
+      "sum_kzt": 52000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000003854444100",
+      "target": "100000004450649100",
+      "sum_kzt": 51558.0,
+      "n_tx": 1,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000008137435100",
+      "target": "100000008686313100",
+      "sum_kzt": 51400.0,
+      "n_tx": 1,
+      "first_date": "2026-07-31",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000002306369100",
+      "target": "100000008111003100",
+      "sum_kzt": 51000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000004569484100",
+      "target": "100000005578559100",
+      "sum_kzt": 51000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000005287097100",
+      "target": "100000004156082100",
+      "sum_kzt": 50500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000001102676100",
+      "target": "100000003684369100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000008137435100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000004140487100",
+      "target": "100000003684369100",
+      "sum_kzt": 50000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000005612411100",
+      "target": "100000001102676100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000000437046100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000008731444100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000008603629100",
+      "sum_kzt": 50000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000003684369100",
+      "sum_kzt": 49500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000001857829100",
+      "sum_kzt": 49035.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000003242289100",
+      "target": "100000008512552100",
+      "sum_kzt": 49000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000003242289100",
+      "sum_kzt": 49000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000007511163100",
+      "target": "100000008389800100",
+      "sum_kzt": 49000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000008587459100",
+      "sum_kzt": 49000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000008389800100",
+      "target": "100000007511163100",
+      "sum_kzt": 49000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000005933757100",
+      "target": "100000004403675100",
+      "sum_kzt": 48100.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000008686313100",
+      "target": "100000006866783100",
+      "sum_kzt": 48100.0,
+      "n_tx": 2,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004403675100",
+      "sum_kzt": 47187.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000004847758100",
+      "sum_kzt": 47067.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000008304139100",
+      "sum_kzt": 46101.0,
+      "n_tx": 1,
+      "first_date": "2026-07-27",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000002957787100",
+      "sum_kzt": 45856.0,
+      "n_tx": 2,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-04"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004390333100",
+      "sum_kzt": 45751.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000005782781100",
+      "sum_kzt": 45688.0,
+      "n_tx": 2,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000008165763100",
+      "sum_kzt": 45200.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000008137435100",
+      "sum_kzt": 43906.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000008636603100",
+      "target": "100000003016635100",
+      "sum_kzt": 43200.0,
+      "n_tx": 2,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000006579678100",
+      "sum_kzt": 42930.0,
+      "n_tx": 1,
+      "first_date": "2026-07-09",
+      "last_date": "2026-07-09"
+    },
+    {
+      "source": "100000004140487100",
+      "target": "100000008165763100",
+      "sum_kzt": 42000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000004847758100",
+      "target": "100000008603629100",
+      "sum_kzt": 42000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000008086440100",
+      "target": "100000000437046100",
+      "sum_kzt": 41500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000004450649100",
+      "target": "100000003684369100",
+      "sum_kzt": 41300.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000004569484100",
+      "target": "100000005704413100",
+      "sum_kzt": 41000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-24",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000003242289100",
+      "target": "100000008417359100",
+      "sum_kzt": 40810.0,
+      "n_tx": 2,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004679953100",
+      "sum_kzt": 40003.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000001138283100",
+      "target": "100000008603629100",
+      "sum_kzt": 40000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000003213473100",
+      "target": "100000008165763100",
+      "sum_kzt": 40000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000008477350100",
+      "sum_kzt": 40000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000003968044100",
+      "sum_kzt": 40000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000003178549100",
+      "sum_kzt": 40000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000004400305100",
+      "sum_kzt": 40000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000004351795100",
+      "target": "100000003684369100",
+      "sum_kzt": 39800.0,
+      "n_tx": 1,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000004569484100",
+      "target": "100000005933757100",
+      "sum_kzt": 39000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000002723538100",
+      "target": "100000003684369100",
+      "sum_kzt": 38000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000007593823100",
+      "target": "100000008730846100",
+      "sum_kzt": 38000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000005782781100",
+      "sum_kzt": 38000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000005578559100",
+      "target": "100000005704413100",
+      "sum_kzt": 36834.67,
+      "n_tx": 2,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000004390333100",
+      "target": "100000005612411100",
+      "sum_kzt": 36500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-24",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000003684369100",
+      "sum_kzt": 35813.0,
+      "n_tx": 2,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000002645993100",
+      "sum_kzt": 35650.0,
+      "n_tx": 3,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000002306369100",
+      "target": "100000008477350100",
+      "sum_kzt": 35000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-24",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000008111003100",
+      "sum_kzt": 35000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000008111003100",
+      "target": "100000003796063100",
+      "sum_kzt": 35000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000003528285100",
+      "sum_kzt": 33400.0,
+      "n_tx": 2,
+      "first_date": "2026-07-24",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000008223661100",
+      "target": "100000008165763100",
+      "sum_kzt": 33385.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000002723538100",
+      "target": "100000003242289100",
+      "sum_kzt": 33000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000005933757100",
+      "target": "100000004569484100",
+      "sum_kzt": 32607.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000008165763100",
+      "sum_kzt": 32300.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000000437046100",
+      "sum_kzt": 32000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000008418835100",
+      "target": "100000000343175100",
+      "sum_kzt": 31500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000003360542100",
+      "target": "100000003115284100",
+      "sum_kzt": 30500.0,
+      "n_tx": 3,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000003582677100",
+      "target": "100000008165763100",
+      "sum_kzt": 30500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008547844100",
+      "target": "100000008465789100",
+      "sum_kzt": 30099.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000003213473100",
+      "target": "100000003684369100",
+      "sum_kzt": 30000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000004140487100",
+      "target": "100000004400305100",
+      "sum_kzt": 30000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000007864477100",
+      "target": "100000003684369100",
+      "sum_kzt": 30000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000008003034100",
+      "target": "100000005933757100",
+      "sum_kzt": 30000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000000437046100",
+      "sum_kzt": 30000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000008465789100",
+      "target": "100000008466579100",
+      "sum_kzt": 30000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000005782781100",
+      "sum_kzt": 29700.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-11"
+    },
+    {
+      "source": "100000008413748100",
+      "target": "100000004070318100",
+      "sum_kzt": 29521.55,
+      "n_tx": 2,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000008346837100",
+      "target": "100000004351795100",
+      "sum_kzt": 29511.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000001660397100",
+      "sum_kzt": 29300.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000008686313100",
+      "target": "100000000437046100",
+      "sum_kzt": 29200.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000008003034100",
+      "target": "100000008346837100",
+      "sum_kzt": 28500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000005052998100",
+      "target": "100000008477350100",
+      "sum_kzt": 28400.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000005339662100",
+      "target": "100000000343175100",
+      "sum_kzt": 28100.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000004847758100",
+      "target": "100000008165763100",
+      "sum_kzt": 28000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000007639767100",
+      "sum_kzt": 27868.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000005222360100",
+      "target": "100000005933757100",
+      "sum_kzt": 27000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000008418835100",
+      "target": "100000004156082100",
+      "sum_kzt": 27000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-31",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000005339662100",
+      "sum_kzt": 26925.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000008413748100",
+      "target": "100000008304139100",
+      "sum_kzt": 26091.75,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000001857829100",
+      "target": "100000008603629100",
+      "sum_kzt": 26000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-25",
+      "last_date": "2026-07-25"
+    },
+    {
+      "source": "100000008686313100",
+      "target": "100000008477350100",
+      "sum_kzt": 25800.0,
+      "n_tx": 1,
+      "first_date": "2026-07-24",
+      "last_date": "2026-07-24"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000004847758100",
+      "sum_kzt": 25612.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000004156082100",
+      "target": "100000005339662100",
+      "sum_kzt": 25164.0,
+      "n_tx": 1,
+      "first_date": "2026-07-29",
+      "last_date": "2026-07-29"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000008477350100",
+      "sum_kzt": 25000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000004569484100",
+      "target": "100000008346837100",
+      "sum_kzt": 25000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000003242289100",
+      "target": "100000004140487100",
+      "sum_kzt": 24510.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000008443341100",
+      "sum_kzt": 24500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000001660397100",
+      "target": "100000006866783100",
+      "sum_kzt": 24000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000003213473100",
+      "target": "100000005782781100",
+      "sum_kzt": 24000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000005268319100",
+      "target": "100000002957787100",
+      "sum_kzt": 24000.0,
+      "n_tx": 3,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-04"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000007639767100",
+      "sum_kzt": 23722.0,
+      "n_tx": 1,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000005782781100",
+      "target": "100000004847758100",
+      "sum_kzt": 23717.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000005498992100",
+      "target": "100000004403675100",
+      "sum_kzt": 23693.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000008304139100",
+      "sum_kzt": 23567.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000003873332100",
+      "sum_kzt": 23468.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000008165763100",
+      "sum_kzt": 23300.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000008603629100",
+      "sum_kzt": 23126.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000007639767100",
+      "sum_kzt": 23018.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000004070318100",
+      "sum_kzt": 23000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000008636603100",
+      "sum_kzt": 22710.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000004351795100",
+      "sum_kzt": 22418.0,
+      "n_tx": 1,
+      "first_date": "2026-07-28",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000006866783100",
+      "sum_kzt": 22000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000003582677100",
+      "sum_kzt": 21652.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000003360542100",
+      "target": "100000003390036100",
+      "sum_kzt": 21300.0,
+      "n_tx": 2,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000001049200100",
+      "target": "100000004156082100",
+      "sum_kzt": 21000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-28",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000002306369100",
+      "target": "100000008603629100",
+      "sum_kzt": 20900.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000008417359100",
+      "target": "100000008512552100",
+      "sum_kzt": 20760.0,
+      "n_tx": 2,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000001857829100",
+      "sum_kzt": 20500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000002306369100",
+      "target": "100000002723538100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000003968044100",
+      "target": "100000008165763100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000004140487100",
+      "target": "100000008603629100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000005704413100",
+      "target": "100000008379273100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000008389800100",
+      "target": "100000008430691100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000008430691100",
+      "target": "100000008389800100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-08"
+    },
+    {
+      "source": "100000008603629100",
+      "target": "100000003528285100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-27",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000008632060100",
+      "target": "100000006866783100",
+      "sum_kzt": 20000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000004400305100",
+      "sum_kzt": 19800.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000005268319100",
+      "sum_kzt": 19712.8,
+      "n_tx": 2,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-04"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000001660397100",
+      "sum_kzt": 19300.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004330371100",
+      "target": "100000003016635100",
+      "sum_kzt": 18981.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008086440100",
+      "target": "100000008477350100",
+      "sum_kzt": 18900.0,
+      "n_tx": 1,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-11"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000004390333100",
+      "sum_kzt": 18807.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000004847758100",
+      "sum_kzt": 18775.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000005782781100",
+      "sum_kzt": 18500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-08"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000003684369100",
+      "sum_kzt": 18300.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000005910114100",
+      "target": "100000008165763100",
+      "sum_kzt": 18130.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004140487100",
+      "target": "100000008730846100",
+      "sum_kzt": 18000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000004188160100",
+      "target": "100000003016635100",
+      "sum_kzt": 18000.0,
+      "n_tx": 2,
+      "first_date": "2026-07-22",
+      "last_date": "2026-07-22"
+    },
+    {
+      "source": "100000008169544100",
+      "target": "100000003016635100",
+      "sum_kzt": 17300.0,
+      "n_tx": 3,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000007593823100",
+      "target": "100000008111003100",
+      "sum_kzt": 17000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000008443341100",
+      "target": "100000008477350100",
+      "sum_kzt": 17000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000004156082100",
+      "target": "100000005287097100",
+      "sum_kzt": 16450.0,
+      "n_tx": 1,
+      "first_date": "2026-07-31",
+      "last_date": "2026-07-31"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000007639767100",
+      "sum_kzt": 16305.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000004679953100",
+      "target": "100000005782781100",
+      "sum_kzt": 16000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000005578559100",
+      "target": "100000008379273100",
+      "sum_kzt": 16000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000008223661100",
+      "target": "100000003684369100",
+      "sum_kzt": 15846.0,
+      "n_tx": 1,
+      "first_date": "2026-07-17",
+      "last_date": "2026-07-17"
+    },
+    {
+      "source": "100000008169544100",
+      "target": "100000000343175100",
+      "sum_kzt": 15500.0,
+      "n_tx": 2,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000008293431100",
+      "sum_kzt": 15000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-30",
+      "last_date": "2026-07-30"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000002723538100",
+      "sum_kzt": 15000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000005175148100",
+      "target": "100000005339662100",
+      "sum_kzt": 15000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000007511163100",
+      "sum_kzt": 14666.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000002645993100",
+      "sum_kzt": 14000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000004847758100",
+      "target": "100000005612411100",
+      "sum_kzt": 14000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-26",
+      "last_date": "2026-07-26"
+    },
+    {
+      "source": "100000002645993100",
+      "target": "100000008413748100",
+      "sum_kzt": 13480.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000001660397100",
+      "target": "100000008413748100",
+      "sum_kzt": 13000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-07",
+      "last_date": "2026-07-07"
+    },
+    {
+      "source": "100000008636603100",
+      "target": "100000000343175100",
+      "sum_kzt": 12875.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000004679953100",
+      "target": "100000008730846100",
+      "sum_kzt": 12800.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000000667713100",
+      "target": "100000008636603100",
+      "sum_kzt": 12750.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000008636603100",
+      "target": "100000000667713100",
+      "sum_kzt": 12750.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000008003034100",
+      "sum_kzt": 12201.0,
+      "n_tx": 1,
+      "first_date": "2026-07-08",
+      "last_date": "2026-07-08"
+    },
+    {
+      "source": "100000001660397100",
+      "target": "100000008477350100",
+      "sum_kzt": 12000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000003178549100",
+      "target": "100000003684369100",
+      "sum_kzt": 12000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000007511163100",
+      "target": "100000000343175100",
+      "sum_kzt": 11937.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000001609499100",
+      "target": "100000006866783100",
+      "sum_kzt": 11000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-11"
+    },
+    {
+      "source": "100000003582677100",
+      "target": "100000003684369100",
+      "sum_kzt": 10500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008595687100",
+      "target": "100000003016635100",
+      "sum_kzt": 10400.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000005048668100",
+      "sum_kzt": 10168.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000000089154100",
+      "target": "100000008730846100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000000667713100",
+      "target": "100000000343175100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000003213473100",
+      "target": "100000006866783100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000003390036100",
+      "target": "100000005873152100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000003582677100",
+      "target": "100000008111003100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-11",
+      "last_date": "2026-07-11"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000007593823100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000005873152100",
+      "target": "100000003360542100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-03",
+      "last_date": "2026-07-03"
+    },
+    {
+      "source": "100000006866783100",
+      "target": "100000000089154100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000003684369100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-28",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000004400305100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000007639767100",
+      "target": "100000006866783100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-05",
+      "last_date": "2026-07-05"
+    },
+    {
+      "source": "100000008346837100",
+      "target": "100000000343175100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-18",
+      "last_date": "2026-07-18"
+    },
+    {
+      "source": "100000008477350100",
+      "target": "100000007593823100",
+      "sum_kzt": 10000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-04",
+      "last_date": "2026-07-04"
+    },
+    {
+      "source": "100000004400305100",
+      "target": "100000005052998100",
+      "sum_kzt": 9500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-14",
+      "last_date": "2026-07-14"
+    },
+    {
+      "source": "100000003213473100",
+      "target": "100000004400305100",
+      "sum_kzt": 9000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-27",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000003796063100",
+      "target": "100000004400305100",
+      "sum_kzt": 9000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-12",
+      "last_date": "2026-07-12"
+    },
+    {
+      "source": "100000008223661100",
+      "target": "100000008730846100",
+      "sum_kzt": 8642.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000004156082100",
+      "target": "100000004188160100",
+      "sum_kzt": 8600.0,
+      "n_tx": 1,
+      "first_date": "2026-07-28",
+      "last_date": "2026-07-28"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000003582677100",
+      "sum_kzt": 8104.99,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000004070318100",
+      "target": "100000002957787100",
+      "sum_kzt": 7600.0,
+      "n_tx": 1,
+      "first_date": "2026-07-01",
+      "last_date": "2026-07-01"
+    },
+    {
+      "source": "100000004746397100",
+      "target": "100000002957787100",
+      "sum_kzt": 7500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-02",
+      "last_date": "2026-07-02"
+    },
+    {
+      "source": "100000008304139100",
+      "target": "100000005834479100",
+      "sum_kzt": 7500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000005048668100",
+      "target": "100000008346837100",
+      "sum_kzt": 7000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-16",
+      "last_date": "2026-07-16"
+    },
+    {
+      "source": "100000005048668100",
+      "target": "100000008730846100",
+      "sum_kzt": 7000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000002781227100",
+      "target": "100000008466579100",
+      "sum_kzt": 6952.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000008346837100",
+      "target": "100000005048668100",
+      "sum_kzt": 6500.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000003016635100",
+      "target": "100000001049200100",
+      "sum_kzt": 6014.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000002957787100",
+      "target": "100000008632060100",
+      "sum_kzt": 6000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-06",
+      "last_date": "2026-07-06"
+    },
+    {
+      "source": "100000003242289100",
+      "target": "100000007864477100",
+      "sum_kzt": 6000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-15",
+      "last_date": "2026-07-15"
+    },
+    {
+      "source": "100000004188160100",
+      "target": "100000008346837100",
+      "sum_kzt": 6000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000007593823100",
+      "target": "100000008346837100",
+      "sum_kzt": 5800.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    },
+    {
+      "source": "100000005834479100",
+      "target": "100000003528285100",
+      "sum_kzt": 5470.0,
+      "n_tx": 1,
+      "first_date": "2026-07-13",
+      "last_date": "2026-07-13"
+    },
+    {
+      "source": "100000000437046100",
+      "target": "100000008603629100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-10",
+      "last_date": "2026-07-10"
+    },
+    {
+      "source": "100000001049200100",
+      "target": "100000003016635100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000005339662100",
+      "target": "100000005175148100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-23",
+      "last_date": "2026-07-23"
+    },
+    {
+      "source": "100000008121806100",
+      "target": "100000008346837100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-19",
+      "last_date": "2026-07-19"
+    },
+    {
+      "source": "100000008169544100",
+      "target": "100000004156082100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-27",
+      "last_date": "2026-07-27"
+    },
+    {
+      "source": "100000008346837100",
+      "target": "100000007593823100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-21",
+      "last_date": "2026-07-21"
+    },
+    {
+      "source": "100000008379273100",
+      "target": "100000008346837100",
+      "sum_kzt": 5000.0,
+      "n_tx": 1,
+      "first_date": "2026-07-20",
+      "last_date": "2026-07-20"
+    }
+  ],
+  "total_nodes": 110,
+  "total_edges": 331,
+  "truncated": false,
+  "truncation_reason": null
+}
