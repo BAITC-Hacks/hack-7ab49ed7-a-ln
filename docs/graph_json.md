@@ -12,12 +12,12 @@
     "n_nodes": 2248, "n_edges": 3119, "n_tx": 4840, "n_seed": 81,
     "total_kzt": 365890012.0,
     "roles": {                       // словарь ролей: порядок = приоритет в легенде
-      "coordinator":  {"ru": "Координатор",   "color": "#d62728", "typology": "", "description": "..."},
-      "consolidator": {"ru": "Консолидатор",  "color": "#ff7f0e", "typology": "funnel account (воронка)", "description": "..."},
-      "distributor":  {"ru": "Распределитель","color": "#9467bd", "description": "..."},
-      "transit":      {"ru": "Транзит",       "color": "#1f77b4", "description": "..."},
-      "terminal":     {"ru": "Конечный получатель", "color": "#2ca02c", "description": "..."},
-      "peripheral":   {"ru": "Периферия",     "color": "#9e9e9e", "description": "..."}
+      "coordinator":  {"ru": "Координатор",   "color": "#e34948", "typology": "", "description": "..."},
+      "consolidator": {"ru": "Консолидатор",  "color": "#eda100", "typology": "funnel account (воронка)", "description": "..."},
+      "distributor":  {"ru": "Распределитель","color": "#4a3aa7", "description": "..."},
+      "transit":      {"ru": "Транзит",       "color": "#2a78d6", "description": "..."},
+      "terminal":     {"ru": "Конечный получатель", "color": "#008300", "description": "..."},
+      "peripheral":   {"ru": "Периферия",     "color": "#a0a9b1", "description": "..."}
     },
     "role_counts": {"coordinator": 12, "...": 0},
     "flags": {"fast_transit": "rapid movement of funds: ушло дальше за ≤2 дн", "...": "..."}   // код флага → подпись

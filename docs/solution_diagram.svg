@@ -14,7 +14,7 @@
   </defs>
   <rect width="1280" height="720" fill="#f8fafc"/>
   <text x="40" y="58" font-size="30" font-weight="800" fill="#0f172a">Граф денег — схема решения</text>
-  <text x="40" y="88" class="s">данные → метрики → роли → интерфейс · полный пересчёт ≈5 с на ноутбуке · uv run moneygraph</text>
+  <text x="40" y="88" class="s">данные → метрики → роли → интерфейс · полный пересчёт ≈10 с на ноутбуке · uv run moneygraph</text>
 
   <!-- 1 data -->
   <rect x="40" y="130" width="220" height="250" rx="14" class="box"/>

@@ -50,90 +50,49 @@ def detect(G: nx.DiGraph, cfg: Config = CFG) -> tuple[dict[int, int], dict[int, 
     return cid, stability, float(modularity)
 
 
-def _separate(xy: np.ndarray, r: np.ndarray, gap: float = 30.0, iters: int = 400) -> np.ndarray:
-    """Раздвигает круги кластеров, пока они не перестанут перекрываться (векторизовано)."""
-    xy = xy.copy()
-    n = len(xy)
-    if n < 2:
-        return xy
-    need = r[:, None] + r[None, :] + gap
-    for _ in range(iters):
-        d = xy[:, None, :] - xy[None, :, :]
-        dist = np.sqrt((d ** 2).sum(-1)) + np.eye(n)
-        over = np.clip(need - dist, 0, None) * (1 - np.eye(n))
-        if over.max() < 1e-3:
-            break
-        push = (d / dist[..., None]) * (over[..., None] / 2)
-        xy += push.sum(axis=1)
-    return xy
-
-
 def layout(G: nx.DiGraph, cid: dict[int, int], seed: int = 42) -> dict[int, tuple[float, float]]:
-    """Раскладка «кластер в кластере». Центры кластеров одной связной части — spring layout графа
-    кластеров с последующим раздвиганием кругов (радиус ~ sqrt(размера)); узлы внутри кластера —
-    spring layout подграфа. Связные части сети укладываются рядами: крупнейшая сверху,
-    изолированные фрагменты и seed без переводов — ниже."""
+    """Раскладка для экрана: силовой алгоритм Фрухтермана–Рейнгольда (igraph) отдельно для каждой связной
+    части сети; связи внутри одного кластера притягивают сильнее (вес 4), поэтому кластеры собираются
+    в плотные группы. Крупнейшая часть — слева, остальные и сетка seed без переводов — колонками справа.
+    Детерминирована: начальные позиции из генератора с фиксированным seed."""
+    import random
+
+    import igraph as ig
+
+    random.seed(seed)  # igraph берёт случайные числа из модуля random
     UG = undirected(G)
-    members: dict[int, list[int]] = {}
-    for n, c in cid.items():
-        members.setdefault(c, []).append(n)
-    radius = {c: 22 * math.sqrt(len(m)) + 12 for c, m in members.items()}
-    CG = nx.Graph()
-    CG.add_nodes_from(c for c in members if c != 0)
-    for u, v in UG.edges():
-        a, b = cid[u], cid[v]
-        if a != b:
-            CG.add_edge(a, b, weight=(CG[a][b]["weight"] + 1) if CG.has_edge(a, b) else 1)
-
-    # 1) центры кластеров внутри каждой связной части
-    parts = sorted(nx.connected_components(CG), key=lambda cc: -sum(len(members[c]) for c in cc))
-    blocks = []  # (clusters, local centers array, bbox)
-    for cc in parts:
-        cl = sorted(cc)
-        r = np.array([radius[c] for c in cl])
-        if len(cl) == 1:
-            xy = np.zeros((1, 2))
-        else:
-            p = nx.spring_layout(CG.subgraph(cl), seed=seed, weight="weight", iterations=300)
-            scale = r.sum() / 2
-            xy = _separate(np.array([p[c] for c in cl]) * scale, r)
-        lo = (xy - r[:, None]).min(0)
-        hi = (xy + r[:, None]).max(0)
-        blocks.append((cl, xy - lo, hi - lo))
-
-    # 2) раскладываем части рядами (крупнейшая — первой строкой)
-    centers: dict[int, np.ndarray] = {}
-    row_w = max(blocks[0][2][0], 2400) if blocks else 2400
-    x = y = row_h = 0.0
-    for cl, xy, (w, h) in blocks:
-        if x > 0 and x + w > row_w:
-            x, y, row_h = 0.0, y + row_h + 80, 0.0
-        for c, pt in zip(cl, xy):
-            centers[c] = pt + np.array([x, y])
-        x += w + 80
-        row_h = max(row_h, h)
-
-    # 3) узлы внутри кластеров
+    comps = sorted((c for c in nx.connected_components(UG) if len(c) > 1), key=lambda c: (-len(c), min(c)))
+    blocks = []
+    for k, comp in enumerate(comps):
+        comp = sorted(comp)
+        li = {v: i for i, v in enumerate(comp)}
+        el = [(li[u], li[v]) for u, v in UG.subgraph(comp).edges()]
+        w = [4.0 if cid[comp[a]] == cid[comp[b]] else 1.0 for a, b in el]
+        rng = np.random.default_rng(seed + k)
+        g = ig.Graph(n=len(comp), edges=el)
+        p = np.array(g.layout_fruchterman_reingold(seed=rng.uniform(-1, 1, (len(comp), 2)).tolist(), weights=w,
+                                                   niter=1500, grid="grid" if len(comp) > 200 else "nogrid").coords)
+        p -= p.mean(0)
+        p = p / (np.abs(p).max() or 1.0) * (30 * math.sqrt(len(comp)))
+        blocks.append((comp, p - p.min(0), p.max(0) - p.min(0)))
+    iso = sorted(n for n in UG if UG.degree(n) == 0)
+    if iso:  # seed без переводов — отдельный блок-сетка
+        grid = np.array([((i % 5) * 45.0, (i // 5) * 45.0) for i in range(len(iso))])
+        blocks.append((iso, grid, grid.max(0)))
+    # крупнейшая часть слева, остальные — колонками справа от неё (левый нижний угол занят легендой)
     pos: dict[int, tuple[float, float]] = {}
-    for c, m in members.items():
-        if c == 0:
-            continue
-        cx, cy = centers[c]
-        rr = radius[c] - 8
-        if len(m) == 1:
-            pos[m[0]] = (float(cx), float(cy))
-            continue
-        p = nx.spring_layout(UG.subgraph(m), seed=seed, iterations=80)
-        arr = np.array(list(p.values()))
-        arr = arr / max(np.abs(arr).max(), 1e-9)
-        for n, (px, py) in zip(p.keys(), arr):
-            pos[n] = (float(cx + px * rr), float(cy + py * rr))
-
-    # 4) seed без переводов — сеткой внизу
-    ymax = max((yy for _, yy in pos.values()), default=0.0)
-    for i, n in enumerate(sorted(members.get(0, []))):
-        pos[n] = (float((i % 10) * 70), float(ymax + 160 + (i // 10) * 70))
-    return {n: (round(x_, 1), round(y_, 1)) for n, (x_, y_) in pos.items()}
+    (comp0, p0, (w0, h0)), rest = blocks[0], blocks[1:]
+    for v, (px, py) in zip(comp0, p0):
+        pos[v] = (float(px), float(py))
+    x, y, col_w = w0 + 140.0, 0.0, 0.0
+    for comp, p, (w_, h_) in rest:
+        if y > 0 and y + h_ > max(h0, 600.0):
+            x, y, col_w = x + col_w + 80.0, 0.0, 0.0
+        for v, (px, py) in zip(comp, p):
+            pos[v] = (float(x + px), float(y + py))
+        y += h_ + 70.0
+        col_w = max(col_w, w_)
+    return {n: (round(px, 1), round(py, 1)) for n, (px, py) in pos.items()}
 
 
 def _suffix(g: int) -> str:
