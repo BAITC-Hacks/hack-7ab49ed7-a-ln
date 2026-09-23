@@ -127,7 +127,12 @@ h1, h2, h3, p { margin: 0; }
 .filters output { min-width: 64px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); }
 .filters .vis { margin-left: auto; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .linkbtn { border: 0; background: none; padding: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; font-size: 12px; }
-.focusbar { left: 14px; top: 64px; display: flex; align-items: center; gap: 12px; padding: 7px 8px 7px 12px; max-width: calc(100% - 28px); }
+.focusbar { left: 14px; top: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 7px 8px 7px 12px; max-width: calc(100% - 28px); }
+.fkeys { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink-2); }
+.fkeys span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.fkeys i { width: 16px; height: 3px; border-radius: 2px; background: var(--c); }
+.fhidden { font-size: 12px; color: var(--warn-ink); background: var(--warn-bg); border-radius: 4px; padding: 1px 7px; white-space: nowrap; }
+.kv dt .mk { display: inline-block; width: 14px; height: 3px; border-radius: 2px; background: var(--c); margin-right: 6px; vertical-align: middle; }
 .focusbar .ftitle { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .seg { display: inline-flex; border: 1px solid var(--rule-2); border-radius: 6px; overflow: hidden; flex: none; }
 .seg button { border: 0; background: var(--paper); padding: 3px 10px; font-size: 12px; }
@@ -314,6 +319,9 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
     </div>
     <div class="panel focusbar" id="focusbar" hidden>
       <span class="ftitle" id="focusTitle"></span>
+      <span class="fkeys" id="focusKeys"></span>
+      <span class="fhidden" id="focusHidden" hidden></span>
+      <button class="linkbtn" id="showAll" hidden>Показать всех</button>
       <div class="seg" id="hopSeg" role="group" aria-label="Глубина окрестности"><button data-hops="1" aria-pressed="true">1 шаг</button><button data-hops="2" aria-pressed="false">2 шага</button></div>
       <button class="xbtn" id="clearFocus" aria-label="Снять выделение" title="Снять выделение (Esc)">×</button>
     </div>
@@ -506,6 +514,7 @@ function applyFilters() {
   S.visible = new Set(G.nodes.filter(n => !S.hiddenRoles.has(n.role) && !(S.hidePer && n.role === "peripheral") && (!topSet || topSet.has(n.id))).map(n => n.id));
   const ve = G.edges.filter(e => S.visible.has(e.from) && S.visible.has(e.to) && e.sum >= S.minSum).length;
   $("visCount").textContent = "На схеме " + cnt(S.visible.size, "клиент", "клиента", "клиентов") + ", " + cnt(ve, "связь", "связи", "связей");
+  if (S.focus) updateFocusBar();
   if (renderer) renderer.refresh();
 }
 
@@ -520,11 +529,21 @@ function setFocus(f) {
   if (f) {
     const fl = document.querySelector(".filters");
     $("focusbar").style.top = (fl.offsetTop + fl.offsetHeight + 8) + "px";
-    $("focusTitle").textContent = f.title;
+    updateFocusBar();
     $("hopSeg").hidden = f.kind !== "node";
     [...$("hopSeg").children].forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.hops) === S.hops)));
   }
   if (renderer) renderer.refresh();
+}
+function updateFocusBar() {
+  const f = S.focus;
+  if (!f) return;
+  const total = f.nodes.size, vis = [...f.nodes].filter(id => S.visible.has(id)).length;
+  $("focusTitle").textContent = f.title;
+  const hidden = vis < total;
+  $("focusHidden").textContent = hidden ? "видно " + fmtInt(vis) + " из " + fmtInt(total) + " — остальных скрывают фильтры" : "";
+  $("focusHidden").hidden = !hidden; $("showAll").hidden = !hidden;
+  $("focusKeys").innerHTML = (f.keys || []).map(k => '<span><i style="--c:' + k.color + '"></i>' + esc(k.label) + "</span>").join("");
 }
 function nodeFocus(id) {
   const nodes = new Set([id]), edges = new Set(), colors = new Map();
@@ -540,25 +559,35 @@ function nodeFocus(id) {
     for (const cur of frontier) for (const e of outE.get(cur)) { edges.add(e.key); if (!colors.has(e.key)) colors.set(e.key, OUT_COLOR); if (!nodes.has(e.to)) { nodes.add(e.to); next.push(e.to); } }
     frontier = next;
   }
-  const payers = inE.get(id).length, recips = outE.get(id).length;
-  return { kind: "node", nodes, edges, colors, title: short(id) + ": " + cnt(payers, "плательщик", "плательщика", "плательщиков") + ", " + cnt(recips, "получатель", "получателя", "получателей") };
+  const payers = inE.get(id).length, recips = outE.get(id).length, n = byId.get(id);
+  const keys = [{ color: IN_COLOR, label: "входящие " + fmtKzt(n.in_kzt) }, { color: OUT_COLOR, label: "исходящие " + fmtKzt(n.out_kzt) }];
+  return { kind: "node", nodes, edges, colors, keys, title: short(id) + ": " + cnt(payers, "плательщик", "плательщика", "плательщиков") + ", " + cnt(recips, "получатель", "получателя", "получателей") };
 }
 function traceFocus(id, dir) {
   const { hops, edges } = walk(id, dir, 4);
   const colors = new Map([...edges].map(k => [k, dir === "up" ? IN_COLOR : OUT_COLOR]));
   const seeds = [...hops.keys()].filter(x => x !== id && byId.get(x).is_seed).length;
   const title = (dir === "up" ? "Откуда пришли деньги " : "Куда ушли деньги ") + short(id) + ": " + cnt(hops.size - 1, "клиент", "клиента", "клиентов") + " за 4 шага" + (seeds ? ", из них seed: " + seeds : "");
-  return { kind: "trace", nodes: new Set(hops.keys()), edges, colors, title, hops };
+  const keys = [{ color: dir === "up" ? IN_COLOR : OUT_COLOR, label: dir === "up" ? "переводы по цепочке к клиенту" : "переводы по цепочке от клиента" }];
+  return { kind: "trace", nodes: new Set(hops.keys()), edges, colors, keys, title, hops };
 }
 function clusterFocus(cid) {
+  // участники кластера — в цвете; внешние контрагенты (aux) — бледно; связи: входят / выходят / внутри
   const members = clusterNodes.get(cid) || [];
-  const nodes = new Set(members.map(n => n.id)), edges = new Set(), colors = new Map();
-  G.edges.forEach(e => { if (nodes.has(e.from) && nodes.has(e.to)) { edges.add(e.key); colors.set(e.key, PATH_COLOR); } });
-  return { kind: "cluster", cid, nodes, edges, colors, title: "Кластер " + cid + ": " + cnt(nodes.size, "клиент", "клиента", "клиентов") };
+  const nodes = new Set(members.map(n => n.id)), aux = new Set(), edges = new Set(), colors = new Map();
+  const flows = { inSum: 0, inCnt: 0, outSum: 0, outCnt: 0, intSum: 0, intCnt: 0 };
+  G.edges.forEach(e => {
+    const a = nodes.has(e.from), b = nodes.has(e.to);
+    if (a && b) { edges.add(e.key); colors.set(e.key, PATH_COLOR); flows.intSum += e.sum; flows.intCnt++; }
+    else if (b) { edges.add(e.key); colors.set(e.key, IN_COLOR); aux.add(e.from); flows.inSum += e.sum; flows.inCnt++; }
+    else if (a) { edges.add(e.key); colors.set(e.key, OUT_COLOR); aux.add(e.to); flows.outSum += e.sum; flows.outCnt++; }
+  });
+  const keys = [{ color: IN_COLOR, label: "входят в кластер " + fmtKzt(flows.inSum) }, { color: OUT_COLOR, label: "выходят " + fmtKzt(flows.outSum) }, { color: PATH_COLOR, label: "внутри " + fmtKzt(flows.intSum) }];
+  return { kind: "cluster", cid, nodes, aux, edges, colors, flows, keys, title: "Кластер " + cid + ": " + cnt(nodes.size, "клиент", "клиента", "клиентов") };
 }
 function setFocusFromSets(nodes, edges, title, kind = "answer") {
   const colors = new Map([...edges].map(k => [k, PATH_COLOR]));
-  setFocus({ kind, nodes: new Set(nodes), edges: new Set(edges), colors, title });
+  setFocus({ kind, nodes: new Set(nodes), edges: new Set(edges), colors, title, keys: [{ color: PATH_COLOR, label: "найденные связи" }] });
   fitNodes(nodes);
 }
 
@@ -586,11 +615,12 @@ function initGraph() {
       nodeReducer: (id, a) => {
         const n = byId.get(id), r = { ...a };
         r.hidden = !S.visible.has(id);
-        const f = S.focus, inF = f && f.nodes.has(id);
+        const f = S.focus, inF = f && f.nodes.has(id), inAux = f && f.aux && f.aux.has(id);
         let showLabel = n.rank <= 10;
         if (f) {
-          if (!inF) { r.color = NODE_DIM; r.borderColor = "#cfd7de"; r.size = Math.max(1.2, a.size * 0.45); r.zIndex = 0; showLabel = false; }
-          else { r.zIndex = 200 + a.zIndex; showLabel = f.nodes.size <= 60 || n.rank <= 30; }
+          if (inF) { r.zIndex = 200 + a.zIndex; showLabel = f.nodes.size <= 60 || n.rank <= 30; }
+          else if (inAux) { r.color = mix(a.color, 0.55); r.borderColor = "#8c98a3"; r.size = Math.max(1.6, a.size * 0.75); r.zIndex = 100; showLabel = false; }
+          else { r.color = NODE_DIM; r.borderColor = "#cfd7de"; r.size = Math.max(1.2, a.size * 0.45); r.zIndex = 0; showLabel = false; }
         }
         if (id === S.sel) { r.size = a.size + 3; r.highlighted = true; r.zIndex = 1000; showLabel = true; }
         if (id === S.hover) { r.highlighted = true; showLabel = true; r.zIndex = 1001; }
@@ -729,8 +759,9 @@ function renderLegend() {
     '<span class="dot" style="--c:' + roleColor(r) + '"></span><span class="lname">' + esc(roleRu(r)) + '</span><span class="lcount">' + fmtInt(roleCounts[r] || 0) + "</span></button>").join("") +
     '<div class="keys"><div class="k"><span class="dot ring" style="--c:#a0a9b1"></span>исходный клиент (seed)</div>' +
     '<div class="k"><span class="faded"></span>бледная точка: 4-е колено</div>' +
-    '<div class="k"><span class="line" style="--c:' + IN_COLOR + '"></span>входящие к выбранному</div>' +
-    '<div class="k"><span class="line" style="--c:' + OUT_COLOR + '"></span>исходящие от выбранного</div>' +
+    '<div class="k"><span class="line" style="--c:' + IN_COLOR + '"></span>деньги входят в выделенное</div>' +
+    '<div class="k"><span class="line" style="--c:' + OUT_COLOR + '"></span>деньги выходят из выделенного</div>' +
+    '<div class="k"><span class="line" style="--c:' + PATH_COLOR + '"></span>внутри кластера, найденный путь</div>' +
     '<div class="k hint">Размер точки — приоритет, толщина связи — сумма</div></div></div>';
 }
 
@@ -809,10 +840,16 @@ function renderCard(id) {
 }
 function renderClusterCard(cid) {
   const c = clusterById.get(cid), members = (clusterNodes.get(cid) || []).slice().sort((a, b) => a.rank - b.rank);
+  const fl = clusterFocus(cid).flows;
   const rows = members.slice(0, 15).map(n => "<tr><td>" + gidLink(n.id) + "<small>" + esc(roleRu(n.role)) + (n.is_seed ? ", seed" : "") + "</small></td><td>" + fmtDec(n.priority) + "<small>№" + n.rank + "</small></td></tr>").join("");
   $("card").innerHTML = '<div class="card"><h2 style="font-size:20px;font-weight:700">Кластер ' + cid + "</h2>" +
     '<p class="c-typo">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + ", оборот внутри — " + fmtKzt(c.sum_internal) + ", устойчивость " + fmtDec(c.stability) + "</p>" +
     '<div class="evidence" style="--c:#19293a">' + linkify(c.hypothesis) + "</div>" +
+    '<div class="sec"><h3>Движение денег</h3><dl class="kv">' +
+    '<dt><span class="mk" style="--c:' + IN_COLOR + '"></span>Входит в кластер</dt><dd>' + fmtKzt(fl.inSum) + ", " + cnt(fl.inCnt, "связь", "связи", "связей") + "</dd>" +
+    '<dt><span class="mk" style="--c:' + OUT_COLOR + '"></span>Выходит из кластера</dt><dd>' + fmtKzt(fl.outSum) + ", " + cnt(fl.outCnt, "связь", "связи", "связей") + "</dd>" +
+    '<dt><span class="mk" style="--c:' + PATH_COLOR + '"></span>Внутри кластера</dt><dd>' + fmtKzt(fl.intSum) + ", " + cnt(fl.intCnt, "связь", "связи", "связей") + "</dd></dl>" +
+    '<p class="muted" style="font-size:12px;margin-top:6px">На схеме участники кластера в цвете, их внешние контрагенты — бледнее.</p></div>' +
     '<div class="sec"><h3>Главные узлы <span class="muted">по приоритету</span></h3><table class="cp"><thead><tr><th>Клиент</th><th>Приоритет</th></tr></thead><tbody>' + rows + "</tbody></table></div></div>";
 }
 
@@ -999,6 +1036,7 @@ $("fReset").addEventListener("click", () => {
   renderLegend(); applyFilters();
 });
 $("clearFocus").addEventListener("click", clearFocus);
+$("showAll").addEventListener("click", () => $("fReset").click());
 $("zIn").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedZoom(ANIM); });
 $("zOut").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedUnzoom(ANIM); });
 $("zFit").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedReset(ANIM); });
