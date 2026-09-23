@@ -1,0 +1,58 @@
+{
+  "runtime_sec": 4.3,
+  "role_counts": {
+    "coordinator": 23,
+    "consolidator": 83,
+    "distributor": 41,
+    "transit": 418,
+    "terminal": 978,
+    "peripheral": 705
+  },
+  "n_clusters": 72,
+  "clusters_with_multiple_seeds": 9,
+  "modularity": 0.86,
+  "new_leads_in_top20": 18,
+  "priority_sensitivity_top20": {
+    "k": 20,
+    "min_overlap": 0.9,
+    "mean_overlap": 0.955
+  },
+  "p_forward": {
+    "base_rate": 0.374,
+    "rate_by_depth": {
+      "1": 0.354,
+      "2": 0.418,
+      "3": 0.36
+    },
+    "backtest_auc_depth3": 0.583,
+    "backtest_calibration": [
+      {
+        "bin": "(0.0, 0.35]",
+        "predicted": 0.211,
+        "actual": 0.31,
+        "n": 583
+      },
+      {
+        "bin": "(0.35, 0.5]",
+        "predicted": 0.37,
+        "actual": 0.512,
+        "n": 80
+      },
+      {
+        "bin": "(0.5, 0.65]",
+        "predicted": 0.547,
+        "actual": 0.42,
+        "n": 81
+      },
+      {
+        "bin": "(0.65, 1.0]",
+        "predicted": 0.72,
+        "actual": 0.622,
+        "n": 45
+      }
+    ]
+  },
+  "n_cycles": 468,
+  "n_routes": 478,
+  "transit_ratio_0_8_1_2": 72
+}
