@@ -83,7 +83,8 @@ flowchart LR
     G --> H["Интерфейс<br/>экран · AI-ассистент · карточка"]
 ```
 
-Слайд со схемой: [`docs/solution_diagram.svg`](docs/solution_diagram.svg).
+Слайд со схемой: [`docs/solution_diagram.svg`](docs/solution_diagram.svg). Презентация результатов —
+[`docs/presentation/graph_money.pdf`](docs/presentation/graph_money.pdf) (и `.pptx` рядом).
 
 Коротко:
 
@@ -351,5 +352,6 @@ tests/               автоматическая проверка выгруз�
 README.md            этот файл — всё, что нужно для понимания проекта
 INSTALL.md           установка и запуск: скрипт, ручные шаги для любой ОС, частые проблемы
 install.sh           установка одной командой (Linux, macOS)
+docs/presentation/   презентация результатов: graph_money.pptx и graph_money.pdf
 TECH_DETAILS.md      формулы, алгоритмы, схемы данных, проверки качества
 ```
