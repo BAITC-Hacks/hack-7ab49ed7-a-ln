@@ -1,5 +1,6 @@
 // Презентация результатов «Граф денег» → docs/presentation/graph_money.pptx
 // Запуск: NODE_PATH=<папка с node_modules/pptxgenjs> node docs/presentation/build_deck.js
+// PDF для жюри лежит в корне: libreoffice --headless --convert-to pdf graph_money.pptx → PRESENTATION_GRAPH_MONEY.pdf
 // Скриншоты в img/ сняты с экрана приложения (uv run moneygraph serve) через Playwright.
 const path = require("path");
 const pptxgen = require("pptxgenjs");

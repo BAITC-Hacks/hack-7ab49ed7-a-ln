@@ -4,6 +4,8 @@
 переводов и отвечает на главный вопрос кейса:
 **«кого из 2 248 клиентов проверять первым и почему»**.
 
+**Презентация результатов: [PRESENTATION_GRAPH_MONEY.pdf](PRESENTATION_GRAPH_MONEY.pdf).**
+
 Полный пересчёт на ноутбуке занимает около 10 секунд одной командой. Технические подробности
 (формулы, алгоритмы, схемы данных, проверка качества) вынесены в [TECH_DETAILS.md](TECH_DETAILS.md).
 Этот файл описывает проект целиком без погружения в них.
@@ -84,7 +86,7 @@ flowchart LR
 ```
 
 Слайд со схемой: [`docs/solution_diagram.svg`](docs/solution_diagram.svg). Презентация результатов —
-[`docs/presentation/graph_money.pdf`](docs/presentation/graph_money.pdf) (и `.pptx` рядом).
+[`PRESENTATION_GRAPH_MONEY.pdf`](PRESENTATION_GRAPH_MONEY.pdf) в корне репозитория.
 
 Коротко:
 
@@ -352,6 +354,7 @@ tests/               автоматическая проверка выгруз�
 README.md            этот файл — всё, что нужно для понимания проекта
 INSTALL.md           установка и запуск: скрипт, ручные шаги для любой ОС, частые проблемы
 install.sh           установка одной командой (Linux, macOS)
-docs/presentation/   презентация результатов: graph_money.pptx и graph_money.pdf
+PRESENTATION_GRAPH_MONEY.pdf  презентация результатов (16 слайдов)
+docs/presentation/   исходник презентации (.pptx), скриншоты и скрипт сборки
 TECH_DETAILS.md      формулы, алгоритмы, схемы данных, проверки качества
 ```
