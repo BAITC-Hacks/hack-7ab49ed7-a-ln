@@ -105,6 +105,8 @@ class OpenAIProvider:
         self._candidates: list[str] = []
         self.model_note: str | None = None  # пояснение, как выбрана модель (или почему fallback)
         self._reasoning_ok = True
+        # Chat Completions + tools: часть моделей gpt-5.x принимает только reasoning_effort="none"
+        self._efforts: list[str] = ["low", "none"]
 
     @property
     def model_if_known(self) -> str | None:
@@ -141,14 +143,16 @@ class OpenAIProvider:
             kwargs: dict = {"model": self.model, "messages": messages}
             if tools:
                 kwargs["tools"] = [{"type": "function", "function": t} for t in tools]
-            if self._supports_reasoning():
-                kwargs["reasoning_effort"] = "low"
+            if self._supports_reasoning() and self._efforts:
+                kwargs["reasoning_effort"] = self._efforts[0]
             try:
                 resp = self.client.chat.completions.create(**kwargs)
                 break
             except (BadRequestError, NotFoundError, PermissionDeniedError) as exc:
                 if "reasoning" in str(exc).lower() and "reasoning_effort" in kwargs:
-                    self._reasoning_ok = False
+                    self._efforts.pop(0)  # low → none → без параметра
+                    if not self._efforts:
+                        self._reasoning_ok = False
                     continue
                 if _is_model_error(exc) and self._candidates:
                     failed = self._model

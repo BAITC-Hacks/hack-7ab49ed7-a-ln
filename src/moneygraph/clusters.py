@@ -50,42 +50,95 @@ def detect(G: nx.DiGraph, cfg: Config = CFG) -> tuple[dict[int, int], dict[int, 
     return cid, stability, float(modularity)
 
 
+def _separate(xy: np.ndarray, r: np.ndarray, gap: float = 30.0, iters: int = 400) -> np.ndarray:
+    """Раздвигает круги кластеров, пока они не перестанут перекрываться (векторизовано)."""
+    xy = xy.copy()
+    n = len(xy)
+    if n < 2:
+        return xy
+    need = r[:, None] + r[None, :] + gap
+    for _ in range(iters):
+        d = xy[:, None, :] - xy[None, :, :]
+        dist = np.sqrt((d ** 2).sum(-1)) + np.eye(n)
+        over = np.clip(need - dist, 0, None) * (1 - np.eye(n))
+        if over.max() < 1e-3:
+            break
+        push = (d / dist[..., None]) * (over[..., None] / 2)
+        xy += push.sum(axis=1)
+    return xy
+
+
 def layout(G: nx.DiGraph, cid: dict[int, int], seed: int = 42) -> dict[int, tuple[float, float]]:
-    """Раскладка «кластер в кластере»: центры кластеров — spring layout графа кластеров,
-    узлы внутри — spring layout подграфа, радиус ~ sqrt(размера)."""
+    """Раскладка «кластер в кластере». Центры кластеров одной связной части — spring layout графа
+    кластеров с последующим раздвиганием кругов (радиус ~ sqrt(размера)); узлы внутри кластера —
+    spring layout подграфа. Связные части сети укладываются рядами: крупнейшая сверху,
+    изолированные фрагменты и seed без переводов — ниже."""
     UG = undirected(G)
     members: dict[int, list[int]] = {}
     for n, c in cid.items():
         members.setdefault(c, []).append(n)
+    radius = {c: 22 * math.sqrt(len(m)) + 12 for c, m in members.items()}
     CG = nx.Graph()
     CG.add_nodes_from(c for c in members if c != 0)
-    for u, v, d in UG.edges(data=True):
+    for u, v in UG.edges():
         a, b = cid[u], cid[v]
         if a != b:
-            w = CG[a][b]["weight"] + 1 if CG.has_edge(a, b) else 1
-            CG.add_edge(a, b, weight=w)
-    radius = {c: 40 * math.sqrt(len(m)) for c, m in members.items()}
-    centers = nx.spring_layout(CG, seed=seed, weight="weight", k=1.2 / math.sqrt(max(len(CG), 1)), iterations=200)
-    span = 60 * math.sqrt(len(G))
+            CG.add_edge(a, b, weight=(CG[a][b]["weight"] + 1) if CG.has_edge(a, b) else 1)
+
+    # 1) центры кластеров внутри каждой связной части
+    parts = sorted(nx.connected_components(CG), key=lambda cc: -sum(len(members[c]) for c in cc))
+    blocks = []  # (clusters, local centers array, bbox)
+    for cc in parts:
+        cl = sorted(cc)
+        r = np.array([radius[c] for c in cl])
+        if len(cl) == 1:
+            xy = np.zeros((1, 2))
+        else:
+            p = nx.spring_layout(CG.subgraph(cl), seed=seed, weight="weight", iterations=300)
+            scale = r.sum() / 2
+            xy = _separate(np.array([p[c] for c in cl]) * scale, r)
+        lo = (xy - r[:, None]).min(0)
+        hi = (xy + r[:, None]).max(0)
+        blocks.append((cl, xy - lo, hi - lo))
+
+    # 2) раскладываем части рядами (крупнейшая — первой строкой)
+    centers: dict[int, np.ndarray] = {}
+    row_w = max(blocks[0][2][0], 2400) if blocks else 2400
+    x = y = row_h = 0.0
+    for cl, xy, (w, h) in blocks:
+        if x > 0 and x + w > row_w:
+            x, y, row_h = 0.0, y + row_h + 80, 0.0
+        for c, pt in zip(cl, xy):
+            centers[c] = pt + np.array([x, y])
+        x += w + 80
+        row_h = max(row_h, h)
+
+    # 3) узлы внутри кластеров
     pos: dict[int, tuple[float, float]] = {}
     for c, m in members.items():
         if c == 0:
             continue
         cx, cy = centers[c]
-        sub = UG.subgraph(m)
-        p = nx.spring_layout(sub, seed=seed, iterations=60) if len(m) > 1 else {m[0]: np.array([0.0, 0.0])}
-        for n, (x, y) in p.items():
-            pos[n] = (float(cx * span + x * radius[c]), float(cy * span + y * radius[c]))
-    iso = sorted(members.get(0, []))
-    if iso:  # изолированные — сеткой под основной картинкой
-        ymax = max((y for _, y in pos.values()), default=0)
-        for i, n in enumerate(iso):
-            pos[n] = (float(-span + (i % 10) * 60), float(ymax + 200 + (i // 10) * 60))
-    return {n: (round(x, 1), round(y, 1)) for n, (x, y) in pos.items()}
+        rr = radius[c] - 8
+        if len(m) == 1:
+            pos[m[0]] = (float(cx), float(cy))
+            continue
+        p = nx.spring_layout(UG.subgraph(m), seed=seed, iterations=80)
+        arr = np.array(list(p.values()))
+        arr = arr / max(np.abs(arr).max(), 1e-9)
+        for n, (px, py) in zip(p.keys(), arr):
+            pos[n] = (float(cx + px * rr), float(cy + py * rr))
+
+    # 4) seed без переводов — сеткой внизу
+    ymax = max((yy for _, yy in pos.values()), default=0.0)
+    for i, n in enumerate(sorted(members.get(0, []))):
+        pos[n] = (float((i % 10) * 70), float(ymax + 160 + (i // 10) * 70))
+    return {n: (round(x_, 1), round(y_, 1)) for n, (x_, y_) in pos.items()}
 
 
 def _suffix(g: int) -> str:
-    return f"…{str(g)[-6:]}"
+    """Короткая метка gid: последние 10 цифр уникальны (первые 8 у всех «10000000»)."""
+    return f"…{str(g)[-10:]}"
 
 
 def _kzt(x: float) -> str:
