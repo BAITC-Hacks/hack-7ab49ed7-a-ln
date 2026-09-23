@@ -44,7 +44,7 @@ function createGraph(data: Subgraph) {
     graph.addNode(node.id, {
       ...node,
       label: `…${node.id.slice(-6)}`,
-      size: theme.minSize + node.priority_score * theme.prioritySize,
+      size: theme.minSize + theme.prioritySize * node.priority_score ** theme.priorityExponent,
       type: node.is_seed ? 'seed' : 'circle',
       color: theme.node,
     });

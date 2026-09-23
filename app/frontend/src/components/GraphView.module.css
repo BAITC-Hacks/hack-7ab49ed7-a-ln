@@ -41,8 +41,7 @@
 }
 .canvasArea {
   position: relative;
-  background: radial-gradient(#dce7ed 0.7px, transparent 0.7px);
-  background-size: 18px 18px;
+  background: radial-gradient(ellipse at center, #fff 0, #f6f8fa 100%);
 }
 .canvas {
   height: clamp(420px, 58vh, 760px);
