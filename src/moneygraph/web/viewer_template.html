@@ -265,7 +265,7 @@ function renderRoles() {
   const counts = {};
   G.nodes.forEach(n => counts[n.role] = (counts[n.role] || 0) + 1);
   $("#roles").innerHTML = ROLE_ORDER.map(r =>
-    '<label class="legend-role" title="' + esc((ROLES[r] && ROLES[r].description) || "") + '"><input type="checkbox" data-role="' + r + '"' + (S.roles.has(r) ? " checked" : "") + '>' +
+    '<label class="legend-role" title="' + esc(((ROLES[r] && ROLES[r].description) || "") + (ROLES[r] && ROLES[r].typology ? " · " + ROLES[r].typology : "")) + '"><input type="checkbox" data-role="' + r + '"' + (S.roles.has(r) ? " checked" : "") + '>' +
     '<span class="dot" style="background:' + roleColor(r) + '"></span>' + esc(roleRu(r)) +
     '<span class="cnt">' + fmtInt(counts[r] || 0) + "</span></label>").join("");
   $("#legend").innerHTML =
@@ -565,6 +565,7 @@ function renderCard() {
       '<span class="badge" style="background:' + roleColor(n.role) + '">' + esc(roleRu(n.role)) + "</span></div>" +
     '<div class="sec"><div class="kv">' +
       '<span class="k">Уверенность в роли</span><span><div class="bar" style="display:inline-block;width:120px;vertical-align:middle"><span style="width:' + Math.round(100 * (n.role_score || 0)) + '%;background:' + roleColor(n.role) + '"></span></div> ' + fmtNum(n.role_score, 2) + "</span>" +
+      (n.typology ? '<span class="k">Типология AML</span><span>' + esc(n.typology) + "</span>" : "") +
       (n.alt_role ? '<span class="k">Также признаки</span><span>' + esc(roleRu(n.alt_role)) + "</span>" : "") +
     "</div>" +
       (n.rule_fired ? '<div class="rule mono">' + esc(n.rule_fired) + "</div>" : "") +

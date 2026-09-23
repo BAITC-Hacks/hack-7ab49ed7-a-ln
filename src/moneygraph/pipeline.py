@@ -45,6 +45,7 @@ def run(data_dir: Path, out_dir: Path, cfg=CFG) -> dict:
     print("== 4. Роли и приоритеты")
     df = roles.assign(G, df, cfg)
     df["flags"] = priority.flags(df, cycle_nodes, route_nodes, cfg)
+    df["typology"] = [roles.typologies(r, f) for r, f in zip(df.role, df["flags"])]
     df = priority.score(df, cfg)
     ctab = clmod.cluster_table(G, df, stability)
     hyp = dict(zip(ctab.cluster_id, ctab.hypothesis))
@@ -53,7 +54,9 @@ def run(data_dir: Path, out_dir: Path, cfg=CFG) -> dict:
     top = df.sort_values("rank").head(cfg.top_n).copy()
     top["why"] = [priority.why(r, hyp[r.cluster_id]) for r in top.itertuples(index=False)]
     top["new_lead"] = ~top.is_seed
-    top = top[["rank", "gid", "role", "priority_score", "why", "role_score", "is_seed", "new_lead", "cluster_id", "evidence"]]
+    top["typology"] = top["typology"].replace("", "-")
+    top = top[["rank", "gid", "role", "priority_score", "why", "typology", "role_score", "is_seed", "new_lead",
+               "cluster_id", "evidence"]]
 
     print("== 5. Дополнительно: циклы, маршруты, устойчивость, полнота данных")
     extra = {

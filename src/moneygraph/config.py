@@ -7,22 +7,25 @@ from dataclasses import dataclass, field
 ROLES = ["coordinator", "consolidator", "distributor", "transit", "terminal", "peripheral"]
 
 ROLE_META = {
-    "coordinator": {"ru": "Координатор", "color": "#d62728",
+    "coordinator": {"ru": "Координатор", "color": "#d62728", "typology": "",
                     "description": "координирующий узел, кандидат в организаторы"},
-    "consolidator": {"ru": "Консолидатор", "color": "#ff7f0e",
+    "consolidator": {"ru": "Консолидатор", "color": "#ff7f0e", "typology": "funnel account (воронка)",
                      "description": "точка консолидации — аккумулирует средства от нескольких участников"},
-    "distributor": {"ru": "Распределитель", "color": "#9467bd",
+    "distributor": {"ru": "Распределитель", "color": "#9467bd", "typology": "fan-out payouts",
                     "description": "веерное распределение средств на много получателей"},
-    "transit": {"ru": "Транзит", "color": "#1f77b4",
+    "transit": {"ru": "Транзит", "color": "#1f77b4", "typology": "pass-through / money mule layering",
                 "description": "транзитный счёт — пропускает средства дальше, не удерживая"},
-    "terminal": {"ru": "Конечный получатель", "color": "#2ca02c",
+    "terminal": {"ru": "Конечный получатель", "color": "#2ca02c", "typology": "",
                  "description": "деньги приходят и остаются"},
-    "peripheral": {"ru": "Периферия", "color": "#9e9e9e",
+    "peripheral": {"ru": "Периферия", "color": "#9e9e9e", "typology": "",
                    "description": "признаков роли не выявлено"},
 }
 
+# Типология AML для флага быстрого транзита (добавляется к типологии роли)
+RAPID_MOVEMENT = "rapid movement of funds"
+
 FLAG_RU = {
-    "fast_transit": "сквозной транзит ≤2 дн",
+    "fast_transit": "rapid movement of funds: ушло дальше за ≤2 дн",
     "burst_in": "синхронные поступления от нескольких плательщиков в один день",
     "burst_out": "веерная рассылка многим получателям в один день",
     "in_cycle": "участвует в возвратном потоке (цикле)",

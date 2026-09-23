@@ -68,6 +68,7 @@ def get_node(graph: dict, gid_or_suffix: str) -> dict:
     out = _compact(n, graph)
     out.update({
         "rule_fired": n.get("rule_fired"), "alt_role": n.get("alt_role") or None,
+        "typology": n.get("typology") or None,
         "sink_status": n.get("sink_status"), "truncated": n.get("truncated"), "p_forward": n.get("p_forward"),
         "fast_share": n.get("fast_share"), "flags": n.get("flags"), "prio_parts": n.get("prio_parts"),
         "pagerank": n.get("pagerank"), "betweenness": n.get("betweenness"),

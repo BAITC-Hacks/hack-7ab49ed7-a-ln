@@ -10,7 +10,7 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 
-from moneygraph.config import CFG, ROLE_META, Config
+from moneygraph.config import CFG, RAPID_MOVEMENT, ROLE_META, Config
 
 EVIDENCE_MAX = 200
 
@@ -242,3 +242,11 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
 
 def role_ru(role: str) -> str:
     return ROLE_META[role]["ru"]
+
+
+def typologies(role: str, flags: list[str]) -> str:
+    """Названия типологий AML для узла: типология роли + rapid movement of funds при быстром транзите."""
+    names = [ROLE_META[role]["typology"]] if ROLE_META[role]["typology"] else []
+    if "fast_transit" in flags:
+        names.append(RAPID_MOVEMENT)
+    return "; ".join(names)

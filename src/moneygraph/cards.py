@@ -115,6 +115,8 @@ def node_card(gid: str, graph: dict, max_counterparties: int = 5) -> str:
     if n.get("alt_role"):
         role_line += f" · также признаки: {role_ru(graph, n['alt_role'])}"
     lines.append(role_line)
+    if n.get("typology"):
+        lines.append(f"Типология AML: {n['typology']}")
     if n.get("rule_fired"):
         lines.append(f"Правило: {n['rule_fired']}")
     if n.get("evidence"):

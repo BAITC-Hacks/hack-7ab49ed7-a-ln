@@ -84,7 +84,8 @@ def sensitivity(df: pd.DataFrame, cfg: Config = CFG, k: int = 20) -> dict:
 
 def why(r, cluster_hyp: str) -> str:
     fl = [FLAG_RU[f] for f in r.flags if f in SIGNAL_FLAGS or f == "unseen_inflow"]
-    parts = [f"{ROLE_META[r.role]['ru']} (уверенность {r.role_score:.2f}; {r.rule_fired}). {r.evidence}"]
+    typ = f" — {r.typology}" if r.typology else ""
+    parts = [f"{ROLE_META[r.role]['ru']}{typ} (уверенность {r.role_score:.2f}; {r.rule_fired}). {r.evidence}"]
     if fl:
         parts.append("Сигналы: " + "; ".join(fl))
     parts.append(

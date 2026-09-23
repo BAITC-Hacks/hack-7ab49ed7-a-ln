@@ -14,7 +14,7 @@ from moneygraph.config import FLAG_RU, ROLE_META, ROLES
 
 REQUIRED_NODE_COLS = ["gid", "role", "role_score", "cluster_id", "priority_score", "evidence"]
 EXTRA_NODE_COLS = [
-    "rank", "rule_fired", "alt_role", "sink_status", "truncated", "p_forward", "is_seed", "depth",
+    "rank", "rule_fired", "alt_role", "typology", "sink_status", "truncated", "p_forward", "is_seed", "depth",
     "in_deg", "out_deg", "in_kzt", "out_kzt", "in_tx", "out_tx", "out_in_ratio", "fast_share",
     "unseen_inflow_kzt", "seed_in", "seed_out", "pagerank", "betweenness", "flags",
     "prio_role", "prio_flow", "prio_centrality", "prio_seed", "prio_flags",
@@ -31,6 +31,7 @@ def nodes_roles(df: pd.DataFrame) -> pd.DataFrame:
     out["out_in_ratio"] = np.where(out.in_kzt > 0, (out.out_kzt / out.in_kzt.where(out.in_kzt > 0)).round(4), -1.0)
     out["fast_share"] = out.fast_share.fillna(-1.0).round(4)
     out["flags"] = out["flags"].map(lambda f: ";".join(f) if f else "-")
+    out["typology"] = out["typology"].map(lambda t: t or "-")
     out["pagerank"] = out.pagerank.round(8)
     out["betweenness"] = out.betweenness.round(8)
     out = out.sort_values("rank")[REQUIRED_NODE_COLS + EXTRA_NODE_COLS]
@@ -58,7 +59,7 @@ def graph_json(G: nx.DiGraph, df: pd.DataFrame, clusters: pd.DataFrame, top: pd.
         x, y = pos.get(r.gid, (0.0, 0.0))
         nodes.append({
             "id": str(r.gid), "role": r.role, "role_score": num(r.role_score, 3), "rule_fired": r.rule_fired,
-            "alt_role": "" if r.alt_role == "-" else r.alt_role, "evidence": r.evidence,
+            "alt_role": "" if r.alt_role == "-" else r.alt_role, "typology": r.typology, "evidence": r.evidence,
             "priority": num(r.priority_score), "rank": int(r.rank), "cluster": int(r.cluster_id),
             "is_seed": bool(r.is_seed), "depth": int(r.depth), "truncated": bool(r.truncated),
             "p_forward": num(r.p_forward, 3) if r.truncated else None, "sink_status": r.sink_status,

@@ -195,15 +195,16 @@ def hypothesis(row: dict, g: pd.DataFrame, roles: dict) -> str:
                      f"{c.out_deg} получателей, {_kzt(c.in_kzt + c.out_kzt)})")
     if len(cons) and (row["n_seed"] >= 2 or not parts):
         c = cons.sort_values("in_deg", ascending=False).iloc[0]
-        parts.append(f"признаки консолидации: {_suffix(c.gid)} собирает от {c.in_deg} плательщиков "
+        parts.append(f"признаки {ROLE_META['consolidator']['typology']}: {_suffix(c.gid)} собирает от {c.in_deg} плательщиков "
                      f"({_kzt(c.in_kzt)}){', в кластере ' + str(row['n_seed']) + ' seed' if row['n_seed'] else ''}")
     if len(distr) and len(parts) < 2:
         d = distr.sort_values("out_deg", ascending=False).iloc[0]
-        parts.append(f"веерная раздача: {_suffix(d.gid)} → {d.out_deg} получателей ({_kzt(d.out_kzt)}) — "
+        parts.append(f"признаки {ROLE_META['distributor']['typology']}: {_suffix(d.gid)} → {d.out_deg} получателей ({_kzt(d.out_kzt)}) — "
                      f"возможны выплаты участникам/обналичивание")
     transit_share = roles.get("transit", 0) / row["n_nodes"]
     if transit_share >= 0.3 and len(parts) < 2:
-        parts.append(f"транзитная цепочка: {transit_share:.0%} узлов пропускают деньги дальше — возможен прогон для разрыва следа")
+        parts.append(f"признаки {ROLE_META['transit']['typology']}: {transit_share:.0%} узлов пропускают деньги дальше — "
+                     f"возможен прогон для разрыва следа")
     if not parts:
         parts.append(f"периферия: {roles.get('terminal', 0)} конечных получателей и {roles.get('peripheral', 0)} "
                      f"разовых контактов без признаков дальнейшего движения")

@@ -48,6 +48,16 @@ def test_seed_roles_do_not_use_incoming_balance(out_dir):
     assert (seeds[seeds.role == "transit"].role_score <= 0.6 + 1e-9).all()
 
 
+def test_typology_names(out_dir):
+    nr = pd.read_csv(out_dir / "nodes_roles.csv", dtype={"gid": str})
+    expected = {"consolidator": "funnel account (воронка)", "transit": "pass-through / money mule layering",
+                "distributor": "fan-out payouts"}
+    for role, name in expected.items():
+        assert nr[nr.role == role].typology.str.startswith(name).all()
+    fast = nr["flags"].str.contains("fast_transit")
+    assert nr[fast].typology.str.contains("rapid movement of funds").all()
+
+
 def test_top_nodes(out_dir):
     tp = pd.read_csv(out_dir / "top_nodes.csv", dtype={"gid": str})
     assert len(tp) >= 20

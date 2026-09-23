@@ -12,21 +12,22 @@
     "n_nodes": 2248, "n_edges": 3119, "n_tx": 4840, "n_seed": 81,
     "total_kzt": 365890012.0,
     "roles": {                       // словарь ролей: порядок = приоритет в легенде
-      "coordinator":  {"ru": "Координатор",   "color": "#d62728", "description": "..."},
-      "consolidator": {"ru": "Консолидатор",  "color": "#ff7f0e", "description": "..."},
+      "coordinator":  {"ru": "Координатор",   "color": "#d62728", "typology": "", "description": "..."},
+      "consolidator": {"ru": "Консолидатор",  "color": "#ff7f0e", "typology": "funnel account (воронка)", "description": "..."},
       "distributor":  {"ru": "Распределитель","color": "#9467bd", "description": "..."},
       "transit":      {"ru": "Транзит",       "color": "#1f77b4", "description": "..."},
       "terminal":     {"ru": "Конечный получатель", "color": "#2ca02c", "description": "..."},
       "peripheral":   {"ru": "Периферия",     "color": "#9e9e9e", "description": "..."}
     },
     "role_counts": {"coordinator": 12, "...": 0},
-    "flags": {"fast_transit": "сквозной транзит ≤2 дн", "...": "..."}   // код флага → русская подпись
+    "flags": {"fast_transit": "rapid movement of funds: ушло дальше за ≤2 дн", "...": "..."}   // код флага → подпись
   },
   "nodes": [{
     "id": "100000003684369100",
     "role": "consolidator", "role_score": 0.83,
     "rule_fired": "R3: in_deg=11 ≥ 4",   // какое правило сработало (текст)
     "alt_role": "distributor",           // "" если нет
+    "typology": "funnel account (воронка); rapid movement of funds",   // типологии AML, "" если нет
     "evidence": "Получает от 11 плательщиков ...",   // ≤200 символов
     "priority": 0.71, "rank": 12,        // rank: место по priority среди всех узлов (1 = важнейший)
     "cluster": 3,
