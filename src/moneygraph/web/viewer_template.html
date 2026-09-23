@@ -266,6 +266,48 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
 .m-role p { grid-column: 2; font-size: 12px; }
 .m-body ul { padding-left: 18px; margin: 0; }
 
+/* ---------- навигация и страницы-объяснения */
+.nav { display: flex; gap: 3px; flex: none; background: var(--hover); border: 1px solid var(--rule); border-radius: 10px; padding: 3px; }
+.nav a { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 7px; color: var(--ink-2); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.nav a:hover { background: var(--paper); color: var(--ink); }
+.nav a[aria-current="page"] { background: var(--ink); color: #fff; }
+.nav .s { display: none; }
+.pages { grid-row: 2; overflow: auto; min-height: 0; background: var(--plane); }
+body.page-mode .work { display: none; }
+.page { max-width: 940px; margin: 0 auto; padding: 32px 28px 72px; }
+.page h1 { font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; }
+.page .lead { font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 68ch; }
+.page h2 { font-size: 19px; font-weight: 700; margin: 36px 0 12px; }
+.page p, .page li { font-size: 14px; line-height: 1.65; color: var(--ink-2); max-width: 74ch; }
+.page p + p { margin-top: 8px; }
+.page ul { padding-left: 18px; margin: 8px 0 0; }
+.page table.t { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; font-size: 13px; }
+.page table.t th, .page table.t td { padding: 10px 12px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; line-height: 1.5; }
+.page table.t th { font-weight: 500; color: var(--muted); }
+.page table.t tr:last-child td { border-bottom: 0; }
+.page table.t td.num, .page table.t th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wbar { height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; width: 120px; margin-top: 5px; }
+.wbar i { display: block; height: 100%; background: var(--ink); }
+.exgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.excard { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.excard h3 { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.excard .tot { display: flex; align-items: baseline; gap: 8px; margin: 10px 0; }
+.excard .tot b { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lvls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.lv { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.lv .lv-name { font-size: 16px; font-weight: 700; margin: 6px 0 2px; }
+.lv .lv-count { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.chartbox { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; }
+.chartbox svg { width: 100%; height: auto; display: block; }
+.chartbox .cap { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.page .cta { margin-top: 32px; display: flex; gap: 10px; flex-wrap: wrap; }
+a.btn { display: inline-flex; align-items: center; text-decoration: none; color: var(--ink); }
+a.btn.primary { color: #fff; }
+.helplink { font-size: 12px; font-weight: 400; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.intro a { color: var(--ink); }
+@media (max-width: 1400px) { .kpis { display: none; } }
+@media (max-width: 1180px) { .nav .l { display: none; } .nav .s { display: inline; } }
+
 @media (max-width: 1280px) {
   .work { grid-template-columns: 290px minmax(0, 1fr) 360px; }
   .kpi:nth-child(n+4) { display: none; }
@@ -289,6 +331,12 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="7" cy="22" r="4.2" fill="#19293a"/><circle cx="23" cy="8" r="4.2" fill="none" stroke="#19293a" stroke-width="2.2"/><path d="M10.2 18.8 18.6 10.4" stroke="#19293a" stroke-width="2.2" stroke-linecap="round"/><path d="M13.6 10.3h5v5" fill="none" stroke="#19293a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     <div><h1>Граф денег</h1><small>Рабочее место AML-аналитика</small></div>
   </div>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#/" data-nav="work" aria-current="page">Схема</a>
+    <a href="#/priority" data-nav="priority"><span class="l">Как считается приоритет</span><span class="s">Приоритет</span></a>
+    <a href="#/confidence" data-nav="confidence"><span class="l">Как считается уверенность</span><span class="s">Уверенность</span></a>
+    <a href="#/method" data-nav="method">Методика</a>
+  </nav>
   <div class="search">
     <label class="sr" for="q">Найти клиента по номеру</label>
     <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m11 11 3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -297,7 +345,6 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
     <div id="suggest" class="suggest" role="listbox" hidden></div>
   </div>
   <div class="kpis" id="kpis"></div>
-  <button class="btn" id="methodBtn">Методика</button>
 </header>
 
 <main class="work">
@@ -307,7 +354,7 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
       <button role="tab" id="tabClusters" aria-selected="false" data-ltab="clusters">Кластеры<span class="count" id="cCount"></span></button>
     </div>
     <section id="pQueue" class="scroll" role="tabpanel" aria-labelledby="tabQueue">
-      <p class="intro">Номер слева — место в очереди: сверху те, у кого больше всего оснований для проверки. Справа — насколько ярко выражена роль.</p>
+      <p class="intro">Номер слева — место в очереди: сверху те, у кого больше всего оснований для проверки. Справа — насколько ярко выражена роль. <a href="#/priority">Как считается приоритет</a>, <a href="#/confidence">как считается уверенность</a>.</p>
       <div id="queue"></div>
     </section>
     <section id="pClusters" class="scroll" role="tabpanel" aria-labelledby="tabClusters" hidden>
@@ -368,10 +415,7 @@ dialog::backdrop { background: rgba(25, 41, 58, .45); }
   </aside>
 </main>
 
-<dialog id="method" aria-labelledby="mTitle">
-  <div class="m-head"><h2 id="mTitle">Как устроен анализ</h2><button class="xbtn" id="mClose" aria-label="Закрыть">×</button></div>
-  <div class="m-body" id="mBody"></div>
-</dialog>
+<section class="pages" id="pages" hidden aria-live="polite"><div class="page" id="page"></div></section>
 
 <script>/*__GRAPHOLOGY__*/</script>
 <script>/*__SIGMA__*/</script>
@@ -388,7 +432,7 @@ const EDGE_BASE = "#cbd4db", EDGE_DIM = "#edf0f3", NODE_DIM = "#e1e6ea";
 
 // ---------- formatting
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const NB = " ";
+const NB = "\u00a0"; // неразрывный пробел между разрядами
 const fmtInt = n => Math.round(n || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, NB);
 const fmtDec = (x, d = 2) => (x == null || isNaN(x)) ? "—" : Number(x).toFixed(d).replace(".", ",");
 function fmtKzt(x) {
@@ -740,9 +784,7 @@ function markLists() {
 
 // ---------- шапка
 function renderHeader() {
-  const p = META.period || [];
-  const period = p[0] && p[1] ? Number(p[0].slice(8)) + "–" + fmtDate(p[1]) + " " + p[1].slice(0, 4) : "";
-  const items = [[fmtInt(META.n_nodes), "клиентов"], [fmtInt(META.n_edges), "связей"], [fmtInt(META.n_tx), "переводов"], [fmtKzt(META.total_kzt), "оборот"], [period, "период"]];
+  const items = [[fmtInt(META.n_nodes), "клиентов"], [fmtInt(META.n_edges), "связей"], [fmtKzt(META.total_kzt), "оборот за июль"]];
   $("kpis").innerHTML = items.map(([v, l]) => '<div class="kpi"><b>' + esc(v) + "</b><span>" + esc(l) + "</span></div>").join("");
 }
 
@@ -851,7 +893,7 @@ function renderCard(id) {
   const sink = SINK_TEXT[n.sink_status] || "";
   $("card").innerHTML = '<div class="card">' + back +
     '<div class="c-id">' + gidHTML(id) + '<button class="copy" data-copy="' + esc(id) + '">Скопировать</button></div>' +
-    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word">роль выражена ' + strengthHTML(n.role_score) + '<span class="muted">' + pct(n.role_score) + (n.truncated ? ", оценка по похожим клиентам" : "") + "</span></span>" +
+    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word">роль выражена ' + strengthHTML(n.role_score) + '<span class="muted">' + pct(n.role_score) + (n.truncated ? ", оценка по похожим клиентам" : "") + '</span><a class="helplink" href="#/confidence">как считается</a></span>' +
     (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
     '<p class="scale">Уверенность в роли: ' + CONF_SCALE_TXT + ".</p>" +
     (n.typology ? '<div class="c-typo">Типология: ' + esc(n.typology) + "</div>" : "") +
@@ -865,7 +907,7 @@ function renderCard(id) {
     "</div>" +
     '<div class="actions"><button class="btn" data-trace="up">Откуда пришли деньги</button><button class="btn" data-trace="down">Куда ушли деньги</button></div>' +
     (sink ? '<p class="muted" style="font-size:12px;margin-top:8px">' + esc(sink) + "</p>" : "") + truncNote + "</div>" +
-    '<div class="sec"><h3>Приоритет проверки: ' + prioLevel(n.rank) + ' <span class="muted">№' + n.rank + " из " + fmtInt(META.n_nodes) + "</span></h3>" +
+    '<div class="sec"><h3><span>Приоритет проверки: ' + prioLevel(n.rank) + ' <a class="helplink" href="#/priority">как считается</a></span><span class="muted">№' + n.rank + " из " + fmtInt(META.n_nodes) + "</span></h3>" +
     '<p class="scale" style="margin:-4px 0 10px">Уровни: ' + PRIO_SCALE_TXT + ".</p>" +
     '<p class="scale" style="margin:0 0 8px">Почему такое место: балл ' + fmtDec(n.priority) + " — сумма пяти слагаемых" + (n.is_seed ? ", ×0,9 для известного seed" : "") + ".</p>" +
     '<div class="prio">' + parts + "</div></div>" +
@@ -992,19 +1034,129 @@ async function detectServer() {
   renderAskIntro();
 }
 
-// ---------- методика
-function renderMethod() {
+// ---------- страницы-объяснения
+const pageWrap = (title, lead, body) => '<h1>' + title + '</h1><p class="lead">' + lead + "</p>" + body +
+  '<div class="cta"><a class="btn primary" href="#/">Вернуться к схеме</a><a class="btn" href="#/priority">Как считается приоритет</a><a class="btn" href="#/confidence">Как считается уверенность</a><a class="btn" href="#/method">Методика</a></div>';
+function partBars(n) {
+  return '<div class="prio">' + PARTS.map(([k, l]) => { const v = (n.prio_parts || {})[k] || 0; return "<span>" + l + '</span><span class="pb"><i style="width:' + Math.min(100, Math.round(v / PART_MAX[k] * 100)) + '%"></i></span><span class="pv">' + fmtDec(v, 3) + "</span>"; }).join("") + "</div>";
+}
+function pagePriority() {
+  const m = META.model, sm = META.summary || {}, sens = sm.priority_sensitivity_top20 || {};
+  const parts = [
+    ["Роль", m.w_role, "Насколько важна роль и насколько ярко она выражена.", "Вес роли × уверенность в роли × " + fmtDec(m.w_role) + "."],
+    ["Оборот", m.w_flow, "Сколько денег прошло через клиента по сравнению с остальными.", "Место по сумме «получено + отправлено» среди всех " + fmtInt(META.n_nodes) + " клиентов: больше всех — " + fmtDec(m.w_flow) + "."],
+    ["Центральность", m.w_central, "Насколько клиент важен для связности сети.", "Лучшее из двух мест: PageRank (куда стекаются деньги) и посредничество (как часто клиент стоит на пути между другими)."],
+    ["Связь с seed", m.w_seed, "Сколько известных участников по делу платят клиенту или получают от него.", "1 seed — треть, 3 и больше — полностью."],
+    ["Сигналы", m.w_flags, "Подозрительное поведение во времени и в суммах.", "1 сигнал — треть, 3 и больше — полностью. Сигналы: ушло дальше за 2 дня, много плательщиков в один день, массовые выплаты за день, цикл, повторяющийся маршрут, одинаковые суммы, нетипичный объём."],
+  ];
+  const partRows = parts.map(([name, w, what, how]) => "<tr><td><b>" + name + '</b><div class="wbar"><i style="width:' + Math.round(w / m.w_role * 100) + '%"></i></div></td><td class="num">до ' + fmtDec(w) + "</td><td>" + what + '<br><span class="muted">' + how + "</span></td></tr>").join("");
+  const roleRows = ROLE_ORDER.map(r => "<tr><td>" + roleHTML(r) + '</td><td class="num">' + fmtDec(m.role_weight[r], 1) + '</td><td class="num">' + fmtDec(m.w_role * m.role_weight[r]) + "</td></tr>").join("");
+  const exs = [], add = (n, title) => { if (n && !exs.some(x => x.n.id === n.id)) exs.push({ n, title }); };
+  add(ranked[0], "№1 в очереди");
+  if (S.sel) add(byId.get(S.sel), "Выбранный клиент");
+  add(ranked.find(n => n.role === "terminal"), "Лучший конечный получатель");
+  const exHTML = exs.map(({ n, title }) => '<div class="excard"><h3>' + title + "</h3>" + gidHTML(n.id) + '<div style="margin-top:6px">' + roleHTML(n.role) + '</div><div class="tot"><b>' + fmtDec(n.priority) + '</b><span class="muted">№' + n.rank + ", " + prioLevel(n.rank) + " приоритет</span></div>" + partBars(n) +
+    (n.is_seed ? '<p class="muted" style="font-size:12px;margin-top:8px">Итог умножен на ' + fmtDec(m.seed_discount, 1) + ": клиент уже известен (seed).</p>" : "") + '<p style="margin-top:10px"><a class="helplink" href="#' + n.id + '">Открыть на схеме</a></p></div>').join("");
+  const lv = SCALES.priority, nHigh = G.nodes.filter(n => n.rank <= lv[0].max_rank).length, nMid = G.nodes.filter(n => n.rank > lv[0].max_rank && n.rank <= lv[1].max_rank).length;
+  const lvHTML = [[lv[0].label, "№1–" + lv[0].max_rank, "это очередь проверки слева", nHigh], [lv[1].label, "№" + (lv[0].max_rank + 1) + "–" + lv[1].max_rank, "проверить после очереди", nMid], [lv[2].label, "№" + (lv[1].max_rank + 1) + " и дальше", "признаков мало или они слабые", META.n_nodes - nHigh - nMid]]
+    .map(([name, range, note, cntN]) => '<div class="lv"><span class="muted" style="font-size:12px">' + range + '</span><div class="lv-name">' + name + " приоритет</div><div>" + note + '</div><div class="lv-count">' + cnt(cntN, "клиент", "клиента", "клиентов") + "</div></div>").join("");
+  return pageWrap("Как считается приоритет проверки",
+    "Приоритет отвечает на вопрос «кого смотреть первым». Это число от 0 до 1 — сумма пяти слагаемых. Очередь проверки — все клиенты, отсортированные по нему. На экране приоритет показан местом в очереди и уровнем.",
+    "<h2>Из чего складывается</h2><table class=\"t\"><thead><tr><th>Слагаемое</th><th class=\"num\">Максимум</th><th>Что означает и как считается</th></tr></thead><tbody>" + partRows + "</tbody></table>" +
+    "<p style=\"margin-top:10px\">У исходных клиентов (seed) итог умножается на " + fmtDec(m.seed_discount, 1) + ": они уже известны, а инструмент должен находить новых. При равном приоритете выше тот, кто получил больше денег.</p>" +
+    "<h2>Вес роли</h2><p>Роль даёт самую большую часть приоритета. Координаторы и точки сбора сильнее всего раскрывают структуру сети. Конечных получателей почти тысяча, и большинство из них получили один обычный перевод, поэтому их вес меньше.</p>" +
+    '<table class="t" style="margin-top:12px"><thead><tr><th>Роль</th><th class="num">Вес роли</th><th class="num">Максимум слагаемого «роль»</th></tr></thead><tbody>' + roleRows + "</tbody></table>" +
+    "<h2>Примеры</h2><p>Полоски — вклад каждого слагаемого; длина полоски — доля от его максимума. Итог — их сумма.</p><div class=\"exgrid\" style=\"margin-top:12px\">" + exHTML + "</div>" +
+    "<h2>Уровни на экране</h2><p>Уровень зависит от места в очереди.</p><div class=\"lvls\" style=\"margin-top:12px\">" + lvHTML + "</div>" +
+    "<h2>Насколько порядок надёжен</h2><p>Веса заданы экспертно: размеченных ответов, по которым их можно обучить, в данных нет. Поэтому мы проверили устойчивость: если изменить любой вес на ±20%, топ-20 совпадает с исходным минимум на " + pct(sens.min_overlap) + " (в среднем на " + pct(sens.mean_overlap) + ").</p>" +
+    (sm.new_leads_in_top20 != null ? "<p>" + sm.new_leads_in_top20 + " из 20 первых в очереди — новые клиенты, которых нет среди 81 исходного. Инструмент смещает фокус с известных участников на точки сбора и управления.</p>" : ""));
+}
+function confChart() {
+  const m = META.model, lo = m.cons_min_in, hi = m.cons_strong_in;
+  const pts = G.nodes.filter(n => n.role === "consolidator" && n.in_deg >= lo);
+  const xmax = Math.max(hi + 5, ...pts.map(n => n.in_deg + 1));
+  const W = 760, H = 300, L = 52, R = 110, T = 18, B = 46, y0 = 0.45, y1 = 1.03;
+  const x = v => L + v / xmax * (W - L - R), y = v => T + (1 - (v - y0) / (y1 - y0)) * (H - T - B);
+  const conf = SCALES.confidence, bands = [[conf[2].min > 0 ? conf[2].min : 0.5, conf[1].min, conf[2].label], [conf[1].min, conf[0].min, conf[1].label], [conf[0].min, 1.0, conf[0].label]];
+  let g = "";
+  bands.forEach(([a, b, lab], i) => {
+    const lo2 = Math.max(a, 0.5);
+    g += '<rect x="' + L + '" y="' + y(b) + '" width="' + (W - L - R) + '" height="' + (y(lo2) - y(b)) + '" fill="' + (i % 2 ? "#f6f8f9" : "#ffffff") + '"/>';
+    g += '<text x="' + (W - R + 12) + '" y="' + ((y(b) + y(lo2)) / 2 + 4) + '" font-size="12" fill="#3d4e60">' + lab + "</text>";
+  });
+  [0.5, conf[1].min, conf[0].min, 1.0].forEach(v => { g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#e1e6ea"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5d6b78" text-anchor="end">' + fmtDec(v, 1) + "</text>"; });
+  const ticks = [...new Set([0, lo, 10, hi, 20, 25, 30].filter(v => v <= xmax))].sort((a, b) => a - b);
+  ticks.forEach(v => { g += '<line x1="' + x(v) + '" x2="' + x(v) + '" y1="' + (H - B) + '" y2="' + (H - B + 4) + '" stroke="#8c98a3"/><text x="' + x(v) + '" y="' + (H - B + 17) + '" font-size="11" fill="#5d6b78" text-anchor="middle">' + v + "</text>"; });
+  g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '" stroke="#8c98a3"/>';
+  g += '<text x="' + ((L + W - R) / 2) + '" y="' + (H - 8) + '" font-size="12" fill="#3d4e60" text-anchor="middle">разных плательщиков у консолидатора</text>';
+  pts.forEach((n, i) => { const j = (((i * 37) % 11) - 5) / 18; g += '<circle cx="' + x(n.in_deg + j) + '" cy="' + y(n.role_score) + '" r="4" fill="#19293a" fill-opacity=".45" stroke="#fff" stroke-width=".8"><title>' + short(n.id) + ": " + n.in_deg + " плательщиков, " + pct(n.role_score) + "</title></circle>"; });
+  g += '<polyline points="' + x(lo) + "," + y(0.5) + " " + x(hi) + "," + y(1) + " " + x(xmax) + "," + y(1) + '" fill="none" stroke="#19293a" stroke-width="2"/>';
+  g += '<text x="' + (x(lo) + 10) + '" y="' + (y(0.5) + 15) + '" font-size="11" fill="#19293a">порог: ' + lo + " плательщика — 0,5</text>";
+  g += '<text x="' + (x(hi) + 6) + '" y="' + (y(1) + 16) + '" font-size="11" fill="#19293a">' + hi + " и больше — 1,0</text>";
+  return '<div class="chartbox"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Уверенность консолидаторов в зависимости от числа плательщиков">' + g + '</svg><p class="cap">Линия — правило, точки — ' + cnt(pts.length, "консолидатор", "консолидатора", "консолидаторов") + " из выгрузки. Точки выше линии получили уверенность за счёт другого признака: двух и более seed среди плательщиков.</p></div>";
+}
+function pageConfidence() {
+  const m = META.model, conf = SCALES.confidence;
+  const lvlCount = lab => G.nodes.filter(n => confLevel(n.role_score) === lab).length;
+  const scaleHTML = [[conf[0].label, 0.9, "от " + fmtDec(conf[0].min, 1)], [conf[1].label, 0.7, "от " + fmtDec(conf[1].min, 1) + " до " + fmtDec(conf[0].min, 1)], [conf[2].label, 0.55, "ниже " + fmtDec(conf[1].min, 1)]]
+    .map(([lab, sample, range]) => '<div class="lv">' + strengthHTML(sample) + '<div class="lv-name">роль выражена ' + lab + "</div><div>уверенность " + range + '</div><div class="lv-count">' + cnt(lvlCount(lab), "клиент", "клиента", "клиентов") + "</div></div>").join("");
+  const rules = {
+    coordinator: "Хаб: от " + m.hub_min_in + " плательщиков и " + m.hub_min_out + " получателей — 0,5; от " + m.hub_full_in + " и " + m.hub_full_out + " — 1,0 (среднее двух шкал). Платит seed: " + m.coord_min_seed_payees + " seed — 0,5, " + m.coord_full_seed_payees + " — 1,0. Мост: соседи в " + m.bridge_min_seed_clusters + " кластерах с seed — 0,5, в " + m.bridge_full_seed_clusters + " — 1,0. Если выполнено несколько условий, берётся самое сильное.",
+    consolidator: "От " + m.cons_min_in + " разных плательщиков — 0,5; от " + m.cons_strong_in + " — 1,0. Или по seed среди плательщиков: " + m.cons_min_seed_payers + " — 0,5, " + m.cons_full_seed_payers + " — 1,0. Берётся большее.",
+    distributor: "От " + m.distr_min_out + " получателей — 0,5; от " + m.distr_strong_out + " — 1,0.",
+    transit: "0,5 + 0,3 × близость к пропуску без удержания + 0,2 × доля полученного, ушедшая дальше за " + m.fast_lag_days + " дня. Близость равна 1, когда отправлено " + pct(m.transit_lo) + "–" + pct(m.transit_hi) + " полученного, и снижается, если отправлено намного больше (есть невидимые входящие) или меньше. У seed — не выше " + fmtDec(m.seed_transit_cap, 1) + ": их входящие не видны.",
+    terminal: "Среднее двух шкал: сумма от " + fmtKzt(m.term_min_kzt) + " (0,5) до " + fmtKzt(m.term_full_kzt) + " (1,0) и доля, ушедшая дальше: " + pct(m.term_max_out_share) + " — 0,5, ничего — 1,0. Если основное пришло 30–31 июля, уверенность × " + fmtDec(m.late_penalty, 1) + ": продолжение могло быть в августе.",
+    peripheral: "1 минус место по обороту: чем меньше денег прошло через клиента, тем увереннее «признаков роли нет».",
+  };
+  const ruleRows = ROLE_ORDER.map(r => "<tr><td>" + roleHTML(r) + "</td><td>" + rules[r] + "</td></tr>").join("") +
+    '<tr><td><span class="tag trunc">4-е колено</span></td><td>Исходящие этих клиентов не выгружены, поэтому уверенность — вероятность по похожим клиентам колен 1–3 (то же число плательщиков и переводов). Если похожие пересылают дальше с долей p: «конечный получатель» — 1 − p, «транзит» — p, но не выше ' + fmtDec(m.trunc_transit_cap, 1) + ".</td></tr>";
+  const labs = conf.map(c => c.label);
+  const tableRows = ROLE_ORDER.map(r => { const ns = G.nodes.filter(n => n.role === r); return "<tr><td>" + roleHTML(r) + "</td>" + labs.map(l => '<td class="num">' + fmtInt(ns.filter(n => confLevel(n.role_score) === l).length) + "</td>").join("") + '<td class="num">' + fmtInt(ns.length) + "</td></tr>"; }).join("");
+  const sel = S.sel && byId.get(S.sel);
+  const selHTML = sel ? '<h2>Выбранный клиент</h2><div class="excard">' + gidHTML(sel.id) + '<div style="margin:6px 0 8px">' + roleHTML(sel.role) + " " + strengthHTML(sel.role_score) + ' <span class="muted">' + pct(sel.role_score) + "</span></div><p>Сработало правило " + esc(sel.rule_fired) + ".</p><p>" + linkify(sel.evidence) + '</p><p style="margin-top:8px"><a class="helplink" href="#' + sel.id + '">Открыть на схеме</a></p></div>' : "";
+  return pageWrap("Как считается уверенность в роли",
+    "Уверенность показывает, насколько ярко у клиента выражены признаки его роли. Это не подозрительность и не приоритет: получатель одного крупного перевода может быть «конечным получателем» с уверенностью 90% и при этом стоять далеко в очереди.",
+    '<h2>Шкала</h2><div class="lvls">' + scaleHTML + "</div>" +
+    "<h2>Как считается для каждой роли</h2><p>Общий принцип: на пороге правила уверенность 0,5, при многократном превышении — 1,0, между ними — линейно.</p>" +
+    '<table class="t" style="margin-top:12px"><thead><tr><th>Роль</th><th>Правило уверенности</th></tr></thead><tbody>' + ruleRows + "</tbody></table>" +
+    "<h2>Пример: консолидаторы</h2>" + confChart() +
+    '<h2>Сколько клиентов на каждом уровне</h2><table class="t"><thead><tr><th>Роль</th>' + labs.map(l => '<th class="num">' + l + "</th>").join("") + '<th class="num">всего</th></tr></thead><tbody>' + tableRows + "</tbody></table>" +
+    selHTML);
+}
+function pageMethod() {
   const roles = ROLE_ORDER.map(r => '<div class="m-role"><span class="dot" style="--c:' + roleColor(r) + '"></span><div><b>' + esc(roleRu(r)) + "</b>" + (ROLES[r].typology ? ' <span class="muted">(' + esc(ROLES[r].typology) + ")</span>" : "") + "</div><p>" + esc(ROLES[r].rule || ROLES[r].description) + "</p></div>").join("");
   const flags = Object.entries(FLAGS).filter(([k]) => k !== "truncated").map(([, v]) => "<li>" + esc(v) + "</li>").join("");
-  $("mBody").innerHTML =
-    "<p>Каждому клиенту присваивается роль по формальным правилам с порогами. Правила проверяются сверху вниз, срабатывает первое; в карточке видно, какое правило сработало и с какими числами. Роли — гипотезы для проверки, а не вывод о виновности.</p>" +
-    "<h3>Роли</h3>" + roles +
-    "<h3>Приоритет проверки</h3><p>Сумма пяти слагаемых: роль и уверенность в ней (до 0,35), оборот (до 0,25), центральность в сети (до 0,20), связь с исходными клиентами (до 0,10), подозрительные сигналы (до 0,10). У исходных клиентов приоритет умножается на 0,9: они уже известны.</p>" +
-    "<h3>Как читать оценки</h3><p>У клиента две разные оценки. <b>Уверенность в роли</b> — насколько ярко выражены признаки роли; на экране она словами: " + CONF_SCALE_TXT + ". <b>Приоритет проверки</b> — насколько срочно смотреть клиента; на экране это место в очереди и уровень: " + PRIO_SCALE_TXT + ". Клиент может быть уверенно определён в роли и при этом иметь низкий приоритет — например, получатель одного небольшого перевода.</p>" +
-    "<h3>Сигналы</h3><ul>" + flags + "</ul>" +
-    "<h3>Как читать схему</h3><ul><li>Стрелка идёт от плательщика к получателю.</li><li>Размер точки — приоритет, толщина связи — сумма переводов.</li><li>Тёмное кольцо — исходный клиент (seed). Бледная точка — 4-е колено: исходящие не выгружались.</li><li>У выбранного клиента входящие связи синие, исходящие оранжевые. Остальная сеть остаётся на схеме приглушённой.</li></ul>" +
-    "<h3>Границы данных</h3><ul><li>Только внутрибанковские переводы от 5 000 ₸ за июль 2026.</li><li>Обход — 4 колена по исходящим от 81 исходного клиента. У 4-го колена исходящих в данных нет.</li><li>Входящие видны только от участников выгрузки, поэтому «отдал больше, чем получил» — не аномалия.</li><li>Наличные, другие банки, суммы ниже порога и август не видны.</li></ul>";
+  return pageWrap("Методика",
+    "Каждому клиенту присваивается роль по формальным правилам с порогами. Правила проверяются сверху вниз, срабатывает первое; в карточке видно, какое правило сработало и с какими числами. Роли — гипотезы для проверки, а не вывод о виновности.",
+    "<h2>Роли</h2>" + roles +
+    "<h2>Сигналы</h2><ul>" + flags + "</ul>" +
+    "<h2>Как читать схему</h2><ul><li>Стрелка идёт от плательщика к получателю.</li><li>Размер точки — приоритет, толщина связи — сумма переводов.</li><li>Тёмное кольцо — исходный клиент (seed). Бледная точка — 4-е колено: исходящие не выгружались.</li><li>У выбранного клиента входящие связи синие, исходящие оранжевые. У кластера синие — деньги входят в кластер, оранжевые — выходят, тёмные — внутри.</li></ul>" +
+    "<h2>Границы данных</h2><ul><li>Только внутрибанковские переводы от 5 000 ₸ за июль 2026.</li><li>Обход — 4 колена по исходящим от 81 исходного клиента. У 4-го колена исходящих в данных нет.</li><li>Входящие видны только от участников выгрузки, поэтому «отдал больше, чем получил» — не аномалия.</li><li>Наличные, другие банки, суммы ниже порога и август не видны.</li></ul>");
 }
+const PAGES = { priority: pagePriority, confidence: pageConfidence, method: pageMethod };
+function markNav(name) { document.querySelectorAll(".nav a").forEach(a => a.setAttribute("aria-current", a.dataset.nav === name ? "page" : "false")); }
+function showPage(name) {
+  document.body.classList.add("page-mode");
+  $("pages").hidden = false;
+  $("page").innerHTML = PAGES[name]();
+  markNav(name); hideTip(); closeSuggest();
+  $("pages").scrollTop = 0;
+}
+function showWork() {
+  const was = document.body.classList.contains("page-mode");
+  document.body.classList.remove("page-mode");
+  $("pages").hidden = true;
+  markNav("work");
+  if (was && renderer) { renderer.resize(); renderer.refresh(); }
+}
+function route() {
+  const h = decodeURIComponent((location.hash || "").slice(1));
+  if (h.startsWith("/") && PAGES[h.slice(1)]) { showPage(h.slice(1)); return; }
+  showWork();
+  if (byId.has(h)) { if (h !== S.sel) selectNode(h); }
+  else if (S.sel) { try { history.replaceState(null, "", "#" + S.sel); } catch (e) { /* file:// */ } }
+}
+window.addEventListener("hashchange", route);
 
 // ---------- события
 document.addEventListener("click", e => {
@@ -1029,7 +1181,7 @@ document.addEventListener("keydown", e => {
   const t = e.target;
   if ((e.key === "Enter" || e.key === " ") && t.classList && (t.classList.contains("q-row") || t.classList.contains("c-row"))) { e.preventDefault(); t.click(); return; }
   if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(t.tagName)) { e.preventDefault(); $("q").focus(); return; }
-  if (e.key === "Escape") { if ($("method").open) return; if (!$("suggest").hidden) { closeSuggest(); return; } if (S.focus) clearFocus(); }
+  if (e.key === "Escape") { if (document.body.classList.contains("page-mode")) { location.hash = "#/"; return; } if (!$("suggest").hidden) { closeSuggest(); return; } if (S.focus) clearFocus(); }
 });
 $("queue").addEventListener("mouseover", e => {
   const row = e.target.closest(".q-row"), id = row ? row.dataset.gid : null;
@@ -1079,21 +1231,18 @@ $("zIn").addEventListener("click", () => { if (renderer) renderer.getCamera().an
 $("zOut").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedUnzoom(ANIM); });
 $("zFit").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedReset(ANIM); });
 $("cSort").addEventListener("change", renderClusters);
-$("methodBtn").addEventListener("click", () => $("method").showModal());
-$("mClose").addEventListener("click", () => $("method").close());
-$("method").addEventListener("click", e => { if (e.target === $("method")) $("method").close(); });
 $("askForm").addEventListener("submit", e => { e.preventDefault(); ask($("askInput").value); });
 $("askInput").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ask($("askInput").value); } });
 window.focusNode = id => selectNode(id);
 
 // ---------- запуск
-renderHeader(); renderQueue(); renderClusters(); renderLegend(); renderMethod(); renderEmpty(); renderAskIntro();
+renderHeader(); renderQueue(); renderClusters(); renderLegend(); renderEmpty(); renderAskIntro();
 applyFilters();
 const boot = () => {
   initGraph();
   applyFilters();
   const h = decodeURIComponent((location.hash || "").slice(1));
-  if (h && byId.has(h)) setTimeout(() => selectNode(h), 350); // после первых кадров отрисовки
+  if (h.startsWith("/")) route(); else if (byId.has(h)) setTimeout(route, 350); // клиенту — после первых кадров отрисовки
   detectServer();
 };
 const fontsReady = document.fonts && document.fonts.load ? document.fonts.load('600 12px "Golos Text"').catch(() => null) : Promise.resolve();

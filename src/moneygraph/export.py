@@ -10,7 +10,9 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 
-from moneygraph.config import CONFIDENCE_LEVELS, FLAG_RU, PRIORITY_LEVELS, ROLE_META, ROLES
+from dataclasses import asdict
+
+from moneygraph.config import CFG, CONFIDENCE_LEVELS, FLAG_RU, PRIORITY_LEVELS, ROLE_META, ROLES
 
 REQUIRED_NODE_COLS = ["gid", "role", "role_score", "cluster_id", "priority_score", "evidence"]
 EXTRA_NODE_COLS = [
@@ -90,6 +92,7 @@ def graph_json(G: nx.DiGraph, df: pd.DataFrame, clusters: pd.DataFrame, top: pd.
         "flags": FLAG_RU,
         "scales": {"confidence": [{"min": lo, "label": lab} for lo, lab in CONFIDENCE_LEVELS],
                    "priority": [{"max_rank": hi, "label": lab} for hi, lab in PRIORITY_LEVELS]},
+        "model": asdict(CFG),  # все пороги и веса — для страниц «Как считается …»
         **meta_extra,
     }
     return {"meta": meta, "nodes": nodes, "edges": edges, "clusters": cl, "top": tp}

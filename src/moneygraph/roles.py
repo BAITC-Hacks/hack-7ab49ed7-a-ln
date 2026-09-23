@@ -116,16 +116,16 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
     # ---- R1 coordinator
     fired = []
     if r.in_deg >= cfg.hub_min_in and r.out_deg >= cfg.hub_min_out:
-        s = _score(_ramp(r.in_deg, cfg.hub_min_in, 20), _ramp(r.out_deg, cfg.hub_min_out, 80))
+        s = _score(_ramp(r.in_deg, cfg.hub_min_in, cfg.hub_full_in), _ramp(r.out_deg, cfg.hub_min_out, cfg.hub_full_out))
         fired.append((s, f"R1 хаб: in_deg={r.in_deg}≥{cfg.hub_min_in}, out_deg={r.out_deg}≥{cfg.hub_min_out}",
                       f"Хаб: собирает от {_payers(r.in_deg)} ({fmt_kzt(r.in_kzt)}) и раздаёт {_recips(r.out_deg)} "
                       f"({fmt_kzt(r.out_kzt)}); связан с {n_seed_clusters} кластерами с seed"))
     if r.seed_out >= cfg.coord_min_seed_payees:
-        s = _score(_ramp(r.seed_out, cfg.coord_min_seed_payees, 6))
+        s = _score(_ramp(r.seed_out, cfg.coord_min_seed_payees, cfg.coord_full_seed_payees))
         fired.append((s, f"R1 платит seed: seed-получателей={r.seed_out}≥{cfg.coord_min_seed_payees}",
                       f"Платит {r.seed_out} известным участникам (seed); {_flow_line(r)}"))
     if r.betweenness >= btw_cut and r.betweenness > 0 and n_seed_clusters >= cfg.bridge_min_seed_clusters:
-        s = _score(_ramp(n_seed_clusters, cfg.bridge_min_seed_clusters, 8))
+        s = _score(_ramp(n_seed_clusters, cfg.bridge_min_seed_clusters, cfg.bridge_full_seed_clusters))
         fired.append((s, f"R1 мост: посредничество {r.betweenness:.4f} (топ-1%), кластеров с seed={n_seed_clusters}",
                       f"Мост между {n_seed_clusters} кластерами с seed (посредничество в топ-1%); {_flow_line(r)}"))
     d_fire = r.out_deg >= cfg.distr_min_out and r.out_deg >= cfg.distr_fan_ratio * max(r.in_deg, 1)
@@ -148,7 +148,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
                 "consolidator" if c_fire else "-", _clip(ev), "not_sink")
     if c_fire:
         s = _score(max(_ramp(r.in_deg, cfg.cons_min_in, cfg.cons_strong_in),
-                       _ramp(r.seed_in, cfg.cons_min_seed_payers, 4)))
+                       _ramp(r.seed_in, cfg.cons_min_seed_payers, cfg.cons_full_seed_payers)))
         rule = (f"R3: in_deg={r.in_deg}≥{cfg.cons_min_in}" if r.in_deg >= cfg.cons_min_in
                 else f"R3: seed-плательщиков={r.seed_in}≥{cfg.cons_min_seed_payers}")
         ev = f"Получает от {_payers(r.in_deg)}: {fmt_kzt(r.in_kzt)}, {_tx(r.in_tx)} (в среднем {fmt_kzt(r.avg_in)})"
@@ -186,7 +186,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
 
     # ---- R4 transit
     if r.out_deg > 0 and r.is_seed and r.in_kzt == 0:
-        s = min(_score(_ramp(r.out_kzt, cfg.term_min_kzt, 1e6)), cfg.seed_transit_cap)
+        s = min(_score(_ramp(r.out_kzt, cfg.term_min_kzt, cfg.term_full_kzt)), cfg.seed_transit_cap)
         ev = (f"Seed: входящие вне выгрузки; отправил {fmt_kzt(r.out_kzt)} {_recips(r.out_deg)} ({_tx(r.out_tx)}) — "
               f"передаёт средства дальше по цепочке")
         return "transit", s, "R4s: seed с исходящими, входящие не наблюдаются", "-", _clip(ev), "not_sink"
@@ -214,7 +214,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
 
     # ---- R5 terminal (исходящие известны полностью)
     if r.in_deg > 0 and ratio <= cfg.term_max_out_share and (r.in_kzt >= cfg.term_min_kzt or r.in_tx >= cfg.term_min_tx):
-        s = _score(_ramp(r.in_kzt, cfg.term_min_kzt, 1e6), 1 - ratio / cfg.term_max_out_share)
+        s = _score(_ramp(r.in_kzt, cfg.term_min_kzt, cfg.term_full_kzt), 1 - ratio / cfg.term_max_out_share)
         ev = f"Получил {fmt_kzt(r.in_kzt)} от {_payers(r.in_deg)} ({_tx(r.in_tx)}), дальше ушло {fmt_pct(ratio)}"
         sink = "confirmed_sink"
         rule = f"R5: out/in={ratio:.2f}≤{cfg.term_max_out_share}, in={fmt_kzt(r.in_kzt)}"

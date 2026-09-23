@@ -77,9 +77,13 @@ class Config:
     # --- R1 coordinator
     hub_min_in: int = 8                    # хаб: собирает от ≥8 ...
     hub_min_out: int = 20                  # ... и раздаёт ≥20
+    hub_full_in: int = 20                  # уверенность 1,0 у хаба: от 20 плательщиков ...
+    hub_full_out: int = 80                 # ... и от 80 получателей
     coord_min_seed_payees: int = 3         # платит ≥3 разным seed
+    coord_full_seed_payees: int = 6
     bridge_btw_quantile: float = 0.99      # мост: посредничество в топ-1% ...
     bridge_min_seed_clusters: int = 4      # ... и соседи в ≥4 кластерах, где есть seed
+    bridge_full_seed_clusters: int = 8
 
     # --- R2 distributor
     distr_min_out: int = 10
@@ -90,6 +94,7 @@ class Config:
     cons_min_in: int = 4
     cons_min_seed_payers: int = 2
     cons_strong_in: int = 15
+    cons_full_seed_payers: int = 4
 
     # --- R4 transit
     transit_lo: float = 0.8
@@ -102,6 +107,7 @@ class Config:
     term_min_kzt: float = 30_000.0         # ≈ медиана суммы по ребру (45 тыс.) / чуть выше медианы перевода (30 тыс.)
     term_min_tx: int = 2
     term_max_out_share: float = 0.10
+    term_full_kzt: float = 1_000_000.0      # уверенность 1,0 по сумме — от 1 млн ₸
     late_penalty: float = 0.6
 
     # --- 4-е колено (обрыв обхода)
