@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Граф денег</title>
+<style>/*__FONTS__*/</style>
+<style>
+:root {
+  --paper: #ffffff;
+  --plane: #eef1f3;
+  --canvas: #f6f8f9;
+  --grid: #dde3e8;
+  --ink: #19293a;
+  --ink-2: #3d4e60;
+  --muted: #5d6b78;
+  --faint: #8c98a3;
+  --rule: #e1e6ea;
+  --rule-2: #cad3da;
+  --hover: #f3f6f8;
+  --sel: #e9eff4;
+  --in: #1c5cab;
+  --out: #eb6834;
+  --warn-bg: #fbf4e2;
+  --warn-ink: #6b5212;
+  font: 13px/1.45 "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--plane);
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; display: grid; grid-template-rows: 60px minmax(0, 1fr); overflow: hidden; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+h1, h2, h3, p { margin: 0; }
+.num, .gid { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- header */
+.top { display: flex; align-items: center; gap: 22px; padding: 0 18px; background: var(--paper); border-bottom: 1px solid var(--rule); min-width: 0; }
+.brand { display: flex; align-items: center; gap: 10px; flex: none; }
+.brand svg { display: block; }
+.brand h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
+.brand small { display: block; font-size: 12px; color: var(--muted); font-weight: 400; letter-spacing: 0; }
+.search { position: relative; flex: 1 1 380px; max-width: 520px; min-width: 200px; }
+.search input { width: 100%; height: 38px; padding: 0 44px 0 36px; border: 1px solid var(--rule-2); border-radius: 8px; background: var(--hover); outline: none; }
+.search input:focus { background: var(--paper); border-color: var(--ink); }
+.search .ico { position: absolute; left: 12px; top: 11px; color: var(--muted); pointer-events: none; }
+.search input:not(:placeholder-shown) ~ kbd { display: none; }
+.search kbd { position: absolute; right: 10px; top: 9px; font: 11px/18px "Golos Text", sans-serif; color: var(--muted); border: 1px solid var(--rule-2); border-radius: 4px; padding: 0 6px; background: var(--paper); }
+.suggest { position: absolute; left: 0; right: 0; top: 44px; background: var(--paper); border: 1px solid var(--rule-2); border-radius: 8px; box-shadow: 0 12px 32px rgba(25, 41, 58, .16); z-index: 30; overflow: hidden; }
+.suggest button { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; width: 100%; text-align: left; border: 0; background: none; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+.suggest button:last-child { border-bottom: 0; }
+.suggest button[aria-selected="true"], .suggest button:hover { background: var(--sel); }
+.suggest .s-meta { grid-column: 1; }
+.suggest .s-score { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-weight: 600; }
+.suggest .empty { padding: 12px; color: var(--muted); }
+.kpis { display: flex; gap: 22px; margin-left: auto; min-width: 0; overflow: hidden; }
+.kpi { white-space: nowrap; line-height: 1.2; }
+.kpi b { display: block; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.kpi span { font-size: 12px; color: var(--muted); }
+.btn { height: 34px; padding: 0 14px; border: 1px solid var(--rule-2); border-radius: 8px; background: var(--paper); font-weight: 500; white-space: nowrap; }
+.btn:hover { background: var(--hover); border-color: var(--faint); }
+.btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn.primary:hover { background: #22384e; }
+.btn:disabled { opacity: .55; cursor: default; }
+
+/* ---------- workbench */
+.work { display: grid; grid-template-columns: 330px minmax(0, 1fr) 400px; min-height: 0; }
+.side { background: var(--paper); display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.left { border-right: 1px solid var(--rule); }
+.right { border-left: 1px solid var(--rule); }
+.tabs { display: flex; gap: 18px; padding: 0 18px; border-bottom: 1px solid var(--rule); flex: none; }
+.tabs button { border: 0; background: none; padding: 14px 0 12px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
+.tabs .count { color: var(--faint); font-weight: 400; margin-left: 5px; }
+.tabs button.ai { position: relative; display: inline-flex; align-items: center; gap: 7px; }
+.ai-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 700; line-height: 16px; color: #fff; background: var(--ink); border-radius: 999px; padding: 0 7px 0 6px; }
+.tabs button.ai.glow::before { content: ""; position: absolute; left: -10px; right: -10px; top: 7px; bottom: 5px; border-radius: 9px; pointer-events: none; animation: aiGlow 4.5s ease-in-out infinite; }
+.tabs button.ai.glow .ai-badge { animation: aiBadge 4.5s ease-in-out infinite; }
+@keyframes aiGlow {
+  0%, 55%, 100% { box-shadow: 0 0 0 0 rgba(25, 41, 58, 0); background: rgba(25, 41, 58, 0); }
+  18% { box-shadow: 0 0 0 3px rgba(25, 41, 58, .16), 0 0 18px 6px rgba(42, 120, 214, .28); background: rgba(42, 120, 214, .07); }
+  32% { box-shadow: 0 0 0 7px rgba(25, 41, 58, 0), 0 0 22px 8px rgba(42, 120, 214, 0); background: rgba(42, 120, 214, .02); }
+}
+@keyframes aiBadge { 0%, 55%, 100% { transform: scale(1); } 18% { transform: scale(1.12); } }
+@media (prefers-reduced-motion: reduce) {
+  .tabs button.ai.glow::before { animation: none; box-shadow: 0 0 0 2px rgba(42, 120, 214, .35); }
+  .tabs button.ai.glow .ai-badge { animation: none; }
+}
+.scroll { overflow: auto; flex: 1; min-height: 0; }
+.intro { padding: 12px 18px; color: var(--muted); font-size: 12px; border-bottom: 1px solid var(--rule); }
+
+/* queue */
+.q-row { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 4px 10px; padding: 11px 18px 11px 14px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+.q-row:hover { background: var(--hover); }
+.q-row[aria-current="true"] { background: var(--sel); box-shadow: inset 3px 0 0 var(--ink); }
+.q-rank { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; padding-top: 1px; }
+.q-main { min-width: 0; }
+.q-main .gid { display: block; }
+.q-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 3px; }
+.q-score { text-align: right; }
+.q-score b { display: block; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.meter { width: 54px; height: 4px; border-radius: 2px; background: var(--rule); margin-top: 6px; overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--ink); border-radius: 2px; }
+.gid-pre { color: var(--faint); }
+.gid-suf { font-weight: 600; color: var(--ink); }
+.role { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex: none; }
+.dot.ring { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--ink); }
+.tag { font-size: 11px; line-height: 16px; padding: 0 6px; border-radius: 4px; background: var(--hover); color: var(--ink-2); border: 1px solid var(--rule); white-space: nowrap; }
+.tag.seed { background: var(--ink); color: #fff; border-color: var(--ink); }
+.tag.trunc { background: var(--warn-bg); color: var(--warn-ink); border-color: #efe1b8; }
+.typo { font-size: 12px; color: var(--muted); }
+
+/* clusters */
+.c-tools { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--rule); color: var(--muted); font-size: 12px; }
+.c-tools select { border: 1px solid var(--rule-2); border-radius: 6px; padding: 3px 6px; background: var(--paper); }
+.c-row { padding: 12px 18px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+.c-row:hover { background: var(--hover); }
+.c-row[aria-current="true"] { background: var(--sel); box-shadow: inset 3px 0 0 var(--ink); }
+.c-head { display: flex; justify-content: space-between; gap: 8px; font-weight: 600; }
+.c-stats { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.c-hyp { font-size: 12px; color: var(--ink-2); margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.mix { display: flex; gap: 2px; height: 6px; margin-top: 8px; }
+.mix span { display: block; height: 100%; border-radius: 1px; background: var(--c); }
+
+/* ---------- stage */
+.stage { position: relative; min-width: 0; min-height: 0; background-color: var(--canvas); background-image: radial-gradient(var(--grid) 1px, transparent 1.3px); background-size: 22px 22px; }
+#graph { position: absolute; inset: 0; }
+.panel { position: absolute; background: rgba(255, 255, 255, .96); border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 1px 3px rgba(25, 41, 58, .07); }
+.filters { left: 14px; top: 14px; right: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 8px 12px; font-size: 12px; }
+.filters label { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); white-space: nowrap; }
+.filters input[type="checkbox"] { accent-color: var(--ink); margin: 0; }
+.filters select { border: 1px solid var(--rule-2); border-radius: 5px; padding: 1px 4px; background: var(--paper); font-size: 12px; }
+.filters input[type="range"] { width: 130px; accent-color: var(--ink); }
+.filters output { min-width: 64px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink); }
+.filters .vis { margin-left: auto; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.linkbtn { border: 0; background: none; padding: 0; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; font-size: 12px; }
+.focusbar { left: 14px; top: 64px; display: flex; align-items: flex-start; gap: 14px; padding: 7px 8px 7px 12px; max-width: calc(100% - 28px); }
+.focusbar .fmain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; min-width: 0; flex: 1 1 auto; padding-top: 3px; }
+.focusbar .fctrl { display: flex; align-items: center; gap: 8px; flex: none; }
+.fkeys { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink-2); }
+.fkeys span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.fkeys i { width: 16px; height: 3px; border-radius: 2px; background: var(--c); }
+.fhidden { font-size: 12px; color: var(--warn-ink); background: var(--warn-bg); border-radius: 4px; padding: 1px 7px; white-space: nowrap; }
+.kv dt .mk { display: inline-block; width: 14px; height: 3px; border-radius: 2px; background: var(--c); margin-right: 6px; vertical-align: middle; }
+.focusbar .ftitle { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg { display: inline-flex; border: 1px solid var(--rule-2); border-radius: 6px; overflow: hidden; flex: none; }
+.seg button { border: 0; background: var(--paper); padding: 3px 10px; font-size: 12px; }
+.seg button + button { border-left: 1px solid var(--rule-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.xbtn { border: 0; background: none; font-size: 18px; line-height: 1; padding: 2px 6px; color: var(--muted); border-radius: 4px; }
+.xbtn:hover { background: var(--hover); color: var(--ink); }
+.legend { left: 14px; bottom: 44px; padding: 10px 12px; width: 236px; font-size: 12px; }
+.legend .lhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.legend h3 { font-size: 12px; font-weight: 600; }
+.legend.collapsed .lbody { display: none; }
+.legend.collapsed .lhead { margin-bottom: 0; }
+.legend .lr { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 8px; width: 100%; border: 0; background: none; padding: 3px 2px; border-radius: 4px; text-align: left; }
+.legend .lr:hover { background: var(--hover); }
+.legend .lr[aria-pressed="false"] { opacity: .45; }
+.legend .lr[aria-pressed="false"] .lname { text-decoration: line-through; }
+.legend .lcount { color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend .keys { display: grid; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--rule); color: var(--ink-2); }
+.legend .k { display: flex; align-items: center; gap: 8px; }
+.legend .line { width: 18px; height: 3px; border-radius: 2px; background: var(--c); flex: none; }
+.legend .faded { width: 9px; height: 9px; border-radius: 50%; background: #f6d080; flex: none; }
+.legend .hint { color: var(--muted); }
+.zoom { right: 14px; bottom: 44px; display: grid; overflow: hidden; }
+.zoom button { width: 34px; height: 32px; border: 0; background: none; font-size: 17px; color: var(--ink-2); }
+.zoom button + button { border-top: 1px solid var(--rule); }
+.zoom button:hover { background: var(--hover); color: var(--ink); }
+.note { position: absolute; left: 14px; right: 14px; bottom: 12px; font-size: 12px; color: var(--muted); text-align: center; pointer-events: none; }
+.tip { position: absolute; z-index: 20; pointer-events: none; background: var(--paper); border: 1px solid var(--rule-2); border-radius: 8px; box-shadow: 0 8px 24px rgba(25, 41, 58, .16); padding: 9px 11px; min-width: 210px; max-width: 280px; font-size: 12px; }
+.tip .gid { font-size: 13px; }
+.tip .t-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 3px; color: var(--ink-2); }
+.tip .t-row b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.glerr { position: absolute; inset: 30% 12% auto; padding: 18px; background: var(--paper); border: 1px solid var(--rule-2); border-radius: 8px; }
+
+/* ---------- card */
+.card { padding: 16px 20px 28px; }
+.back { border: 0; background: none; padding: 0; color: var(--muted); font-size: 12px; margin-bottom: 10px; }
+.back:hover { color: var(--ink); text-decoration: underline; }
+.c-id { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.c-id .gid { font-size: 20px; letter-spacing: -0.005em; }
+.copy { border: 1px solid var(--rule-2); background: var(--paper); border-radius: 5px; font-size: 11px; padding: 1px 7px; color: var(--muted); }
+.copy:hover { color: var(--ink); border-color: var(--faint); }
+.c-role { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 8px; }
+.c-role .role { font-size: 14px; font-weight: 600; color: var(--ink); }
+.conf { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.conf .meter { width: 70px; margin-top: 0; }
+.c-typo { margin-top: 6px; font-size: 12px; color: var(--ink-2); }
+.evidence { margin-top: 14px; padding: 10px 12px 10px 14px; border-left: 3px solid var(--c); background: var(--hover); border-radius: 0 6px 6px 0; line-height: 1.55; }
+.rule { margin-top: 6px; font-size: 12px; color: var(--muted); }
+.scale { margin-top: 4px; font-size: 12px; color: var(--muted); line-height: 1.45; }
+.lvl { font-weight: 600; color: var(--ink); }
+.conf-word { font-size: 12px; color: var(--ink-2); display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; white-space: nowrap; }
+.strength { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--ink); background: var(--hover); border: 1px solid var(--rule); border-radius: 999px; padding: 1px 9px 1px 7px; white-space: nowrap; }
+.strength .sd { display: inline-flex; gap: 2px; }
+.strength .sd i { width: 5px; height: 5px; border-radius: 50%; background: var(--rule-2); }
+.strength .sd i.on { background: var(--ink); }
+.q-typo { grid-column: 2 / -1; margin-top: -2px; }
+.q-cap { font-size: 11px; color: var(--muted); margin-bottom: 3px; white-space: nowrap; }
+.sec { margin-top: 20px; }
+.sec > h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.sec > h3 .muted { font-weight: 400; font-size: 12px; }
+.flows { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 8px; }
+.flows > div { padding: 10px 12px; }
+.flows > div + div { border-left: 1px solid var(--rule); }
+.flows .fl { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.flows .fl i { width: 14px; height: 3px; border-radius: 2px; background: var(--c); }
+.flows b { display: block; font-size: 17px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.flows small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.flows .pass { grid-column: 1 / -1; border-top: 1px solid var(--rule); border-left: 0 !important; font-size: 12px; color: var(--ink-2); padding: 8px 12px; }
+.actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.actions .btn { flex: 1 1 auto; height: 32px; font-size: 12px; }
+.prio { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 10px; align-items: center; font-size: 12px; }
+.prio .pb { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.prio .pb i { display: block; height: 100%; background: var(--ink); }
+.prio .pv { font-variant-numeric: tabular-nums; color: var(--ink-2); text-align: right; }
+.prio-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.prio-head b { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; line-height: 1.35; padding: 4px 8px; border-radius: 6px; background: var(--hover); border: 1px solid var(--rule); color: var(--ink-2); }
+.notebox { font-size: 12px; line-height: 1.5; padding: 9px 11px; border-radius: 6px; background: var(--warn-bg); color: var(--warn-ink); }
+.kv { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; font-size: 12px; margin: 0; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+table.cp { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.cp th { text-align: left; font-weight: 500; color: var(--muted); padding: 0 0 6px; border-bottom: 1px solid var(--rule); }
+table.cp td { padding: 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.cp th:nth-child(n+2), table.cp td:nth-child(n+2) { text-align: right; padding-left: 8px; white-space: nowrap; }
+table.cp td small { display: block; color: var(--muted); }
+.gl { border: 0; background: none; padding: 0; text-align: left; cursor: pointer; }
+.gl:hover .gid-suf { text-decoration: underline; text-underline-offset: 2px; }
+.more { margin-top: 8px; }
+.empty { padding: 28px 22px; }
+.empty h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.empty p { color: var(--ink-2); line-height: 1.55; margin-bottom: 14px; max-width: 34em; }
+.empty ul { margin: 18px 0 0; padding: 0 0 0 16px; display: grid; gap: 6px; color: var(--ink-2); font-size: 12px; }
+
+/* ---------- assistant */
+.ask { padding: 16px 20px 28px; }
+.ask p.lead { color: var(--ink-2); line-height: 1.5; margin-bottom: 10px; }
+.ask textarea { width: 100%; min-height: 76px; resize: vertical; padding: 10px 12px; border: 1px solid var(--rule-2); border-radius: 8px; line-height: 1.45; }
+.ask textarea:focus { outline: none; border-color: var(--ink); }
+.ask .row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.ask .row .muted { font-size: 12px; }
+.examples { display: grid; gap: 6px; margin-top: 16px; }
+.examples h3 { font-size: 12px; font-weight: 600; color: var(--muted); }
+.examples button { text-align: left; border: 1px solid var(--rule); background: var(--hover); border-radius: 6px; padding: 7px 10px; font-size: 12px; line-height: 1.4; }
+.examples button:hover { border-color: var(--faint); background: var(--paper); }
+.answer { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+.answer h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.answer .src { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.answer .text { white-space: pre-wrap; line-height: 1.55; }
+.answer .item { padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: 12px; display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: start; }
+.answer .hop { padding: 8px 10px; border-radius: 6px; background: var(--hover); margin-bottom: 6px; font-size: 12px; line-height: 1.5; }
+.answer details { margin-top: 10px; font-size: 12px; color: var(--muted); }
+.answer details li { margin: 3px 0; }
+.spin { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--rule-2); border-top-color: var(--ink); border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------- methodology */
+dialog { border: 0; border-radius: 12px; padding: 0; width: min(760px, calc(100% - 32px)); max-height: 86vh; color: var(--ink); box-shadow: 0 24px 80px rgba(25, 41, 58, .3); }
+dialog::backdrop { background: rgba(25, 41, 58, .45); }
+.m-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.m-head h2 { font-size: 18px; font-weight: 700; }
+.m-body { padding: 8px 22px 22px; overflow: auto; max-height: calc(86vh - 64px); }
+.m-body h3 { font-size: 14px; font-weight: 600; margin: 18px 0 8px; }
+.m-body p, .m-body li { line-height: 1.55; color: var(--ink-2); }
+.m-role { display: grid; grid-template-columns: 12px 1fr; gap: 4px 10px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.m-role .dot { margin-top: 5px; }
+.m-role b { font-weight: 600; }
+.m-role p { grid-column: 2; font-size: 12px; }
+.m-body ul { padding-left: 18px; margin: 0; }
+
+/* ---------- навигация и страницы-объяснения */
+.nav { display: flex; gap: 3px; flex: none; background: var(--hover); border: 1px solid var(--rule); border-radius: 10px; padding: 3px; }
+.nav a { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 7px; color: var(--ink-2); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.nav a:hover { background: var(--paper); color: var(--ink); }
+.nav a[aria-current="page"] { background: var(--ink); color: #fff; }
+.nav .s { display: none; }
+.pages { grid-row: 2; overflow: auto; min-height: 0; background: var(--plane); }
+body.page-mode .work { display: none; }
+.page { max-width: 940px; margin: 0 auto; padding: 32px 28px 72px; }
+.page h1 { font-size: 28px; line-height: 1.2; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; }
+.page .lead { font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 68ch; }
+.page h2 { font-size: 19px; font-weight: 700; margin: 36px 0 12px; }
+.page p, .page li { font-size: 14px; line-height: 1.65; color: var(--ink-2); max-width: 74ch; }
+.page p + p { margin-top: 8px; }
+.page ul { padding-left: 18px; margin: 8px 0 0; }
+.page table.t { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; font-size: 13px; }
+.page table.t th, .page table.t td { padding: 10px 12px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; line-height: 1.5; }
+.page table.t th { font-weight: 500; color: var(--muted); }
+.page table.t tr:last-child td { border-bottom: 0; }
+.page table.t td.num, .page table.t th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.wbar { height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; width: 120px; margin-top: 5px; }
+.wbar i { display: block; height: 100%; background: var(--ink); }
+.exgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.excard { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.excard h3 { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.excard .tot { display: flex; align-items: baseline; gap: 8px; margin: 10px 0; }
+.excard .tot b { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lvls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.lv { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.lv .lv-name { font-size: 16px; font-weight: 700; margin: 6px 0 2px; }
+.lv .lv-count { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.chartbox { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; }
+.chartbox svg { width: 100%; height: auto; display: block; }
+.chartbox .cap { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.page .cta { margin-top: 32px; display: flex; gap: 10px; flex-wrap: wrap; }
+a.btn { display: inline-flex; align-items: center; text-decoration: none; color: var(--ink); }
+a.btn.primary { color: #fff; }
+.helplink { font-size: 12px; font-weight: 400; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.intro a { color: var(--ink); }
+@media (max-width: 1400px) { .kpis { display: none; } }
+@media (max-width: 1180px) { .nav .l { display: none; } .nav .s { display: inline; } }
+
+@media (max-width: 1280px) {
+  .work { grid-template-columns: 290px minmax(0, 1fr) 360px; }
+  .kpi:nth-child(n+4) { display: none; }
+}
+@media (max-width: 1020px) {
+  body { overflow: auto; grid-template-rows: auto auto; }
+  .top { flex-wrap: wrap; padding: 10px 14px; gap: 10px 16px; }
+  .kpis { display: none; }
+  .work { grid-template-columns: 1fr; }
+  .stage { height: 70vh; order: 1; }
+  .right { order: 2; border-left: 0; border-top: 1px solid var(--rule); }
+  .left { order: 3; border-right: 0; border-top: 1px solid var(--rule); max-height: 70vh; }
+  .legend { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="7" cy="22" r="4.2" fill="#19293a"/><circle cx="23" cy="8" r="4.2" fill="none" stroke="#19293a" stroke-width="2.2"/><path d="M10.2 18.8 18.6 10.4" stroke="#19293a" stroke-width="2.2" stroke-linecap="round"/><path d="M13.6 10.3h5v5" fill="none" stroke="#19293a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><h1>Граф денег</h1><small>Рабочее место AML-аналитика</small></div>
+  </div>
+  <nav class="nav" aria-label="Разделы">
+    <a href="#/" data-nav="work" aria-current="page">Схема</a>
+    <a href="#/priority" data-nav="priority"><span class="l">Как считается приоритет</span><span class="s">Приоритет</span></a>
+    <a href="#/confidence" data-nav="confidence"><span class="l">Как считается уверенность</span><span class="s">Уверенность</span></a>
+    <a href="#/method" data-nav="method">Методика</a>
+  </nav>
+  <div class="search">
+    <label class="sr" for="q">Найти клиента по номеру</label>
+    <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m11 11 3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <input id="q" type="search" inputmode="numeric" autocomplete="off" placeholder="Номер клиента или его последние цифры" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list">
+    <kbd aria-hidden="true">/</kbd>
+    <div id="suggest" class="suggest" role="listbox" hidden></div>
+  </div>
+  <div class="kpis" id="kpis"></div>
+</header>
+
+<main class="work">
+  <aside class="side left" aria-label="Очередь проверки и кластеры">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabQueue" aria-selected="true" data-ltab="queue">Очередь проверки<span class="count" id="qCount"></span></button>
+      <button role="tab" id="tabClusters" aria-selected="false" data-ltab="clusters">Кластеры<span class="count" id="cCount"></span></button>
+    </div>
+    <section id="pQueue" class="scroll" role="tabpanel" aria-labelledby="tabQueue">
+      <p class="intro">Номер слева — место в очереди: сверху те, у кого больше всего оснований для проверки. Справа — насколько ярко выражена роль. <a href="#/priority">Как считается приоритет</a>, <a href="#/confidence">как считается уверенность</a>.</p>
+      <div id="queue"></div>
+    </section>
+    <section id="pClusters" class="scroll" role="tabpanel" aria-labelledby="tabClusters" hidden>
+      <div class="c-tools"><label for="cSort">Порядок</label><select id="cSort"><option value="priority">по приоритету узлов</option><option value="size">по размеру</option><option value="seed">по числу seed</option></select></div>
+      <div id="clusters"></div>
+    </section>
+  </aside>
+
+  <section class="stage" aria-label="Схема переводов">
+    <div id="graph"></div>
+    <div class="panel filters" role="group" aria-label="Фильтры схемы">
+      <label><input type="checkbox" id="fPeriph">Скрыть периферию</label>
+      <label><input type="checkbox" id="fTop">Только топ</label>
+      <select id="fTopN" aria-label="Размер топа"><option value="20">20</option><option value="50" selected>50</option><option value="100">100</option></select>
+      <label for="fMin">Переводы от</label>
+      <input type="range" id="fMin" min="0" max="100" value="0">
+      <output id="fMinOut" for="fMin">0 ₸</output>
+      <button class="linkbtn" id="fReset">Сбросить</button>
+      <span class="vis" id="visCount"></span>
+    </div>
+    <div class="panel focusbar" id="focusbar" hidden>
+      <div class="fmain">
+        <span class="ftitle" id="focusTitle"></span>
+        <span class="fkeys" id="focusKeys"></span>
+        <span class="fhidden" id="focusHidden" hidden></span>
+        <button class="linkbtn" id="showAll" hidden>Показать всех</button>
+      </div>
+      <div class="fctrl">
+        <div class="seg" id="hopSeg" role="group" aria-label="Глубина окрестности"><button data-hops="1" aria-pressed="true">1 шаг</button><button data-hops="2" aria-pressed="false">2 шага</button></div>
+        <button class="xbtn" id="clearFocus" aria-label="Снять выделение" title="Снять выделение (Esc)">×</button>
+      </div>
+    </div>
+    <div class="panel legend" id="legend"></div>
+    <div class="panel zoom"><button id="zIn" aria-label="Приблизить">+</button><button id="zOut" aria-label="Отдалить">−</button><button id="zFit" aria-label="Показать всю сеть" title="Вся сеть">⤢</button></div>
+    <p class="note">Роли — гипотезы для проверки, а не вывод о виновности. Видны переводы от 5 000 ₸ внутри банка за июль 2026, до 4-го колена от исходных клиентов.</p>
+    <div class="tip" id="tip" hidden></div>
+    <div class="glerr" id="glErr" hidden></div>
+  </section>
+
+  <aside class="side right" aria-label="Карточка клиента и ассистент">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabCard" aria-selected="true" data-rtab="card">Карточка клиента</button>
+      <button role="tab" id="tabAsk" aria-selected="false" data-rtab="ask" class="ai glow" title="Спросите ИИ о любом клиенте, пути денег или кластере">
+        <span class="ai-badge" aria-hidden="true"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 0l1.2 3.8L10 5 6.2 6.2 5 10 3.8 6.2 0 5l3.8-1.2z" fill="currentColor"/></svg>ИИ</span>AI-ассистент</button>
+    </div>
+    <section id="pCard" class="scroll" role="tabpanel" aria-labelledby="tabCard"><div id="card"></div></section>
+    <section id="pAsk" class="scroll" role="tabpanel" aria-labelledby="tabAsk" hidden>
+      <div class="ask">
+        <p class="lead" id="askLead"></p>
+        <form id="askForm">
+          <label class="sr" for="askInput">Вопрос по графу</label>
+          <textarea id="askInput" placeholder="Например: кто собирает деньги с этих клиентов?"></textarea>
+          <div class="row"><button class="btn primary" type="submit" id="askBtn">Спросить</button><span class="muted">Ctrl+Enter</span></div>
+        </form>
+        <div class="examples" id="examples"></div>
+        <div id="answer"></div>
+      </div>
+    </section>
+  </aside>
+</main>
+
+<section class="pages" id="pages" hidden aria-live="polite"><div class="page" id="page"></div></section>
+
+<script>/*__GRAPHOLOGY__*/</script>
+<script>/*__SIGMA__*/</script>
+<script>window.GRAPH = /*__DATA__*/null;</script>
+<script>
+(function () {
+"use strict";
+const G = window.GRAPH, META = G.meta, ROLES = META.roles, ROLE_ORDER = Object.keys(ROLES), FLAGS = META.flags || {};
+const $ = id => document.getElementById(id);
+const RM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const ANIM = RM ? { duration: 0 } : { duration: 420 };
+const IN_COLOR = "#1c5cab", OUT_COLOR = "#eb6834", PATH_COLOR = "#19293a";
+const EDGE_BASE = "#cbd4db", EDGE_DIM = "#edf0f3", NODE_DIM = "#e1e6ea";
+
+// ---------- formatting
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const NB = "\u00a0"; // неразрывный пробел между разрядами
+const fmtInt = n => Math.round(n || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, NB);
+const fmtDec = (x, d = 2) => (x == null || isNaN(x)) ? "—" : Number(x).toFixed(d).replace(".", ",");
+function fmtKzt(x) {
+  x = Number(x) || 0;
+  if (Math.abs(x) >= 1e6) return fmtDec(x / 1e6, 2) + " млн ₸";
+  if (Math.abs(x) >= 1e4) return fmtInt(x / 1e3) + " тыс ₸";
+  return fmtInt(x) + " ₸";
+}
+const plural = (n, a, b, c) => { n = Math.abs(n) % 100; const d = n % 10; return (n > 10 && n < 20) ? c : d === 1 ? a : (d >= 2 && d <= 4) ? b : c; };
+const cnt = (n, a, b, c) => fmtInt(n) + " " + plural(n, a, b, c);
+const pct = x => Math.round((x || 0) * 100) + "%";
+// ---------- шкалы оценок (из пайплайна, meta.scales): уверенность — словами, приоритет — местом и уровнем
+const SCALES = META.scales || {
+  confidence: [{ min: 0.8, label: "сильно" }, { min: 0.6, label: "умеренно" }, { min: 0, label: "слабо" }],
+  priority: [{ max_rank: 50, label: "высокий" }, { max_rank: 200, label: "средний" }, { max_rank: null, label: "низкий" }],
+};
+const confLevel = s => (SCALES.confidence.find(l => (s || 0) >= l.min) || SCALES.confidence[SCALES.confidence.length - 1]).label;
+const prioLevel = rank => (SCALES.priority.find(l => l.max_rank == null || rank <= l.max_rank)).label;
+const CONF_SCALE_TXT = (() => { const c = SCALES.confidence; return c[0].label + " — от " + fmtDec(c[0].min, 1) + ", " + c[1].label + " — от " + fmtDec(c[1].min, 1) + " до " + fmtDec(c[0].min, 1) + ", " + c[2].label + " — ниже " + fmtDec(c[1].min, 1); })();
+const CONF_SCALE_SHORT = (() => { const c = SCALES.confidence; return c[0].label + " ≥ " + fmtDec(c[0].min, 1) + ", " + c[1].label + " " + fmtDec(c[1].min, 1) + "–" + fmtDec(c[0].min, 1) + ", " + c[2].label + " < " + fmtDec(c[1].min, 1); })();
+const PRIO_SCALE_SHORT = (() => { const p = SCALES.priority; return p[0].label + " №1–" + p[0].max_rank + ", " + p[1].label + " №" + (p[0].max_rank + 1) + "–" + p[1].max_rank + ", " + p[2].label + " дальше"; })();
+const PRIO_SCALE_TXT = (() => { const p = SCALES.priority; return p[0].label + " — №1–" + p[0].max_rank + " (очередь проверки), " + p[1].label + " — №" + (p[0].max_rank + 1) + "–" + p[1].max_rank + ", " + p[2].label + " — остальные"; })();
+const MONTHS = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+const fmtDate = s => { if (!s) return ""; const [, m, d] = s.split("-").map(Number); return d + " " + MONTHS[m - 1]; };
+const short = id => "…" + id.slice(-10);
+const gidHTML = id => '<span class="gid"><span class="gid-pre">' + esc(id.slice(0, 8)) + '</span><span class="gid-suf">' + esc(id.slice(8)) + "</span></span>";
+const roleColor = r => (ROLES[r] && ROLES[r].color) || "#a0a9b1";
+const roleRu = r => (ROLES[r] && ROLES[r].ru) || r || "—";
+const roleHTML = r => '<span class="role"><span class="dot" style="--c:' + roleColor(r) + '"></span>' + esc(roleRu(r)) + "</span>";
+const gidLink = id => '<button class="gl" data-gid="' + esc(id) + '" title="' + esc(id) + '">' + gidHTML(id) + "</button>";
+function mix(hex, t) { // смешивание с белым: t — доля белого
+  const h = hex.replace("#", ""), v = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16));
+  return "#" + v.map(c => Math.round(c + (255 - c) * t).toString(16).padStart(2, "0")).join("");
+}
+const GID_RE = /\b1\d{17}\b/g;
+
+const strengthHTML = sc => {
+  const lvl = confLevel(sc), idx = SCALES.confidence.findIndex(l => l.label === lvl), on = SCALES.confidence.length - idx;
+  return '<span class="strength" title="Роль выражена ' + lvl + " (" + pct(sc) + "). Шкала: " + CONF_SCALE_TXT + '"><span class="sd" aria-hidden="true">' +
+    [1, 2, 3].map(i => "<i" + (i <= on ? ' class="on"' : "") + "></i>").join("") + "</span>" + lvl + "</span>";
+};
+
+// ---------- index
+const byId = new Map(G.nodes.map(n => [n.id, n]));
+const linkify = s => esc(s).replace(GID_RE, m => byId.has(m) ? gidLink(m) : m);
+// ответ модели: **жирный**, списки «- …» и заголовки «### …» без внешних библиотек
+const mdLite = s => linkify(s).split("\n").map(line => {
+  let l = line.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+  if (/^\s*#{1,4}\s+/.test(l)) return "<b>" + l.replace(/^\s*#{1,4}\s+/, "") + "</b>";
+  if (/^\s*[-*•]\s+/.test(l)) return "• " + l.replace(/^\s*[-*•]\s+/, "");
+  return l;
+}).join("\n");
+const inE = new Map(), outE = new Map();
+G.nodes.forEach(n => { inE.set(n.id, []); outE.set(n.id, []); });
+G.edges.forEach((e, i) => { e.key = "e" + i; outE.get(e.from).push(e); inE.get(e.to).push(e); });
+for (const m of [inE, outE]) for (const l of m.values()) l.sort((a, b) => b.sum - a.sum);
+const edgeByKey = new Map(G.edges.map(e => [e.key, e]));
+const clusterById = new Map(G.clusters.map(c => [c.id, c]));
+const clusterNodes = new Map();
+G.nodes.forEach(n => { if (!clusterNodes.has(n.cluster)) clusterNodes.set(n.cluster, []); clusterNodes.get(n.cluster).push(n); });
+const ranked = G.nodes.slice().sort((a, b) => a.rank - b.rank);
+const topList = G.top.slice().sort((a, b) => a.rank - b.rank);
+const roleCounts = {}; G.nodes.forEach(n => roleCounts[n.role] = (roleCounts[n.role] || 0) + 1);
+const sums = G.edges.map(e => e.sum);
+const minSum = Math.min(...sums), maxSum = Math.max(...sums);
+const lmin = Math.log1p(minSum), lmax = Math.log1p(maxSum);
+const edgeT = e => (Math.log1p(e.sum) - lmin) / Math.max(1e-9, lmax - lmin);
+
+// ---------- state
+const S = {
+  sel: null, focus: null, hops: 1, hover: null, history: [],
+  hiddenRoles: new Set(), hidePer: false, topOnly: false, topN: 50, minSum: 0, visible: new Set(G.nodes.map(n => n.id)),
+  server: false, llm: false, legendPinned: false,
+};
+
+// ---------- search
+function search(q, limit = 8) {
+  const d = (q || "").replace(/\D/g, "");
+  if (!d) return [];
+  const exact = byId.get(d);
+  if (exact) return [exact];
+  const suf = [], sub = [];
+  for (const n of ranked) {
+    if (n.id.endsWith(d)) suf.push(n);
+    else if (d.length >= 4 && n.id.includes(d)) sub.push(n);
+  }
+  return suf.concat(sub).slice(0, limit);
+}
+function resolve(token) {
+  const d = String(token).replace(/\D/g, "");
+  if (byId.has(d)) return { id: d };
+  if (d.length < 6) return { error: "Слишком короткий номер «" + token + "» — укажите от 6 последних цифр." };
+  const hits = ranked.filter(n => n.id.endsWith(d));
+  const all = hits.length ? hits : ranked.filter(n => n.id.includes(d));
+  if (all.length === 1) return { id: all[0].id };
+  if (!all.length) return { error: "Клиента «" + token + "» нет в выгрузке." };
+  return { error: "«" + token + "» подходит " + cnt(all.length, "клиенту", "клиентам", "клиентам") + " — уточните номер.", candidates: all.slice(0, 5).map(n => n.id) };
+}
+
+// ---------- обходы графа (по всей выгрузке, независимо от фильтров)
+function walk(id, dir, maxHops = 4) {
+  const hops = new Map([[id, 0]]), edges = new Set(), queue = [id];
+  while (queue.length) {
+    const cur = queue.shift(), h = hops.get(cur);
+    if (h >= maxHops) continue;
+    for (const e of (dir === "up" ? inE : outE).get(cur)) {
+      const nxt = dir === "up" ? e.from : e.to;
+      edges.add(e.key);
+      if (!hops.has(nxt)) { hops.set(nxt, h + 1); queue.push(nxt); }
+    }
+  }
+  return { hops, edges };
+}
+function shortestPath(a, b, directed = true) {
+  if (a === b) return { nodes: [a], edges: [] };
+  const prev = new Map([[a, null]]), queue = [a];
+  while (queue.length) {
+    const cur = queue.shift();
+    const steps = outE.get(cur).map(e => [e.to, e]);
+    if (!directed) inE.get(cur).forEach(e => steps.push([e.from, e]));
+    for (const [nxt, e] of steps) {
+      if (prev.has(nxt)) continue;
+      prev.set(nxt, [cur, e]);
+      if (nxt === b) {
+        const nodes = [b], edges = [];
+        let x = b;
+        while (prev.get(x)) { const [p, pe] = prev.get(x); edges.unshift(pe.key); nodes.unshift(p); x = p; }
+        return { nodes, edges };
+      }
+      queue.push(nxt);
+    }
+  }
+  return null;
+}
+function collectors(ids) {
+  const reach = ids.map(id => walk(id, "down", 4).hops);
+  const counts = new Map();
+  reach.forEach((m, i) => m.forEach((h, n) => { if (n !== ids[i]) counts.set(n, (counts.get(n) || 0) + 1); }));
+  const items = [...counts.entries()].filter(([, c]) => c >= 2)
+    .map(([n, c]) => ({ id: n, count: c, node: byId.get(n) }))
+    .sort((a, b) => b.count - a.count || b.node.priority - a.node.priority).slice(0, 15);
+  const nodes = new Set(ids), edges = new Set();
+  items.slice(0, 8).forEach(it => ids.forEach(src => { const p = shortestPath(src, it.id); if (p && p.edges.length <= 4) { p.nodes.forEach(x => nodes.add(x)); p.edges.forEach(x => edges.add(x)); } }));
+  items.forEach(it => nodes.add(it.id));
+  return { items, nodes, edges };
+}
+
+// ---------- фильтры видимости
+function applyFilters() {
+  let topSet = null;
+  if (S.topOnly) {
+    topSet = new Set();
+    ranked.slice(0, S.topN).forEach(n => { topSet.add(n.id); inE.get(n.id).forEach(e => topSet.add(e.from)); outE.get(n.id).forEach(e => topSet.add(e.to)); });
+  }
+  S.visible = new Set(G.nodes.filter(n => !S.hiddenRoles.has(n.role) && !(S.hidePer && n.role === "peripheral") && (!topSet || topSet.has(n.id))).map(n => n.id));
+  const ve = G.edges.filter(e => S.visible.has(e.from) && S.visible.has(e.to) && e.sum >= S.minSum).length;
+  $("visCount").textContent = "На схеме " + cnt(S.visible.size, "клиент", "клиента", "клиентов") + ", " + cnt(ve, "связь", "связи", "связей");
+  if (S.focus) updateFocusBar();
+  if (renderer) renderer.refresh();
+}
+
+// ---------- фокус
+function setFocus(f) {
+  S.focus = f;
+  $("focusbar").hidden = !f;
+  if (!S.legendPinned) { // при выделении легенда сворачивается, чтобы не закрывать схему
+    const lg = $("legend"), want = !!f;
+    if (lg.classList.contains("collapsed") !== want) { lg.classList.toggle("collapsed", want); renderLegend(); }
+  }
+  if (f) {
+    const fl = document.querySelector(".filters");
+    $("focusbar").style.top = (fl.offsetTop + fl.offsetHeight + 8) + "px";
+    updateFocusBar();
+    $("hopSeg").hidden = f.kind !== "node";
+    [...$("hopSeg").children].forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.hops) === S.hops)));
+  }
+  if (renderer) renderer.refresh();
+}
+function updateFocusBar() {
+  const f = S.focus;
+  if (!f) return;
+  const total = f.nodes.size, vis = [...f.nodes].filter(id => S.visible.has(id)).length;
+  $("focusTitle").textContent = f.title;
+  const hidden = vis < total;
+  $("focusHidden").textContent = hidden ? "видно " + fmtInt(vis) + " из " + fmtInt(total) + " — остальных скрывают фильтры" : "";
+  $("focusHidden").hidden = !hidden; $("showAll").hidden = !hidden;
+  $("focusKeys").innerHTML = (f.keys || []).map(k => '<span><i style="--c:' + k.color + '"></i>' + esc(k.label) + "</span>").join("");
+}
+function nodeFocus(id) {
+  const nodes = new Set([id]), edges = new Set(), colors = new Map();
+  let frontier = [id];
+  for (let h = 0; h < S.hops; h++) {
+    const next = [];
+    for (const cur of frontier) for (const e of inE.get(cur)) { edges.add(e.key); colors.set(e.key, IN_COLOR); if (!nodes.has(e.from)) { nodes.add(e.from); next.push(e.from); } }
+    frontier = next;
+  }
+  frontier = [id];
+  for (let h = 0; h < S.hops; h++) {
+    const next = [];
+    for (const cur of frontier) for (const e of outE.get(cur)) { edges.add(e.key); if (!colors.has(e.key)) colors.set(e.key, OUT_COLOR); if (!nodes.has(e.to)) { nodes.add(e.to); next.push(e.to); } }
+    frontier = next;
+  }
+  const payers = inE.get(id).length, recips = outE.get(id).length, n = byId.get(id);
+  const keys = [{ color: IN_COLOR, label: "входящие " + fmtKzt(n.in_kzt) }, { color: OUT_COLOR, label: "исходящие " + fmtKzt(n.out_kzt) }];
+  return { kind: "node", nodes, edges, colors, keys, title: short(id) + ": " + cnt(payers, "плательщик", "плательщика", "плательщиков") + ", " + cnt(recips, "получатель", "получателя", "получателей") };
+}
+function traceFocus(id, dir) {
+  const { hops, edges } = walk(id, dir, 4);
+  const colors = new Map([...edges].map(k => [k, dir === "up" ? IN_COLOR : OUT_COLOR]));
+  const seeds = [...hops.keys()].filter(x => x !== id && byId.get(x).is_seed).length;
+  const title = (dir === "up" ? "Откуда пришли деньги " : "Куда ушли деньги ") + short(id) + ": " + cnt(hops.size - 1, "клиент", "клиента", "клиентов") + " за 4 шага" + (seeds ? ", из них seed: " + seeds : "");
+  const keys = [{ color: dir === "up" ? IN_COLOR : OUT_COLOR, label: dir === "up" ? "переводы по цепочке к клиенту" : "переводы по цепочке от клиента" }];
+  return { kind: "trace", nodes: new Set(hops.keys()), edges, colors, keys, title, hops };
+}
+function clusterFocus(cid) {
+  // участники кластера — в цвете; внешние контрагенты (aux) — бледно; связи: входят / выходят / внутри
+  const members = clusterNodes.get(cid) || [];
+  const nodes = new Set(members.map(n => n.id)), aux = new Set(), edges = new Set(), colors = new Map();
+  const flows = { inSum: 0, inCnt: 0, outSum: 0, outCnt: 0, intSum: 0, intCnt: 0 };
+  G.edges.forEach(e => {
+    const a = nodes.has(e.from), b = nodes.has(e.to);
+    if (a && b) { edges.add(e.key); colors.set(e.key, PATH_COLOR); flows.intSum += e.sum; flows.intCnt++; }
+    else if (b) { edges.add(e.key); colors.set(e.key, IN_COLOR); aux.add(e.from); flows.inSum += e.sum; flows.inCnt++; }
+    else if (a) { edges.add(e.key); colors.set(e.key, OUT_COLOR); aux.add(e.to); flows.outSum += e.sum; flows.outCnt++; }
+  });
+  const keys = [{ color: IN_COLOR, label: "входят в кластер " + fmtKzt(flows.inSum) }, { color: OUT_COLOR, label: "выходят " + fmtKzt(flows.outSum) }, { color: PATH_COLOR, label: "внутри " + fmtKzt(flows.intSum) }];
+  return { kind: "cluster", cid, nodes, aux, edges, colors, flows, keys, title: "Кластер " + cid + ": " + cnt(nodes.size, "клиент", "клиента", "клиентов") };
+}
+function setFocusFromSets(nodes, edges, title, kind = "answer") {
+  const colors = new Map([...edges].map(k => [k, PATH_COLOR]));
+  setFocus({ kind, nodes: new Set(nodes), edges: new Set(edges), colors, title, keys: [{ color: PATH_COLOR, label: "найденные связи" }] });
+  fitNodes(nodes);
+}
+
+// ---------- sigma
+let renderer = null, graph = null;
+function initGraph() {
+  try {
+    graph = new graphology.Graph({ type: "directed", multi: false, allowSelfLoops: false });
+    G.nodes.forEach(n => {
+      const base = roleColor(n.role), color = n.truncated ? mix(base, 0.55) : base;
+      graph.addNode(n.id, {
+        x: n.x, y: -n.y, size: 2.2 + 9 * Math.pow(n.priority || 0, 1.7) + (n.is_seed ? 0.6 : 0),
+        color, label: short(n.id), type: n.is_seed ? "ring" : "circle", borderColor: "#19293a", zIndex: Math.round((n.priority || 0) * 100),
+      });
+    });
+    G.edges.forEach(e => graph.addEdgeWithKey(e.key, e.from, e.to, { size: 0.45 + 2.4 * Math.pow(edgeT(e), 2), color: EDGE_BASE }));
+    const programs = {};
+    try {
+      programs.ring = Sigma.rendering.createNodeBorderProgram({ borders: [{ size: { value: 0.3 }, color: { attribute: "borderColor" } }, { size: { fill: true }, color: { attribute: "color" } }] });
+    } catch (err) { console.warn("border program unavailable", err); }
+    renderer = new Sigma(graph, $("graph"), {
+      defaultEdgeType: "arrow", nodeProgramClasses: programs, renderEdgeLabels: false, zIndex: true,
+      labelFont: '"Golos Text", system-ui, sans-serif', labelSize: 12, labelWeight: "600", labelColor: { color: "#19293a" },
+      labelDensity: 0.7, labelGridCellSize: 90, labelRenderedSizeThreshold: 0, minCameraRatio: 0.02, maxCameraRatio: 3, stagePadding: 60,
+      nodeReducer: (id, a) => {
+        const n = byId.get(id), r = { ...a };
+        r.hidden = !S.visible.has(id);
+        const f = S.focus, inF = f && f.nodes.has(id), inAux = f && f.aux && f.aux.has(id);
+        let showLabel = n.rank <= 10;
+        if (f) {
+          if (inF) { r.zIndex = 200 + a.zIndex; showLabel = f.nodes.size <= 60 || n.rank <= 30; }
+          else if (inAux) { r.color = mix(a.color, 0.55); r.borderColor = "#8c98a3"; r.size = Math.max(1.6, a.size * 0.75); r.zIndex = 100; showLabel = false; }
+          else { r.color = NODE_DIM; r.borderColor = "#cfd7de"; r.size = Math.max(1.2, a.size * 0.45); r.zIndex = 0; showLabel = false; }
+        }
+        if (id === S.sel) { r.size = a.size + 3; r.highlighted = true; r.zIndex = 1000; showLabel = true; }
+        if (id === S.hover) { r.highlighted = true; showLabel = true; r.zIndex = 1001; }
+        r.label = showLabel ? short(id) : "";
+        r.forceLabel = id === S.sel || id === S.hover;
+        return r;
+      },
+      edgeReducer: (key, a) => {
+        const e = edgeByKey.get(key), r = { ...a };
+        r.hidden = !S.visible.has(e.from) || !S.visible.has(e.to) || e.sum < S.minSum;
+        const f = S.focus;
+        if (f) {
+          if (f.edges.has(key)) { r.color = f.colors.get(key) || PATH_COLOR; r.size = Math.max(1.3, a.size * 1.5); r.zIndex = 10; }
+          else { r.color = EDGE_DIM; r.size = Math.max(0.3, a.size * 0.6); r.zIndex = 0; }
+        }
+        return r;
+      },
+    });
+    renderer.on("clickNode", ({ node }) => selectNode(node));
+    renderer.on("clickStage", () => { if (S.focus) clearFocus(); });
+    renderer.on("enterNode", ({ node }) => { S.hover = node; showTip(node); $("graph").style.cursor = "pointer"; renderer.refresh(); });
+    renderer.on("leaveNode", () => { S.hover = null; hideTip(); $("graph").style.cursor = ""; renderer.refresh(); });
+    renderer.getCamera().on("updated", () => { if (S.hover && !$("tip").hidden) showTip(S.hover); });
+  } catch (err) {
+    console.error(err);
+    const box = $("glErr");
+    box.hidden = false;
+    box.textContent = "Схема не отобразилась: браузеру нужна поддержка WebGL. Очередь проверки, карточки и ассистент работают. (" + err.message + ")";
+  }
+}
+function showTip(id) {
+  if (!renderer) return;
+  const n = byId.get(id), tip = $("tip"), d = renderer.getNodeDisplayData(id);
+  if (!d) return;
+  const p = renderer.graphToViewport(d);
+  tip.innerHTML = gidHTML(id) +
+    '<div class="t-row" style="margin-top:5px">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
+    '<div class="t-row"><span>Приоритет</span><b>' + prioLevel(n.rank) + ", №" + n.rank + "</b></div>" +
+    '<div class="t-row"><span>Роль выражена</span><b>' + confLevel(n.role_score) + " (" + pct(n.role_score) + ")</b></div>" +
+    '<div class="t-row"><span>Получил</span><b>' + fmtKzt(n.in_kzt) + "</b></div>" +
+    '<div class="t-row"><span>Отправил</span><b>' + fmtKzt(n.out_kzt) + "</b></div>";
+  tip.hidden = false;
+  const stage = $("graph").getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = p.x + 14, y = p.y + 14;
+  if (x + w > stage.width - 8) x = p.x - w - 14;
+  if (y + h > stage.height - 8) y = p.y - h - 14;
+  tip.style.left = Math.max(8, x) + "px"; tip.style.top = Math.max(8, y) + "px";
+}
+function hideTip() { $("tip").hidden = true; }
+function fitNodes(ids) {
+  if (!renderer) return;
+  const pts = [...ids].map(id => renderer.getNodeDisplayData(id)).filter(Boolean);
+  if (!pts.length) return;
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  pts.forEach(p => { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
+  const dim = renderer.getDimensions(), aspect = dim.width / Math.max(1, dim.height);
+  const span = Math.max(x1 - x0, (y1 - y0) * aspect, 0.02);
+  const ratio = Math.min(1.2, Math.max(0.1, span * 1.45));
+  renderer.getCamera().animate({ x: (x0 + x1) / 2, y: (y0 + y1) / 2, ratio }, ANIM);
+}
+
+// ---------- выбор клиента
+function selectNode(id, opts = {}) {
+  if (!byId.has(id)) return;
+  if (S.sel && S.sel !== id && !opts.noHistory) S.history.push(S.sel);
+  S.sel = id;
+  setFocus(nodeFocus(id));
+  renderCard(id);
+  switchRight("card");
+  markLists();
+  fitNodes(S.focus.nodes);
+  try { history.replaceState(null, "", "#" + id); } catch (e) { /* file:// */ }
+}
+function clearFocus() {
+  S.sel = null; S.history = [];
+  setFocus(null);
+  renderEmpty();
+  markLists();
+  try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { /* file:// */ }
+}
+function markLists() {
+  document.querySelectorAll(".q-row").forEach(el => el.setAttribute("aria-current", String(el.dataset.gid === S.sel)));
+  document.querySelectorAll(".c-row").forEach(el => el.setAttribute("aria-current", String(!!(S.focus && S.focus.kind === "cluster" && S.focus.cid === Number(el.dataset.cid)))));
+}
+
+// ---------- шапка
+function renderHeader() {
+  const items = [[fmtInt(META.n_nodes), "клиентов"], [fmtInt(META.n_edges), "связей"], [fmtKzt(META.total_kzt), "оборот за июль"]];
+  $("kpis").innerHTML = items.map(([v, l]) => '<div class="kpi"><b>' + esc(v) + "</b><span>" + esc(l) + "</span></div>").join("");
+}
+
+// ---------- слева: очередь и кластеры
+function renderQueue() {
+  $("qCount").textContent = topList.length;
+  $("queue").innerHTML = topList.map(t => {
+    const n = byId.get(t.gid);
+    return '<div class="q-row" role="button" tabindex="0" data-gid="' + esc(t.gid) + '" aria-current="false">' +
+      '<span class="q-rank">' + t.rank + "</span>" +
+      '<div class="q-main">' + gidHTML(t.gid) + '<div class="q-sub">' + roleHTML(n.role) + (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div></div>" +
+      '<div class="q-score"><div class="q-cap">роль выражена</div>' + strengthHTML(n.role_score) + "</div>" +
+      (n.typology ? '<div class="typo q-typo">' + esc(n.typology) + "</div>" : "") + "</div>";
+  }).join("");
+}
+const clusterMaxPriority = c => (clusterNodes.get(c.id) || []).reduce((m, n) => Math.max(m, n.priority || 0), 0);
+function renderClusters() {
+  $("cCount").textContent = G.clusters.length;
+  const mode = $("cSort").value;
+  const list = G.clusters.slice().sort((a, b) => mode === "size" ? b.n_nodes - a.n_nodes : mode === "seed" ? b.n_seed - a.n_seed || b.n_nodes - a.n_nodes : clusterMaxPriority(b) - clusterMaxPriority(a));
+  $("clusters").innerHTML = list.map(c => {
+    const roles = c.roles || {};
+    const mixBar = ROLE_ORDER.filter(r => roles[r]).map(r => '<span style="--c:' + roleColor(r) + ";flex:" + roles[r] + '" title="' + esc(roleRu(r)) + ": " + roles[r] + '"></span>').join("");
+    return '<div class="c-row" role="button" tabindex="0" data-cid="' + c.id + '" aria-current="false">' +
+      '<div class="c-head"><span>Кластер ' + c.id + '</span><span class="num">' + fmtKzt(c.sum_internal) + "</span></div>" +
+      '<div class="c-stats">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + (c.isolated_fragment ? ", изолированный фрагмент" : "") + "</div>" +
+      '<div class="mix" aria-hidden="true">' + mixBar + "</div>" +
+      '<p class="c-hyp">' + esc(c.hypothesis) + "</p></div>";
+  }).join("");
+  markLists();
+}
+function selectCluster(cid) {
+  S.sel = null;
+  const f = clusterFocus(cid);
+  setFocus(f);
+  fitNodes(f.nodes);
+  renderClusterCard(cid);
+  switchRight("card");
+  markLists();
+}
+
+// ---------- легенда
+function renderLegend() {
+  const collapsed = $("legend").classList.contains("collapsed");
+  $("legend").innerHTML = '<div class="lhead"><h3>Роли и обозначения</h3><button class="linkbtn" id="legendToggle" aria-expanded="' + !collapsed + '">' + (collapsed ? "Показать" : "Свернуть") + '</button></div><div class="lbody">' + ROLE_ORDER.map(r =>
+    '<button class="lr" data-role="' + r + '" aria-pressed="' + !S.hiddenRoles.has(r) + '" title="Скрыть или показать: ' + esc(ROLES[r].description) + '">' +
+    '<span class="dot" style="--c:' + roleColor(r) + '"></span><span class="lname">' + esc(roleRu(r)) + '</span><span class="lcount">' + fmtInt(roleCounts[r] || 0) + "</span></button>").join("") +
+    '<div class="keys"><div class="k"><span class="dot ring" style="--c:#a0a9b1"></span>исходный клиент (seed)</div>' +
+    '<div class="k"><span class="faded"></span>бледная точка: 4-е колено</div>' +
+    '<div class="k"><span class="line" style="--c:' + IN_COLOR + '"></span>деньги входят в выделенное</div>' +
+    '<div class="k"><span class="line" style="--c:' + OUT_COLOR + '"></span>деньги выходят из выделенного</div>' +
+    '<div class="k"><span class="line" style="--c:' + PATH_COLOR + '"></span>внутри кластера, найденный путь</div>' +
+    '<div class="k hint">Размер точки — приоритет, толщина связи — сумма</div>' +
+    '<div class="k hint">Приоритет: ' + PRIO_SCALE_SHORT + "</div>" +
+    '<div class="k hint">Роль выражена: ' + CONF_SCALE_SHORT + "</div></div></div>";
+}
+
+// ---------- справа: карточка
+function switchRight(tab) {
+  if (tab === "ask") $("tabAsk").classList.remove("glow"); // нашли ассистента — больше не мигаем
+  $("tabCard").setAttribute("aria-selected", String(tab === "card"));
+  $("tabAsk").setAttribute("aria-selected", String(tab === "ask"));
+  $("pCard").hidden = tab !== "card"; $("pAsk").hidden = tab !== "ask";
+}
+function renderEmpty() {
+  const first = topList[0];
+  $("card").innerHTML = '<div class="empty"><h2>Кого проверять первым</h2>' +
+    "<p>На схеме вся выгрузка: " + cnt(META.n_nodes, "клиент", "клиента", "клиентов") + " и " + cnt(META.n_edges, "связь", "связи", "связей") +
+    ". Слева — очередь проверки. Выберите клиента, чтобы увидеть его роль, обоснование и контрагентов.</p>" +
+    (first ? '<button class="btn primary" data-gid="' + esc(first.gid) + '">Открыть №1 в очереди</button>' : "") +
+    "<ul><li>Наведите курсор на точку, чтобы увидеть роль и суммы.</li><li>Найдите клиента по последним цифрам номера — клавиша «/».</li><li>Нажмите на роль в легенде, чтобы скрыть её на схеме.</li></ul></div>";
+}
+function cpTable(id, dir) {
+  const list = (dir === "in" ? inE : outE).get(id);
+  const title = dir === "in" ? "Плательщики" : "Получатели";
+  if (!list.length) {
+    const n = byId.get(id);
+    const msg = dir === "out" && n.truncated ? "Исходящие 4-го колена не выгружались — это обрыв обхода, а не признак того, что деньги осели." : "В выгрузке переводов нет. Операции вне банка, ниже 5 000 ₸ или вне июля не видны.";
+    return '<div class="sec"><h3>' + title + ' <span class="muted">0</span></h3><p class="muted" style="font-size:12px">' + msg + "</p></div>";
+  }
+  const rows = list.map((e, i) => {
+    const other = dir === "in" ? e.from : e.to, o = byId.get(other);
+    const dates = e.tx.map(t => t[0]);
+    const dtxt = dates.length ? fmtDate(dates[0]) + (dates.length > 1 && dates[dates.length - 1] !== dates[0] ? " – " + fmtDate(dates[dates.length - 1]) : "") : "";
+    return "<tr" + (i >= 8 ? ' class="extra" hidden' : "") + "><td>" + gidLink(other) + "<small>" + esc(roleRu(o.role)) + (o.is_seed ? ", seed" : "") + "</small></td><td>" + fmtKzt(e.sum) + "<small>" + esc(dtxt) + "</small></td><td>" + e.n_tx + "</td></tr>";
+  }).join("");
+  return '<div class="sec"><h3>' + title + ' <span class="muted">' + list.length + "</span></h3>" +
+    '<table class="cp"><thead><tr><th>Клиент</th><th>Сумма, даты</th><th>Перев.</th></tr></thead><tbody>' + rows + "</tbody></table>" +
+    (list.length > 8 ? '<button class="linkbtn more" data-more="1">Показать всех (' + list.length + ")</button>" : "") + "</div>";
+}
+const SINK_TEXT = {
+  confirmed_sink: "Исходящие известны полностью: дальше деньги не уходили.",
+  truncated_depth: "4-е колено: исходящие не выгружались. Роль оценена по похожим узлам колен 1–3.",
+  truncated_time: "Основные поступления пришли 30–31 июля — продолжение могло быть в августе.",
+  not_sink: "",
+  no_data: "В выгрузке нет ни одного перевода этого клиента от 5 000 ₸.",
+};
+const PARTS = [["role", "роль"], ["flow", "оборот"], ["centrality", "центральность"], ["seed", "связь с seed"], ["flags", "сигналы"]];
+const PART_MAX = { role: 0.35, flow: 0.25, centrality: 0.2, seed: 0.1, flags: 0.1 };
+function renderCard(id) {
+  const n = byId.get(id), c = clusterById.get(n.cluster);
+  const back = S.history.length ? '<button class="back" id="backBtn">Назад к ' + esc(short(S.history[S.history.length - 1])) + "</button>" : "";
+  const ratio = n.in_kzt > 0 ? n.out_kzt / n.in_kzt : null;
+  const flags = (n.flags || []).filter(f => f !== "truncated").map(f => '<span class="chip">' + esc(FLAGS[f] || f) + "</span>").join("");
+  const parts = PARTS.map(([k, l]) => { const v = (n.prio_parts || {})[k] || 0; return "<span>" + l + '</span><span class="pb"><i style="width:' + Math.min(100, Math.round(v / PART_MAX[k] * 100)) + '%"></i></span><span class="pv">' + fmtDec(v, 3) + "</span>"; }).join("");
+  const truncNote = n.truncated && n.p_forward != null ? '<div class="notebox" style="margin-top:10px">Похожие узлы колен 1–3 пересылают деньги дальше в ' + pct(n.p_forward) + " случаев. Чтобы проверить, нужна выписка исходящих.</div>" : "";
+  const sink = SINK_TEXT[n.sink_status] || "";
+  $("card").innerHTML = '<div class="card">' + back +
+    '<div class="c-id">' + gidHTML(id) + '<button class="copy" data-copy="' + esc(id) + '">Скопировать</button></div>' +
+    '<div class="c-role">' + roleHTML(n.role) + '<span class="conf-word">роль выражена ' + strengthHTML(n.role_score) + '<span class="muted">' + pct(n.role_score) + '</span><a class="helplink" href="#/confidence">как считается</a></span>' +
+    (n.is_seed ? '<span class="tag seed">seed</span>' : "") + (n.truncated ? '<span class="tag trunc">4-е колено</span>' : "") + "</div>" +
+    (n.truncated ? '<p class="scale">Уверенность — оценка по похожим клиентам колен 1–3: исходящие этого клиента не выгружались.</p>' : "") +
+    '<p class="scale">Уверенность в роли: ' + CONF_SCALE_TXT + ".</p>" +
+    (n.typology ? '<div class="c-typo">Типология: ' + esc(n.typology) + "</div>" : "") +
+    (n.alt_role ? '<div class="c-typo">Есть и признаки роли «' + esc(roleRu(n.alt_role)) + "»</div>" : "") +
+    '<div class="evidence" style="--c:' + roleColor(n.role) + '">' + linkify(n.evidence) + "</div>" +
+    '<p class="rule">Сработало правило ' + esc(n.rule_fired) + "</p>" +
+    '<div class="sec"><h3>Потоки</h3><div class="flows">' +
+    '<div><span class="fl"><i style="--c:' + IN_COLOR + '"></i>Получил</span><b>' + fmtKzt(n.in_kzt) + "</b><small>" + cnt(n.in_deg, "плательщик", "плательщика", "плательщиков") + ", " + cnt(n.in_tx, "перевод", "перевода", "переводов") + "</small></div>" +
+    '<div><span class="fl"><i style="--c:' + OUT_COLOR + '"></i>Отправил</span><b>' + fmtKzt(n.out_kzt) + "</b><small>" + cnt(n.out_deg, "получатель", "получателя", "получателей") + ", " + cnt(n.out_tx, "перевод", "перевода", "переводов") + "</small></div>" +
+    (ratio != null && n.out_deg ? '<div class="pass">Дальше ушло ' + pct(ratio) + " полученного" + (n.fast_share ? ", " + pct(n.fast_share) + " — в течение 2 дней" : "") + (ratio > 1.2 ? ". Отправлено больше, чем видно на входе: есть поступления вне выгрузки." : ".") + "</div>" : "") +
+    "</div>" +
+    '<div class="actions"><button class="btn" data-trace="up">Откуда пришли деньги</button><button class="btn" data-trace="down">Куда ушли деньги</button></div>' +
+    (sink ? '<p class="muted" style="font-size:12px;margin-top:8px">' + esc(sink) + "</p>" : "") + truncNote + "</div>" +
+    '<div class="sec"><h3><span>Приоритет проверки: ' + prioLevel(n.rank) + ' <a class="helplink" href="#/priority">как считается</a></span><span class="muted">№' + n.rank + " из " + fmtInt(META.n_nodes) + "</span></h3>" +
+    '<p class="scale" style="margin:-4px 0 10px">Уровни: ' + PRIO_SCALE_TXT + ".</p>" +
+    '<p class="scale" style="margin:0 0 8px">Почему такое место: балл ' + fmtDec(n.priority) + " — сумма пяти слагаемых" + (n.is_seed ? ", ×0,9 для известного seed" : "") + ".</p>" +
+    '<div class="prio">' + parts + "</div></div>" +
+    (flags ? '<div class="sec"><h3>Сигналы</h3><div class="chips">' + flags + "</div></div>" : "") +
+    (c ? '<div class="sec"><h3>Кластер ' + c.id + ' <span class="muted">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + '</span></h3><p style="font-size:12px;line-height:1.5;color:var(--ink-2)">' + linkify(c.hypothesis) + '</p><button class="linkbtn" style="margin-top:6px" data-cluster="' + c.id + '">Показать кластер на схеме</button></div>' : "") +
+    cpTable(id, "in") + cpTable(id, "out") +
+    '<div class="sec"><h3>Показатели</h3><dl class="kv"><dt>Колено обхода</dt><dd>' + n.depth + "</dd><dt>PageRank</dt><dd>" + fmtDec(n.pagerank, 5) + "</dd><dt>Посредничество</dt><dd>" + fmtDec(n.betweenness, 5) + "</dd>" +
+    (n.truncated && n.p_forward != null ? "<dt>Оценка пересылки дальше</dt><dd>" + pct(n.p_forward) + "</dd>" : "") + "</dl></div></div>";
+}
+function renderClusterCard(cid) {
+  const c = clusterById.get(cid), members = (clusterNodes.get(cid) || []).slice().sort((a, b) => a.rank - b.rank);
+  const fl = clusterFocus(cid).flows;
+  const rows = members.slice(0, 15).map(n => "<tr><td>" + gidLink(n.id) + "<small>" + esc(roleRu(n.role)) + (n.is_seed ? ", seed" : "") + "</small></td><td>№" + n.rank + "<small>" + prioLevel(n.rank) + "</small></td></tr>").join("");
+  $("card").innerHTML = '<div class="card"><h2 style="font-size:20px;font-weight:700">Кластер ' + cid + "</h2>" +
+    '<p class="c-typo">' + cnt(c.n_nodes, "клиент", "клиента", "клиентов") + ", seed: " + c.n_seed + ", оборот внутри — " + fmtKzt(c.sum_internal) + ", устойчивость " + fmtDec(c.stability) + "</p>" +
+    '<div class="evidence" style="--c:#19293a">' + linkify(c.hypothesis) + "</div>" +
+    '<div class="sec"><h3>Движение денег</h3><dl class="kv">' +
+    '<dt><span class="mk" style="--c:' + IN_COLOR + '"></span>Входит в кластер</dt><dd>' + fmtKzt(fl.inSum) + ", " + cnt(fl.inCnt, "связь", "связи", "связей") + "</dd>" +
+    '<dt><span class="mk" style="--c:' + OUT_COLOR + '"></span>Выходит из кластера</dt><dd>' + fmtKzt(fl.outSum) + ", " + cnt(fl.outCnt, "связь", "связи", "связей") + "</dd>" +
+    '<dt><span class="mk" style="--c:' + PATH_COLOR + '"></span>Внутри кластера</dt><dd>' + fmtKzt(fl.intSum) + ", " + cnt(fl.intCnt, "связь", "связи", "связей") + "</dd></dl>" +
+    '<p class="muted" style="font-size:12px;margin-top:6px">На схеме участники кластера в цвете, их внешние контрагенты — бледнее.</p></div>' +
+    '<div class="sec"><h3>Главные узлы <span class="muted">по приоритету</span></h3><table class="cp"><thead><tr><th>Клиент</th><th>Приоритет</th></tr></thead><tbody>' + rows + "</tbody></table></div></div>";
+}
+
+// ---------- ассистент
+const LOCAL_HELP = "По графу, без языковой модели, отвечаю на вопросы: «откуда деньги у …», «куда ушли деньги …», «путь от … к …», «кто собирает деньги с …, …», «кластер N». Номер — полный или от 6 последних цифр.";
+function examples() {
+  const first = topList[0] && topList[0].gid;
+  let pair = null;
+  for (const n of ranked) { const seeds = [...new Set(inE.get(n.id).map(e => e.from))].filter(x => byId.get(x).is_seed); if (seeds.length >= 2) { pair = seeds.slice(0, 2); break; } }
+  let seedToFirst = null;
+  if (first) { for (const [id, h] of walk(first, "up", 4).hops) if (h > 1 && byId.get(id).is_seed) { seedToFirst = id; break; } }
+  const list = [];
+  if (pair) list.push("Кто собирает деньги с " + pair.map(x => x.slice(-10)).join(" и ") + "?");
+  if (seedToFirst) list.push("Путь от " + seedToFirst.slice(-10) + " к " + first.slice(-10));
+  if (first) list.push("Откуда деньги у " + first.slice(-10) + "?");
+  if (S.llm && topList[1]) list.push("Почему " + topList[1].gid.slice(-10) + " так высоко в очереди и кого проверить рядом?");
+  return list;
+}
+function renderAskIntro() {
+  $("askLead").textContent = S.llm
+    ? "Спросите про клиента или группу клиентов. Вопросы о путях и источниках денег считаются прямо по графу, остальные разбирает языковая модель по результатам расчёта."
+    : "Вопросы о путях, источниках и общих получателях считаются прямо по графу. " + (S.server ? "Языковая модель на сервере не настроена: добавьте OPENAI_API_KEY в .env." : "Для свободных вопросов запустите сервер: uv run moneygraph serve.");
+  $("examples").innerHTML = "<h3>Попробуйте</h3>" + examples().map(q => '<button type="button" data-q="' + esc(q) + '">' + esc(q) + "</button>").join("");
+}
+function localQuery(text) {
+  const t = text.toLowerCase().replace(/ё/g, "е");
+  const ids = text.match(/\d{6,18}/g) || [];
+  const cm = t.match(/кластер\D{0,3}(\d+)/);
+  if (cm && !ids.length) {
+    const cid = Number(cm[1]);
+    if (!clusterById.has(cid)) return { error: "Кластера " + cid + " нет. Есть кластеры 0–" + (G.clusters.length - 1) + "." };
+    selectCluster(cid); switchRight("ask");
+    return { title: "Кластер " + cid, html: "<p>" + linkify(clusterById.get(cid).hypothesis) + "</p>" };
+  }
+  const kind = /путь|цепочк/.test(t) && ids.length >= 2 ? "path"
+    : /собира|сход|общ/.test(t) && ids.length >= 2 ? "collect"
+    : /откуда|источник|кто плат/.test(t) && ids.length === 1 ? "up"
+    : /куда|ушли|уход/.test(t) && ids.length === 1 ? "down" : null;
+  if (!kind) return null;
+  const res = ids.map(resolve), bad = res.find(r => r.error);
+  if (bad) return { error: bad.error, candidates: bad.candidates };
+  const g = res.map(r => r.id);
+  if (kind === "up" || kind === "down") {
+    const f = traceFocus(g[0], kind); S.sel = g[0]; setFocus(f); fitNodes(f.nodes); markLists();
+    const list = [...f.hops.entries()].filter(([, h]) => h > 0).map(([x, h]) => ({ id: x, h, n: byId.get(x) }));
+    const seeds = list.filter(x => x.n.is_seed).sort((a, b) => a.h - b.h);
+    const item = (x, i) => '<div class="item"><span class="muted">' + (i + 1) + "</span><span>" + gidLink(x.id) + "<br>" + roleHTML(x.n.role) + '</span><span class="muted">' + cnt(x.h, "шаг", "шага", "шагов") + "</span></div>";
+    return { title: f.title, html: '<p class="src">На схеме выделены все найденные клиенты. ' + (kind === "up" ? "Входящие видны только от участников выгрузки." : "На 4-м колене обход обрывается.") + "</p>" +
+      (seeds.length && kind === "up" ? "<h3>Исходные клиенты в цепочке</h3>" + seeds.slice(0, 10).map(item).join("") : "") +
+      '<h3 style="margin-top:12px">Самые приоритетные в цепочке</h3>' + list.sort((a, b) => a.n.rank - b.n.rank).slice(0, 10).map(item).join("") };
+  }
+  if (kind === "path") {
+    let p = shortestPath(g[0], g[1]), undirected = false;
+    if (!p) { p = shortestPath(g[0], g[1], false); undirected = true; }
+    if (!p) return { error: "Между этими клиентами нет связи в выгрузке." };
+    setFocusFromSets(p.nodes, p.edges, "Путь " + short(g[0]) + " → " + short(g[1]) + ": " + cnt(p.edges.length, "шаг", "шага", "шагов"), "path");
+    const hops = p.edges.map((k, i) => { const e = edgeByKey.get(k); return '<div class="hop">' + (i + 1) + ". " + gidLink(e.from) + " → " + gidLink(e.to) + "<br><b>" + fmtKzt(e.sum) + "</b>, " + cnt(e.n_tx, "перевод", "перевода", "переводов") + (e.tx.length ? ", " + fmtDate(e.tx[0][0]) + (e.tx.length > 1 ? " – " + fmtDate(e.tx[e.tx.length - 1][0]) : "") : "") + (p.nodes[i] !== e.from ? "<br><i>шаг против направления перевода</i>" : "") + "</div>"; }).join("");
+    return { title: "Путь из " + cnt(p.edges.length, "шага", "шагов", "шагов"), html: '<p class="src">' + (undirected ? "Направленного пути нет — показана связь без учёта направления." : "Направление переводов сохранено. Связность не доказывает, что это те же деньги.") + "</p>" + hops };
+  }
+  const r = collectors(g);
+  setFocusFromSets(r.nodes, r.edges, "Куда сходятся деньги " + cnt(g.length, "клиента", "клиентов", "клиентов"), "collect");
+  if (!r.items.length) return { title: "Общих получателей нет", html: '<p class="src">В пределах 4 шагов деньги этих клиентов не сходятся у одного получателя.</p>' };
+  return { title: "Куда сходятся деньги " + cnt(g.length, "клиента", "клиентов", "клиентов"), html: '<p class="src">Получатели, до которых за 4 шага или меньше доходят переводы хотя бы двух заданных клиентов. Это признак общей точки сбора, а не доказательство.</p>' +
+    r.items.map((x, i) => '<div class="item"><span class="muted">' + (i + 1) + "</span><span>" + gidLink(x.id) + "<br>" + roleHTML(x.node.role) + '</span><span class="muted">' + x.count + " из " + g.length + "</span></div>").join("") };
+}
+async function ask(text) {
+  text = (text || "").trim();
+  if (!text) return;
+  const out = $("answer");
+  const local = localQuery(text);
+  if (local) {
+    out.innerHTML = '<div class="answer">' + (local.error ? '<p class="notebox">' + esc(local.error) + "</p>" + (local.candidates || []).map(id => '<div class="item"><span></span><span>' + gidLink(id) + "</span><span></span></div>").join("") : "<h3>" + esc(local.title) + '</h3><p class="src">Посчитано по графу, без языковой модели.</p>' + local.html) + "</div>";
+    return;
+  }
+  if (!S.llm) { out.innerHTML = '<div class="answer"><p class="notebox">' + esc(LOCAL_HELP) + "</p></div>"; return; }
+  out.innerHTML = '<div class="answer"><p class="muted"><span class="spin"></span> Разбираю граф, это займёт до 30 секунд…</p></div>';
+  $("askBtn").disabled = true;
+  try {
+    const r = await fetch("/api/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: text, focus_gid: S.sel }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+    const gids = (j.gids || []).filter(x => byId.has(x));
+    if (gids.length) {
+      const set = new Set(gids), edges = G.edges.filter(e => set.has(e.from) && set.has(e.to)).map(e => e.key);
+      setFocusFromSets(gids, edges, "Упомянуты в ответе: " + cnt(gids.length, "клиент", "клиента", "клиентов"));
+    }
+    out.innerHTML = '<div class="answer"><p class="src">' + (j.mode === "llm" ? "Ответ модели " + esc(j.model || "") + " по результатам расчёта." : "Языковая модель недоступна — показаны данные графа.") + "</p>" +
+      '<div class="text">' + mdLite(j.answer) + "</div>" +
+      (j.trace && j.trace.length ? "<details><summary>Как получен ответ</summary><ol>" + j.trace.map(x => "<li>" + esc(x) + "</li>").join("") + "</ol></details>" : "") + "</div>";
+  } catch (err) {
+    out.innerHTML = '<div class="answer"><p class="notebox">Ассистент не ответил: ' + esc(err.message) + ". Проверьте, что сервер запущен и ключ OpenAI указан в .env.</p></div>";
+  } finally { $("askBtn").disabled = false; }
+}
+async function detectServer() {
+  if (/^https?:/.test(location.protocol)) {
+    try {
+      const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 2500);
+      const r = await fetch("/api/health", { signal: ctl.signal }); clearTimeout(t);
+      const j = r.ok ? await r.json() : null;
+      S.server = !!(j && j.ok); S.llm = !!(j && j.ok && j.llm);
+    } catch (e) { S.server = false; S.llm = false; }
+  }
+  renderAskIntro();
+}
+
+// ---------- страницы-объяснения
+const pageWrap = (title, lead, body) => '<h1>' + title + '</h1><p class="lead">' + lead + "</p>" + body +
+  '<div class="cta"><a class="btn primary" href="#/">Вернуться к схеме</a><a class="btn" href="#/priority">Как считается приоритет</a><a class="btn" href="#/confidence">Как считается уверенность</a><a class="btn" href="#/method">Методика</a></div>';
+function partBars(n) {
+  return '<div class="prio">' + PARTS.map(([k, l]) => { const v = (n.prio_parts || {})[k] || 0; return "<span>" + l + '</span><span class="pb"><i style="width:' + Math.min(100, Math.round(v / PART_MAX[k] * 100)) + '%"></i></span><span class="pv">' + fmtDec(v, 3) + "</span>"; }).join("") + "</div>";
+}
+function pagePriority() {
+  const m = META.model, sm = META.summary || {}, sens = sm.priority_sensitivity_top20 || {};
+  const parts = [
+    ["Роль", m.w_role, "Насколько важна роль и насколько ярко она выражена.", "Вес роли × уверенность в роли × " + fmtDec(m.w_role) + "."],
+    ["Оборот", m.w_flow, "Сколько денег прошло через клиента по сравнению с остальными.", "Место по сумме «получено + отправлено» среди всех " + fmtInt(META.n_nodes) + " клиентов: больше всех — " + fmtDec(m.w_flow) + "."],
+    ["Центральность", m.w_central, "Насколько клиент важен для связности сети.", "Лучшее из двух мест: PageRank (куда стекаются деньги) и посредничество (как часто клиент стоит на пути между другими)."],
+    ["Связь с seed", m.w_seed, "Сколько известных участников по делу платят клиенту или получают от него.", "1 seed — треть, 3 и больше — полностью."],
+    ["Сигналы", m.w_flags, "Подозрительное поведение во времени и в суммах.", "1 сигнал — треть, 3 и больше — полностью. Сигналы: ушло дальше за 2 дня, много плательщиков в один день, массовые выплаты за день, цикл, повторяющийся маршрут, одинаковые суммы, нетипичный объём."],
+  ];
+  const partRows = parts.map(([name, w, what, how]) => "<tr><td><b>" + name + '</b><div class="wbar"><i style="width:' + Math.round(w / m.w_role * 100) + '%"></i></div></td><td class="num">до ' + fmtDec(w) + "</td><td>" + what + '<br><span class="muted">' + how + "</span></td></tr>").join("");
+  const roleRows = ROLE_ORDER.map(r => "<tr><td>" + roleHTML(r) + '</td><td class="num">' + fmtDec(m.role_weight[r], 1) + '</td><td class="num">' + fmtDec(m.w_role * m.role_weight[r]) + "</td></tr>").join("");
+  const exs = [], add = (n, title) => { if (n && !exs.some(x => x.n.id === n.id)) exs.push({ n, title }); };
+  add(ranked[0], "№1 в очереди");
+  if (S.sel) add(byId.get(S.sel), "Выбранный клиент");
+  add(ranked.find(n => n.role === "terminal"), "Лучший конечный получатель");
+  const exHTML = exs.map(({ n, title }) => '<div class="excard"><h3>' + title + "</h3>" + gidHTML(n.id) + '<div style="margin-top:6px">' + roleHTML(n.role) + '</div><div class="tot"><b>' + fmtDec(n.priority) + '</b><span class="muted">№' + n.rank + ", " + prioLevel(n.rank) + " приоритет</span></div>" + partBars(n) +
+    (n.is_seed ? '<p class="muted" style="font-size:12px;margin-top:8px">Итог умножен на ' + fmtDec(m.seed_discount, 1) + ": клиент уже известен (seed).</p>" : "") + '<p style="margin-top:10px"><a class="helplink" href="#' + n.id + '">Открыть на схеме</a></p></div>').join("");
+  const lv = SCALES.priority, nHigh = G.nodes.filter(n => n.rank <= lv[0].max_rank).length, nMid = G.nodes.filter(n => n.rank > lv[0].max_rank && n.rank <= lv[1].max_rank).length;
+  const lvHTML = [[lv[0].label, "№1–" + lv[0].max_rank, "это очередь проверки слева", nHigh], [lv[1].label, "№" + (lv[0].max_rank + 1) + "–" + lv[1].max_rank, "проверить после очереди", nMid], [lv[2].label, "№" + (lv[1].max_rank + 1) + " и дальше", "признаков мало или они слабые", META.n_nodes - nHigh - nMid]]
+    .map(([name, range, note, cntN]) => '<div class="lv"><span class="muted" style="font-size:12px">' + range + '</span><div class="lv-name">' + name + " приоритет</div><div>" + note + '</div><div class="lv-count">' + cnt(cntN, "клиент", "клиента", "клиентов") + "</div></div>").join("");
+  return pageWrap("Как считается приоритет проверки",
+    "Приоритет отвечает на вопрос «кого смотреть первым». Это число от 0 до 1 — сумма пяти слагаемых. Очередь проверки — все клиенты, отсортированные по нему. На экране приоритет показан местом в очереди и уровнем.",
+    "<h2>Из чего складывается</h2><table class=\"t\"><thead><tr><th>Слагаемое</th><th class=\"num\">Максимум</th><th>Что означает и как считается</th></tr></thead><tbody>" + partRows + "</tbody></table>" +
+    "<p style=\"margin-top:10px\">У исходных клиентов (seed) итог умножается на " + fmtDec(m.seed_discount, 1) + ": они уже известны, а инструмент должен находить новых. При равном приоритете выше тот, кто получил больше денег.</p>" +
+    "<h2>Вес роли</h2><p>Роль даёт самую большую часть приоритета. Координаторы и точки сбора сильнее всего раскрывают структуру сети. Конечных получателей почти тысяча, и большинство из них получили один обычный перевод, поэтому их вес меньше.</p>" +
+    '<table class="t" style="margin-top:12px"><thead><tr><th>Роль</th><th class="num">Вес роли</th><th class="num">Максимум слагаемого «роль»</th></tr></thead><tbody>' + roleRows + "</tbody></table>" +
+    "<h2>Примеры</h2><p>Полоски — вклад каждого слагаемого; длина полоски — доля от его максимума. Итог — их сумма.</p><div class=\"exgrid\" style=\"margin-top:12px\">" + exHTML + "</div>" +
+    "<h2>Уровни на экране</h2><p>Уровень зависит от места в очереди.</p><div class=\"lvls\" style=\"margin-top:12px\">" + lvHTML + "</div>" +
+    "<h2>Насколько порядок надёжен</h2><p>Веса заданы экспертно: размеченных ответов, по которым их можно обучить, в данных нет. Поэтому мы проверили устойчивость: если изменить любой вес на ±20%, топ-20 совпадает с исходным минимум на " + pct(sens.min_overlap) + " (в среднем на " + pct(sens.mean_overlap) + ").</p>" +
+    (sm.new_leads_in_top20 != null ? "<p>" + sm.new_leads_in_top20 + " из 20 первых в очереди — новые клиенты, которых нет среди 81 исходного. Инструмент смещает фокус с известных участников на точки сбора и управления.</p>" : ""));
+}
+function confChart() {
+  const m = META.model, lo = m.cons_min_in, hi = m.cons_strong_in;
+  const pts = G.nodes.filter(n => n.role === "consolidator" && n.in_deg >= lo);
+  const xmax = Math.max(hi + 5, ...pts.map(n => n.in_deg + 1));
+  const W = 760, H = 300, L = 52, R = 110, T = 18, B = 46, y0 = 0.45, y1 = 1.03;
+  const x = v => L + v / xmax * (W - L - R), y = v => T + (1 - (v - y0) / (y1 - y0)) * (H - T - B);
+  const conf = SCALES.confidence, bands = [[conf[2].min > 0 ? conf[2].min : 0.5, conf[1].min, conf[2].label], [conf[1].min, conf[0].min, conf[1].label], [conf[0].min, 1.0, conf[0].label]];
+  let g = "";
+  bands.forEach(([a, b, lab], i) => {
+    const lo2 = Math.max(a, 0.5);
+    g += '<rect x="' + L + '" y="' + y(b) + '" width="' + (W - L - R) + '" height="' + (y(lo2) - y(b)) + '" fill="' + (i % 2 ? "#f6f8f9" : "#ffffff") + '"/>';
+    g += '<text x="' + (W - R + 12) + '" y="' + ((y(b) + y(lo2)) / 2 + 4) + '" font-size="12" fill="#3d4e60">' + lab + "</text>";
+  });
+  [0.5, conf[1].min, conf[0].min, 1.0].forEach(v => { g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#e1e6ea"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" font-size="11" fill="#5d6b78" text-anchor="end">' + fmtDec(v, 1) + "</text>"; });
+  const ticks = [...new Set([0, lo, 10, hi, 20, 25, 30].filter(v => v <= xmax))].sort((a, b) => a - b);
+  ticks.forEach(v => { g += '<line x1="' + x(v) + '" x2="' + x(v) + '" y1="' + (H - B) + '" y2="' + (H - B + 4) + '" stroke="#8c98a3"/><text x="' + x(v) + '" y="' + (H - B + 17) + '" font-size="11" fill="#5d6b78" text-anchor="middle">' + v + "</text>"; });
+  g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '" stroke="#8c98a3"/>';
+  g += '<text x="' + ((L + W - R) / 2) + '" y="' + (H - 8) + '" font-size="12" fill="#3d4e60" text-anchor="middle">разных плательщиков у консолидатора</text>';
+  pts.forEach((n, i) => { const j = (((i * 37) % 11) - 5) / 18; g += '<circle cx="' + x(n.in_deg + j) + '" cy="' + y(n.role_score) + '" r="4" fill="#19293a" fill-opacity=".45" stroke="#fff" stroke-width=".8"><title>' + short(n.id) + ": " + n.in_deg + " плательщиков, " + pct(n.role_score) + "</title></circle>"; });
+  g += '<polyline points="' + x(lo) + "," + y(0.5) + " " + x(hi) + "," + y(1) + " " + x(xmax) + "," + y(1) + '" fill="none" stroke="#19293a" stroke-width="2"/>';
+  g += '<text x="' + (x(lo) + 10) + '" y="' + (y(0.5) + 15) + '" font-size="11" fill="#19293a">порог: ' + lo + " плательщика — 0,5</text>";
+  g += '<text x="' + (x(hi) + 6) + '" y="' + (y(1) + 16) + '" font-size="11" fill="#19293a">' + hi + " и больше — 1,0</text>";
+  return '<div class="chartbox"><svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Уверенность консолидаторов в зависимости от числа плательщиков">' + g + '</svg><p class="cap">Линия — правило, точки — ' + cnt(pts.length, "консолидатор", "консолидатора", "консолидаторов") + " из выгрузки. Точки выше линии получили уверенность за счёт другого признака: двух и более seed среди плательщиков.</p></div>";
+}
+function pageConfidence() {
+  const m = META.model, conf = SCALES.confidence;
+  const lvlCount = lab => G.nodes.filter(n => confLevel(n.role_score) === lab).length;
+  const scaleHTML = [[conf[0].label, 0.9, "от " + fmtDec(conf[0].min, 1)], [conf[1].label, 0.7, "от " + fmtDec(conf[1].min, 1) + " до " + fmtDec(conf[0].min, 1)], [conf[2].label, 0.55, "ниже " + fmtDec(conf[1].min, 1)]]
+    .map(([lab, sample, range]) => '<div class="lv">' + strengthHTML(sample) + '<div class="lv-name">роль выражена ' + lab + "</div><div>уверенность " + range + '</div><div class="lv-count">' + cnt(lvlCount(lab), "клиент", "клиента", "клиентов") + "</div></div>").join("");
+  const rules = {
+    coordinator: "Хаб: от " + m.hub_min_in + " плательщиков и " + m.hub_min_out + " получателей — 0,5; от " + m.hub_full_in + " и " + m.hub_full_out + " — 1,0 (среднее двух шкал). Платит seed: " + m.coord_min_seed_payees + " seed — 0,5, " + m.coord_full_seed_payees + " — 1,0. Мост: соседи в " + m.bridge_min_seed_clusters + " кластерах с seed — 0,5, в " + m.bridge_full_seed_clusters + " — 1,0. Если выполнено несколько условий, берётся самое сильное.",
+    consolidator: "От " + m.cons_min_in + " разных плательщиков — 0,5; от " + m.cons_strong_in + " — 1,0. Или по seed среди плательщиков: " + m.cons_min_seed_payers + " — 0,5, " + m.cons_full_seed_payers + " — 1,0. Берётся большее.",
+    distributor: "От " + m.distr_min_out + " получателей — 0,5; от " + m.distr_strong_out + " — 1,0.",
+    transit: "0,5 + 0,3 × близость к пропуску без удержания + 0,2 × доля полученного, ушедшая дальше за " + m.fast_lag_days + " дня. Близость равна 1, когда отправлено " + pct(m.transit_lo) + "–" + pct(m.transit_hi) + " полученного, и снижается, если отправлено намного больше (есть невидимые входящие) или меньше. У seed — не выше " + fmtDec(m.seed_transit_cap, 1) + ": их входящие не видны.",
+    terminal: "Среднее двух шкал: сумма от " + fmtKzt(m.term_min_kzt) + " (0,5) до " + fmtKzt(m.term_full_kzt) + " (1,0) и доля, ушедшая дальше: " + pct(m.term_max_out_share) + " — 0,5, ничего — 1,0. Если основное пришло 30–31 июля, уверенность × " + fmtDec(m.late_penalty, 1) + ": продолжение могло быть в августе.",
+    peripheral: "1 минус место по обороту: чем меньше денег прошло через клиента, тем увереннее «признаков роли нет».",
+  };
+  const ruleRows = ROLE_ORDER.map(r => "<tr><td>" + roleHTML(r) + "</td><td>" + rules[r] + "</td></tr>").join("") +
+    '<tr><td><span class="tag trunc">4-е колено</span></td><td>Исходящие этих клиентов не выгружены, поэтому уверенность — вероятность по похожим клиентам колен 1–3 (то же число плательщиков и переводов). Если похожие пересылают дальше с долей p: «конечный получатель» — 1 − p, «транзит» — p, но не выше ' + fmtDec(m.trunc_transit_cap, 1) + ".</td></tr>";
+  const labs = conf.map(c => c.label);
+  const tableRows = ROLE_ORDER.map(r => { const ns = G.nodes.filter(n => n.role === r); return "<tr><td>" + roleHTML(r) + "</td>" + labs.map(l => '<td class="num">' + fmtInt(ns.filter(n => confLevel(n.role_score) === l).length) + "</td>").join("") + '<td class="num">' + fmtInt(ns.length) + "</td></tr>"; }).join("");
+  const sel = S.sel && byId.get(S.sel);
+  const selHTML = sel ? '<h2>Выбранный клиент</h2><div class="excard">' + gidHTML(sel.id) + '<div style="margin:6px 0 8px">' + roleHTML(sel.role) + " " + strengthHTML(sel.role_score) + ' <span class="muted">' + pct(sel.role_score) + "</span></div><p>Сработало правило " + esc(sel.rule_fired) + ".</p><p>" + linkify(sel.evidence) + '</p><p style="margin-top:8px"><a class="helplink" href="#' + sel.id + '">Открыть на схеме</a></p></div>' : "";
+  return pageWrap("Как считается уверенность в роли",
+    "Уверенность показывает, насколько ярко у клиента выражены признаки его роли. Это не подозрительность и не приоритет: получатель одного крупного перевода может быть «конечным получателем» с уверенностью 90% и при этом стоять далеко в очереди.",
+    '<h2>Шкала</h2><div class="lvls">' + scaleHTML + "</div>" +
+    "<h2>Как считается для каждой роли</h2><p>Общий принцип: на пороге правила уверенность 0,5, при многократном превышении — 1,0, между ними — линейно.</p>" +
+    '<table class="t" style="margin-top:12px"><thead><tr><th>Роль</th><th>Правило уверенности</th></tr></thead><tbody>' + ruleRows + "</tbody></table>" +
+    "<h2>Пример: консолидаторы</h2>" + confChart() +
+    '<h2>Сколько клиентов на каждом уровне</h2><table class="t"><thead><tr><th>Роль</th>' + labs.map(l => '<th class="num">' + l + "</th>").join("") + '<th class="num">всего</th></tr></thead><tbody>' + tableRows + "</tbody></table>" +
+    selHTML);
+}
+function pageMethod() {
+  const roles = ROLE_ORDER.map(r => '<div class="m-role"><span class="dot" style="--c:' + roleColor(r) + '"></span><div><b>' + esc(roleRu(r)) + "</b>" + (ROLES[r].typology ? ' <span class="muted">(' + esc(ROLES[r].typology) + ")</span>" : "") + "</div><p>" + esc(ROLES[r].rule || ROLES[r].description) + "</p></div>").join("");
+  const flags = Object.entries(FLAGS).filter(([k]) => k !== "truncated").map(([, v]) => "<li>" + esc(v) + "</li>").join("");
+  return pageWrap("Методика",
+    "Каждому клиенту присваивается роль по формальным правилам с порогами. Правила проверяются сверху вниз, срабатывает первое; в карточке видно, какое правило сработало и с какими числами. Роли — гипотезы для проверки, а не вывод о виновности.",
+    "<h2>Роли</h2>" + roles +
+    "<h2>Сигналы</h2><ul>" + flags + "</ul>" +
+    "<h2>Как читать схему</h2><ul><li>Стрелка идёт от плательщика к получателю.</li><li>Размер точки — приоритет, толщина связи — сумма переводов.</li><li>Тёмное кольцо — исходный клиент (seed). Бледная точка — 4-е колено: исходящие не выгружались.</li><li>У выбранного клиента входящие связи синие, исходящие оранжевые. У кластера синие — деньги входят в кластер, оранжевые — выходят, тёмные — внутри.</li></ul>" +
+    "<h2>Границы данных</h2><ul><li>Только внутрибанковские переводы от 5 000 ₸ за июль 2026.</li><li>Обход — 4 колена по исходящим от 81 исходного клиента. У 4-го колена исходящих в данных нет.</li><li>Входящие видны только от участников выгрузки, поэтому «отдал больше, чем получил» — не аномалия.</li><li>Наличные, другие банки, суммы ниже порога и август не видны.</li></ul>");
+}
+const PAGES = { priority: pagePriority, confidence: pageConfidence, method: pageMethod };
+function markNav(name) { document.querySelectorAll(".nav a").forEach(a => a.setAttribute("aria-current", a.dataset.nav === name ? "page" : "false")); }
+function showPage(name) {
+  document.body.classList.add("page-mode");
+  $("pages").hidden = false;
+  $("page").innerHTML = PAGES[name]();
+  markNav(name); hideTip(); closeSuggest();
+  $("pages").scrollTop = 0;
+}
+function showWork() {
+  const was = document.body.classList.contains("page-mode");
+  document.body.classList.remove("page-mode");
+  $("pages").hidden = true;
+  markNav("work");
+  if (was && renderer) { renderer.resize(); renderer.refresh(); }
+}
+function route() {
+  const h = decodeURIComponent((location.hash || "").slice(1));
+  if (h.startsWith("/") && PAGES[h.slice(1)]) { showPage(h.slice(1)); return; }
+  showWork();
+  if (byId.has(h)) { if (h !== S.sel) selectNode(h); }
+  else if (S.sel) { try { history.replaceState(null, "", "#" + S.sel); } catch (e) { /* file:// */ } }
+}
+window.addEventListener("hashchange", route);
+
+// ---------- события
+document.addEventListener("click", e => {
+  const b = e.target.closest("button, .q-row, .c-row");
+  if (!e.target.closest(".search")) closeSuggest();
+  if (!b) return;
+  if (b.id === "legendToggle") { S.legendPinned = true; $("legend").classList.toggle("collapsed"); renderLegend(); return; }
+  if (b.id === "backBtn") { const prev = S.history.pop(); if (prev) selectNode(prev, { noHistory: true }); return; }
+  if (b.dataset.copy) { if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = "Скопировано"; setTimeout(() => { b.textContent = "Скопировать"; }, 1200); }); return; }
+  if (b.dataset.gid) { selectNode(b.dataset.gid); closeSuggest(); return; }
+  if (b.classList.contains("c-row")) { selectCluster(Number(b.dataset.cid)); return; }
+  if (b.dataset.cluster != null) { selectCluster(Number(b.dataset.cluster)); return; }
+  if (b.dataset.ltab) { const q = b.dataset.ltab === "queue"; $("tabQueue").setAttribute("aria-selected", String(q)); $("tabClusters").setAttribute("aria-selected", String(!q)); $("pQueue").hidden = !q; $("pClusters").hidden = q; return; }
+  if (b.dataset.rtab) { switchRight(b.dataset.rtab); return; }
+  if (b.dataset.role) { const r = b.dataset.role; if (S.hiddenRoles.has(r)) S.hiddenRoles.delete(r); else S.hiddenRoles.add(r); b.setAttribute("aria-pressed", String(!S.hiddenRoles.has(r))); applyFilters(); return; }
+  if (b.dataset.hops) { S.hops = Number(b.dataset.hops); if (S.sel) selectNode(S.sel, { noHistory: true }); return; }
+  if (b.dataset.trace && S.sel) { const f = traceFocus(S.sel, b.dataset.trace); setFocus(f); fitNodes(f.nodes); return; }
+  if (b.dataset.more) { b.parentElement.querySelectorAll("tr.extra").forEach(tr => { tr.hidden = false; }); b.remove(); return; }
+  if (b.dataset.q) { $("askInput").value = b.dataset.q; ask(b.dataset.q); return; }
+});
+document.addEventListener("keydown", e => {
+  const t = e.target;
+  if ((e.key === "Enter" || e.key === " ") && t.classList && (t.classList.contains("q-row") || t.classList.contains("c-row"))) { e.preventDefault(); t.click(); return; }
+  if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(t.tagName)) { e.preventDefault(); $("q").focus(); return; }
+  if (e.key === "Escape") { if (document.body.classList.contains("page-mode")) { location.hash = "#/"; return; } if (!$("suggest").hidden) { closeSuggest(); return; } if (S.focus) clearFocus(); }
+});
+$("queue").addEventListener("mouseover", e => {
+  const row = e.target.closest(".q-row"), id = row ? row.dataset.gid : null;
+  if (id !== S.hover && renderer) { S.hover = id; renderer.refresh(); }
+});
+$("queue").addEventListener("mouseleave", () => { if (S.hover && renderer) { S.hover = null; renderer.refresh(); } });
+
+let sugg = [], sIdx = -1;
+function closeSuggest() { $("suggest").hidden = true; $("q").setAttribute("aria-expanded", "false"); sugg = []; sIdx = -1; }
+function renderSuggest() {
+  const v = $("q").value;
+  if (!v.replace(/\D/g, "")) { closeSuggest(); return; }
+  sugg = search(v); sIdx = sugg.length ? 0 : -1;
+  $("suggest").innerHTML = sugg.length ? sugg.map((n, i) => '<button role="option" data-gid="' + n.id + '" aria-selected="' + (i === sIdx) + '">' + gidHTML(n.id) + '<span class="s-score">№' + n.rank + '</span><span class="s-meta">' + roleHTML(n.role) + (n.is_seed ? ' <span class="tag seed">seed</span>' : "") + "</span></button>").join("") : '<div class="empty">Нет клиентов с такими цифрами в номере.</div>';
+  $("suggest").hidden = false; $("q").setAttribute("aria-expanded", "true");
+}
+$("q").addEventListener("input", renderSuggest);
+$("q").addEventListener("focus", () => { if ($("q").value) renderSuggest(); });
+$("q").addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    if (!sugg.length) return; e.preventDefault();
+    sIdx = (sIdx + (e.key === "ArrowDown" ? 1 : -1) + sugg.length) % sugg.length;
+    [...$("suggest").children].forEach((c, i) => c.setAttribute("aria-selected", String(i === sIdx)));
+  } else if (e.key === "Enter") {
+    e.preventDefault(); const n = sugg[Math.max(0, sIdx)] || search($("q").value, 1)[0];
+    if (n) { selectNode(n.id); closeSuggest(); $("q").blur(); }
+  } else if (e.key === "Escape") { closeSuggest(); $("q").blur(); }
+});
+
+$("fMin").addEventListener("input", () => {
+  const v = Number($("fMin").value);
+  S.minSum = v === 0 ? 0 : Math.round(Math.exp(Math.log(minSum) + v / 100 * (Math.log(maxSum) - Math.log(minSum))) / 1000) * 1000;
+  $("fMinOut").textContent = fmtKzt(S.minSum);
+  applyFilters();
+});
+$("fPeriph").addEventListener("change", e => { S.hidePer = e.target.checked; applyFilters(); });
+$("fTop").addEventListener("change", e => { S.topOnly = e.target.checked; applyFilters(); });
+$("fTopN").addEventListener("change", e => { S.topN = Number(e.target.value); applyFilters(); });
+$("fReset").addEventListener("click", () => {
+  S.hiddenRoles.clear(); S.hidePer = false; S.topOnly = false; S.minSum = 0;
+  $("fPeriph").checked = false; $("fTop").checked = false; $("fMin").value = 0; $("fMinOut").textContent = "0 ₸";
+  renderLegend(); applyFilters();
+});
+$("clearFocus").addEventListener("click", clearFocus);
+$("showAll").addEventListener("click", () => $("fReset").click());
+$("zIn").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedZoom(ANIM); });
+$("zOut").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedUnzoom(ANIM); });
+$("zFit").addEventListener("click", () => { if (renderer) renderer.getCamera().animatedReset(ANIM); });
+$("cSort").addEventListener("change", renderClusters);
+$("askForm").addEventListener("submit", e => { e.preventDefault(); ask($("askInput").value); });
+$("askInput").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); ask($("askInput").value); } });
+window.focusNode = id => selectNode(id);
+
+// ---------- запуск
+renderHeader(); renderQueue(); renderClusters(); renderLegend(); renderEmpty(); renderAskIntro();
+applyFilters();
+const boot = () => {
+  initGraph();
+  applyFilters();
+  const h = decodeURIComponent((location.hash || "").slice(1));
+  if (h.startsWith("/")) route(); else if (byId.has(h)) setTimeout(route, 350); // клиенту — после первых кадров отрисовки
+  detectServer();
+};
+const fontsReady = document.fonts && document.fonts.load ? document.fonts.load('600 12px "Golos Text"').catch(() => null) : Promise.resolve();
+fontsReady.then(boot);
+})();
+</script>
+</body>
+</html>

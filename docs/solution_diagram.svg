@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .box{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.5}
+      .h{font-size:22px;font-weight:700;fill:#0f172a}
+      .t{font-size:15px;fill:#334155}
+      .s{font-size:13px;fill:#64748b}
+      .tag{font-size:12px;font-weight:700;fill:#ffffff}
+      .ln{stroke:#475569;stroke-width:2.2;fill:none;marker-end:url(#arr)}
+    </style>
+  </defs>
+  <rect width="1280" height="720" fill="#f8fafc"/>
+  <text x="40" y="58" font-size="30" font-weight="800" fill="#0f172a">Граф денег — схема решения</text>
+  <text x="40" y="88" class="s">данные → метрики → роли → интерфейс · полный пересчёт ≈10 с на ноутбуке · uv run moneygraph</text>
+
+  <!-- 1 data -->
+  <rect x="40" y="130" width="220" height="250" rx="14" class="box"/>
+  <rect x="40" y="130" width="220" height="34" rx="14" fill="#334155"/><rect x="40" y="150" width="220" height="14" fill="#334155"/>
+  <text x="56" y="153" class="tag">1 · ДАННЫЕ</text>
+  <text x="56" y="196" class="h">3 × parquet</text>
+  <text x="56" y="222" class="t">2 248 узлов, 81 seed</text>
+  <text x="56" y="244" class="t">3 119 рёбер</text>
+  <text x="56" y="266" class="t">4 840 переводов</text>
+  <text x="56" y="288" class="t">июль 2026, ≥ 5 000 ₸</text>
+  <text x="56" y="316" class="s">проверки: edges = transactions,</text>
+  <text x="56" y="334" class="s">19 узлов без рёбер,</text>
+  <text x="56" y="352" class="s">OUT известен для колен 0–3,</text>
+  <text x="56" y="370" class="s">IN неполон у всех</text>
+
+  <!-- 2 metrics -->
+  <rect x="300" y="130" width="250" height="250" rx="14" class="box"/>
+  <rect x="300" y="130" width="250" height="34" rx="14" fill="#0369a1"/><rect x="300" y="150" width="250" height="14" fill="#0369a1"/>
+  <text x="316" y="153" class="tag">2 · МЕТРИКИ</text>
+  <text x="316" y="196" class="h">сумма ≠ количество</text>
+  <text x="316" y="224" class="t">степени, суммы, переводы</text>
+  <text x="316" y="248" class="t">PageRank, посредничество</text>
+  <text x="316" y="272" class="t">связь с seed, циклы ≤5</text>
+  <text x="316" y="296" class="t">транзит ≤2 дн, всплески</text>
+  <text x="316" y="320" class="t">маршруты A→B→C</text>
+  <text x="316" y="350" class="s">обрыв 4-го колена → p_forward</text>
+  <text x="316" y="370" class="s">(таблица по коленам 1–3, бэктест)</text>
+
+  <!-- 3 roles -->
+  <rect x="590" y="130" width="300" height="250" rx="14" class="box"/>
+  <rect x="590" y="130" width="300" height="34" rx="14" fill="#b45309"/><rect x="590" y="150" width="300" height="14" fill="#b45309"/>
+  <text x="606" y="153" class="tag">3 · РОЛИ (правила R1–R6, первое сработавшее)</text>
+  <circle cx="614" cy="192" r="7" fill="#d62728"/><text x="630" y="197" class="t">координатор — хаб / платит seed / мост</text>
+  <circle cx="614" cy="220" r="7" fill="#ff7f0e"/><text x="630" y="225" class="t">консолидатор — ≥4 плательщика</text>
+  <circle cx="614" cy="248" r="7" fill="#9467bd"/><text x="630" y="253" class="t">распределитель — ≥10 получателей</text>
+  <circle cx="614" cy="276" r="7" fill="#1f77b4"/><text x="630" y="281" class="t">транзит — out/in ≈ 1, ≤2 дня</text>
+  <circle cx="614" cy="304" r="7" fill="#2ca02c"/><text x="630" y="309" class="t">конечный — ушло ≤10%</text>
+  <circle cx="614" cy="332" r="7" fill="#9e9e9e"/><text x="630" y="337" class="t">периферия — признаков нет</text>
+  <text x="606" y="368" class="s">role_score · rule_fired · evidence с числами</text>
+
+  <!-- 4 clusters+priority -->
+  <rect x="930" y="130" width="310" height="250" rx="14" class="box"/>
+  <rect x="930" y="130" width="310" height="34" rx="14" fill="#15803d"/><rect x="930" y="150" width="310" height="14" fill="#15803d"/>
+  <text x="946" y="153" class="tag">4 · КЛАСТЕРЫ И ПРИОРИТЕТ</text>
+  <text x="946" y="196" class="h">кого смотреть первым</text>
+  <text x="946" y="224" class="t">Louvain: 72 кластера, Q = 0,86</text>
+  <text x="946" y="248" class="t">гипотеза назначения кластера</text>
+  <text x="946" y="280" class="t">приоритет = 0,35 роль + 0,25 оборот</text>
+  <text x="946" y="304" class="t">+ 0,20 центральность + 0,10 seed</text>
+  <text x="946" y="328" class="t">+ 0,10 сигналы  (×0,9 для seed)</text>
+  <text x="946" y="364" class="s">17 из топ-20 — новые, не из 81 seed</text>
+
+  <path d="M260,255 L296,255" class="ln"/>
+  <path d="M550,255 L586,255" class="ln"/>
+  <path d="M890,255 L926,255" class="ln"/>
+
+  <!-- 5 outputs + interface -->
+  <path d="M1085,380 L1085,430 L640,430 L640,452" class="ln"/>
+  <rect x="40" y="456" width="1200" height="220" rx="14" class="box"/>
+  <rect x="40" y="456" width="1200" height="34" rx="14" fill="#7c3aed"/><rect x="40" y="476" width="1200" height="14" fill="#7c3aed"/>
+  <text x="56" y="479" class="tag">5 · ВЫГРУЗКИ И ИНТЕРФЕЙС</text>
+  <text x="56" y="524" class="h">CSV по схеме ТЗ</text>
+  <text x="56" y="552" class="t">nodes_roles.csv (2 248 строк)</text>
+  <text x="56" y="576" class="t">clusters.csv · top_nodes.csv</text>
+  <text x="56" y="600" class="t">+ routes · cycles · resilience</text>
+  <text x="56" y="624" class="t">+ data_requests (что запросить)</text>
+  <text x="56" y="656" class="s">validate + pytest: схема проверена</text>
+
+  <text x="400" y="524" class="h">Экран просмотра</text>
+  <text x="400" y="552" class="t">viewer.html — офлайн, двойной клик</text>
+  <text x="400" y="576" class="t">поиск gid по цифрам, окрестность 1–2</text>
+  <text x="400" y="600" class="t">направление потоков, цвет = роль</text>
+  <text x="400" y="624" class="t">карточка узла, топ-50, кластеры</text>
+
+  <text x="760" y="524" class="h">AI-ассистент</text>
+  <text x="760" y="552" class="t">moneygraph serve → /api/ask</text>
+  <text x="760" y="576" class="t">LLM + инструменты над графом</text>
+  <text x="760" y="600" class="t">ответ со ссылками на gid</text>
+  <text x="760" y="624" class="t">формулировки — гипотезы</text>
+
+  <text x="1040" y="524" class="h">CLI</text>
+  <text x="1040" y="552" class="t">moneygraph explain</text>
+  <text x="1040" y="576" class="t">карточка в терминале</text>
+</svg>
