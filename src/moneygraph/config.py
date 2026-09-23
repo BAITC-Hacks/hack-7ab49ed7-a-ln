@@ -49,7 +49,7 @@ class Config:
     hub_min_out: int = 20                  # ... и раздаёт ≥20
     coord_min_seed_payees: int = 3         # платит ≥3 разным seed
     bridge_btw_quantile: float = 0.99      # мост: посредничество в топ-1% ...
-    bridge_min_seed_clusters: int = 3      # ... и соседи в ≥3 кластерах, где есть seed
+    bridge_min_seed_clusters: int = 4      # ... и соседи в ≥4 кластерах, где есть seed
 
     # --- R2 distributor
     distr_min_out: int = 10

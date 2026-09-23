@@ -35,7 +35,20 @@ def _score(*strengths: float) -> float:
 
 
 def _clip(text: str) -> str:
-    return text if len(text) <= EVIDENCE_MAX else text[: EVIDENCE_MAX - 1].rstrip(" ,;") + "…"
+    """Обрезка до 200 символов по границам «; », чтобы не рвать фразы."""
+    if len(text) <= EVIDENCE_MAX:
+        return text
+    out = ""
+    for seg in text.split("; "):
+        cand = seg if not out else out + "; " + seg
+        if len(cand) > EVIDENCE_MAX:
+            break
+        out = cand
+    return out if out else text[: EVIDENCE_MAX - 1] + "…"
+
+
+def fmt_x(x: float) -> str:
+    return f"{x:.1f}".replace(".", ",") + "×"
 
 
 def _plural(n: int, one: str, few: str, many: str) -> str:
@@ -115,13 +128,14 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
         s = _score(_ramp(n_seed_clusters, cfg.bridge_min_seed_clusters, 8))
         fired.append((s, f"R1 мост: посредничество {r.betweenness:.4f} (топ-1%), кластеров с seed={n_seed_clusters}",
                       f"Мост между {n_seed_clusters} кластерами с seed (посредничество в топ-1%); {_flow_line(r)}"))
-    if fired:
-        s, rule, ev = max(fired, key=lambda f: f[0])
-        return "coordinator", s, rule, "-", _clip(ev + seeds_txt), "not_sink"
-
-    # ---- R2 distributor / R3 consolidator
     d_fire = r.out_deg >= cfg.distr_min_out and r.out_deg >= cfg.distr_fan_ratio * max(r.in_deg, 1)
     c_fire = r.in_deg >= cfg.cons_min_in or r.seed_in >= cfg.cons_min_seed_payers
+    if fired:
+        s, rule, ev = max(fired, key=lambda f: f[0])
+        alt = "distributor" if d_fire else ("consolidator" if c_fire else "-")
+        return "coordinator", s, rule, alt, _clip(ev + seeds_txt), "not_sink"
+
+    # ---- R2 distributor / R3 consolidator
     fan_out_only = r.out_deg >= cfg.distr_min_out  # для alt_role
     if d_fire and (not c_fire or r.out_deg / cfg.distr_min_out >= r.in_deg / cfg.cons_min_in):
         s = _score(_ramp(r.out_deg, cfg.distr_min_out, cfg.distr_strong_out))
@@ -129,7 +143,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
               f"{fmt_kzt(r.avg_out)})")
         ev += f"; получил {fmt_kzt(r.in_kzt)} от {_payers(r.in_deg)}" if r.in_deg else "; входящие вне выборки"
         if r.burst_out >= cfg.burst_out_recipients:
-            ev += f"; {r.burst_out} получателей за один день ({r.burst_out_date})"
+            ev += f"; {int(r.burst_out)} получателей за один день ({r.burst_out_date})"
         return ("distributor", s, f"R2: out_deg={r.out_deg}≥{cfg.distr_min_out} и ≥{cfg.distr_fan_ratio:g}×in_deg",
                 "consolidator" if c_fire else "-", _clip(ev), "not_sink")
     if c_fire:
@@ -143,14 +157,14 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
             ev += trunc_txt
             sink = "truncated_depth"
         elif r.out_deg:
-            share = min(ratio, 9.99)
-            ev += f"; дальше ушло {fmt_pct(share) if share <= 1 else f'{share:.1f}×'} {_recips(r.out_deg)}"
+            ev += (f"; дальше ушло {fmt_pct(ratio)} полученного {_recips(r.out_deg)}" if ratio <= cfg.transit_hi else
+                   f"; отправил {_recips(r.out_deg)} в {fmt_x(ratio)} больше полученного (невидимые входящие)")
             sink = "not_sink"
         else:
             ev += "; дальше не отправлял"
             sink = "truncated_time" if late else "confirmed_sink"
         if r.burst_in >= cfg.burst_in_payers:
-            ev += f"; {r.burst_in} плательщиков за день ({r.burst_in_date})"
+            ev += f"; {int(r.burst_in)} плательщиков за один день ({r.burst_in_date})"
         alt = "distributor" if fan_out_only else ("terminal" if sink == "confirmed_sink" else "-")
         return "consolidator", s, rule, alt, _clip(ev), sink
 
@@ -187,7 +201,7 @@ def _decide(r, n_seed_clusters: int, btw_cut: float, activity: float, cfg: Confi
         if r.is_seed:
             s = min(s, cfg.seed_transit_cap)
         if ratio > cfg.transit_hi:
-            ratio_txt = f"отправил в {ratio:.1f}× больше полученного → есть невидимые входящие"
+            ratio_txt = f"отправил в {fmt_x(ratio)} больше полученного → есть невидимые входящие"
             rule = f"R4: out/in={ratio:.2f}>{cfg.transit_hi} (невидимые входящие)"
         else:
             ratio_txt = f"дальше ушло {fmt_pct(ratio)}"

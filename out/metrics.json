@@ -1,21 +1,21 @@
 {
-  "runtime_sec": 4.3,
+  "runtime_sec": 4.7,
   "role_counts": {
-    "coordinator": 23,
-    "consolidator": 83,
-    "distributor": 41,
-    "transit": 418,
+    "coordinator": 17,
+    "consolidator": 85,
+    "distributor": 44,
+    "transit": 419,
     "terminal": 978,
     "peripheral": 705
   },
   "n_clusters": 72,
   "clusters_with_multiple_seeds": 9,
   "modularity": 0.86,
-  "new_leads_in_top20": 18,
+  "new_leads_in_top20": 17,
   "priority_sensitivity_top20": {
     "k": 20,
-    "min_overlap": 0.9,
-    "mean_overlap": 0.955
+    "min_overlap": 0.85,
+    "mean_overlap": 0.93
   },
   "p_forward": {
     "base_rate": 0.374,

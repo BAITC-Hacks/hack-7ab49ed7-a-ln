@@ -106,7 +106,7 @@ def add_temporal(df: pd.DataFrame, tx: pd.DataFrame, cfg: Config = CFG) -> pd.Da
     df = df.set_index("gid")
     df = df.join(fast_forward_share(tx, cfg)).join(node_temporal(tx, cfg))
     for c, v in {"burst_in": 0, "burst_out": 0, "active_days": 0, "late_in_share": 0.0, "repeat_amount_n": 0}.items():
-        df[c] = df[c].fillna(v)
+        df[c] = df[c].fillna(v).astype(type(v))
     df["burst_in_date"] = df["burst_in_date"].fillna("")
     df["burst_out_date"] = df["burst_out_date"].fillna("")
     return df.reset_index()
